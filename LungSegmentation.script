@@ -1,0 +1,17 @@
+Interface  {
+  Inputs {
+    Field input0 { type = image }
+  }
+  Outputs {
+    Field output0 { internalName = PythonImage.output0 }
+  }
+  
+  
+  Parameters {
+    Field overallMeanValue { type = double editable = no }
+  }
+}
+
+Commands {
+  source = $(LOCAL)/LungSegmentation.py
+}

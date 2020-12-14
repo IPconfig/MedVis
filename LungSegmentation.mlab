@@ -1,0 +1,16 @@
+// MDL v1 utf8
+mevislabVersion = 3.4
+network  {
+  watchlist = ""
+}
+module PythonImage {
+  internal  {
+    frame = "741 269 104 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage
+  }
+}
+connections = ""
+networkModel = ""
