@@ -1,0 +1,13 @@
+Interface  {
+  Inputs {
+    Field input0 { type = image }
+  }
+  Outputs {
+    Field output0 { internalName = PythonImage.output0 }
+  }
+  Parameters {}
+}
+
+Commands {
+  source = $(LOCAL)/SubstractionImage.py
+}
