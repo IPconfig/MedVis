@@ -1,0 +1,20 @@
+Interface  {
+  Inputs {
+    Field input0 { type = image }
+  }
+  Outputs {
+    Field output0 { internalName = PythonImage.output0 }
+    Field output1 { internalName = PythonImage1.output0 }
+    Field output2 { internalName = PythonImage2.output0 }
+    Field output3 { internalName = PythonImage3.output0 }
+    Field output4 { internalName = PythonImage4.output0 }
+    Field output5 { internalName = PythonImage5.output0 }
+    Field output6 { internalName = PythonImage6.output0 }
+    Field output7 { internalName = PythonImage7.output0 }
+  }
+  Parameters {}
+}
+// Load Python file
+Commands {
+  source = $(LOCAL)/RemoveTrachea.py
+}

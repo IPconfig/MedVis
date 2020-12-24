@@ -1,0 +1,79 @@
+// MDL v1 utf8
+mevislabVersion = 3.4
+network  {
+  watchlist = ""
+}
+module PythonImage {
+  internal  {
+    frame = "237 341 104 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "341 341 104 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage1
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "449 341 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage2
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "561 341 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage3
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "673 341 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage4
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "785 341 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage5
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "897 341 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage6
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1009 341 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage7
+  }
+}
+connections = ""
+networkModel = ""
