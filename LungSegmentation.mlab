@@ -30,5 +30,14 @@ module PythonImage {
     instanceName = PythonImage2
   }
 }
+module PythonImage {
+  internal  {
+    frame = "1073 269 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage3
+  }
+}
 connections = ""
 networkModel = ""

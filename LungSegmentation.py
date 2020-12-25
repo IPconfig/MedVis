@@ -2,9 +2,10 @@ import cv2 as cv
 import OpenCVUtils
 import pydicom as dicom
 import scipy.ndimage
-from skimage import exposure, measure, segmentation, morphology
+from skimage import exposure, measure, segmentation, morphology, feature
 from skimage.morphology import disk, ball, opening, closing
 import scipy.ndimage as ndimage
+from skimage.color import label2rgb
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -42,8 +43,8 @@ def segment_lung_mask(image, fill_lung_structures=True):
     # 0 is treated as background, which we do not want
     # tissues with a value of > -250 (lungs and air) have a value of 1
     # soft tissues, bonestructure and fluids will have a value of 2.
-    binary_image = np.array(image > -250, dtype=np.int8)+1
-    labels = measure.label(input = binary_image, background = None,connectivity=2)
+    binary_image = np.array(image > -250, dtype=np.int16)+1
+    labels = measure.label(input = binary_image, background = None,connectivity=3)
     
     # Pick pixel in every corner to determine which label is air.
     # More resistant to "trays" on which the patient lays cutting the air around the person in half
@@ -51,7 +52,6 @@ def segment_lung_mask(image, fill_lung_structures=True):
     for background_label in background_labels:
       # Fill the air around the person
       binary_image[background_label == labels] = 2
-      binary_mask2 = binary_image
     
     # Method of filling the lung structures (that is superior to something like 
     # morphological closing)
@@ -75,7 +75,7 @@ def segment_lung_mask(image, fill_lung_structures=True):
     if l_max is not None: # There are air pockets
         binary_image[labels != l_max] = 0
         
-    return binary_image, binary_mask2
+    return binary_image
 
 def make6D(image, timepoint):
     image = image[np.newaxis, np.newaxis, np.newaxis, ...] # add back the 3 missing dimensions
@@ -84,13 +84,24 @@ def make6D(image, timepoint):
     image[..., 0] = 0 # c-dimension
     return image
 
+def segment_trachea(image):
+  dimensions = image.shape
+  print(dimensions)
+  x_center = dimensions[2]
+  y_center = dimensions[1]
 
+  # label image regions
+  label_image = measure.label(image, background = 0)
+  image_label_overlay = label2rgb(label_image, image=image, bg_label = 0)
+  
+  return image_label_overlay
 
 
 ### -------------- Main ----------- ###
 interface = ctx.module("PythonImage").call("getInterface")
 interface1 = ctx.module("PythonImage1").call("getInterface")
 interface2 = ctx.module("PythonImage2").call("getInterface")
+interface3 = ctx.module("PythonImage3").call("getInterface")
 # get the input image field's direct access to the image (which is a MLPagedImageWrapper, see MeVisLab Scripting Reference)
 image = ctx.field("input0").image()
 
@@ -101,8 +112,9 @@ if image:
 
   # create output image that will be filled in with data
   lungsUnfilled = np.empty(Reverse(extent), np.int16)
-  lungsFilled = np.empty(Reverse(extent), np.int16)
-  lungsDifference = np.empty(Reverse(extent), np.int16)
+  lungs_trachea_mask = np.empty(Reverse(extent), np.int16)
+  #lungsDifference = np.empty(Reverse(extent), np.int16)
+  #trachea = np.empty(Reverse(extent), np.int16)
   #show_array(lungsUnfilled)
   
 
@@ -116,24 +128,47 @@ if image:
     tile3D = tile6D[0, 0, 0, :, :, :]
     
     
-    segmented_lungs, binary_mask= segment_lung_mask(tile3D, False) 
-    segmented_lungs_filled, binary_mask_filled = segment_lung_mask(tile3D, True) 
+    
+    segmented_lungs = segment_lung_mask(tile3D, False) 
+#    segmented_lungs_filled, binary_mask_filled = segment_lung_mask(tile3D, True) 
     
     # multiply mask by tile3D to convert binary image to greyvalues / HU
     segmented_tile = segmented_lungs * tile3D
-    segmented_tile_filled = segmented_lungs_filled * tile3D
-    difference = segmented_tile_filled - segmented_tile
+#    segmented_tile_filled = segmented_lungs_filled * tile3D
+#    difference = segmented_tile_filled - segmented_tile
+    #z_coordinate = int(round(0.8 * extent[2], 0))
+    #print(z_coordinate)
+    ##tile6D_trachea = image.getTile((0,0,0,0,t,0), (extent[0], extent[1], extent[2], extent[3], 1, extent[5]))
+    ##tile3D_trachea = tile6D_trachea[0, 0, 0, :, :, :]
+    #  # label image regions
+    #label_image, label_num = measure.label(segmented_tile, background = None, return_num = True, connectivity = 3)
+    #edges2 = feature.canny(label_image, sigma=3)
+    #
+    #regions = measure.regionprops(edges2)
+    #print(regions)
+    #for props in regions:
+    #  y0, x0, z0 = props.centroid
+    #print(f"cenre regions is: {x0} {y0} {z0}")
+    #image_label_overlay = label2rgb(label=label_image, image=tile3D_trachea, bg_label = 0)
+    
+    
+    
+    ##print(f"2d tile extent is: {np.shape(label_image)}")
+    
+#    segmented_trachea = segment_trachea(tile2D)
     
     # fill in segmented tile into our clean array
     lungsUnfilled[:, t, :, :, :, :] = make6D(segmented_tile, t)
-    lungsFilled[:, t, :, :, :, :] = make6D(segmented_tile_filled, t)
-    lungsDifference[:, t, :, :, :, :] = make6D(difference, t) 
+    lungs_trachea_mask[:, t, :, :, :, :] = make6D(segmented_lungs, t)
+#    lungsDifference[:, t, :, :, :, :] = make6D(difference, t) 
+    #trachea[:, t, :, :, :, :] = make6D(edges2, t)
     #print("Segmented Lungs")
     #show_array(lungsUnfilled)
 
 
   # set image to interface
   interface.setImage(lungsUnfilled)
-  interface1.setImage(lungsFilled)
-  interface2.setImage(lungsDifference)
+  interface1.setImage(lungs_trachea_mask)
+#  interface2.setImage(lungsDifference)
+  #interface3.setImage(trachea)
   print("segmentation complete")

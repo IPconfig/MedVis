@@ -4,8 +4,9 @@ Interface  {
   }
   Outputs {
     Field lungs_unfilled { internalName = PythonImage.output0 }
-    Field lungs_filled {internalName = PythonImage1.output0 }
+    Field lungs_trachea_mask {internalName = PythonImage1.output0 }
     Field difference {internalName = PythonImage2.output0}
+    Field trachea {internalName = PythonImage3.output0}
   }
   
   
