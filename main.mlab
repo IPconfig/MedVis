@@ -148,7 +148,7 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 400
+    grayWidth = 1
     grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -618,14 +618,14 @@ module View2D {
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
     view2DExtensionsOn = TRUE
-    startSlice = 141
+    startSlice = 0
     numSlices = 1
     numXSlices = 1
     sliceStep = 1
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 9
+    maxTimePoint = 0
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_ZT
@@ -644,7 +644,7 @@ module View2D {
     useShaders = TRUE
     useManagedInteraction = FALSE
     lutCenter = 0
-    lutWidth = 400
+    lutWidth = 1
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -690,11 +690,11 @@ module Resample3D {
 }
 module View3D {
   internal  {
-    frame = "-10 -47 144 56"
+    frame = "65 -51 144 72"
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "143 52 905 640"
+        geometry = "669 255 905 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
@@ -735,11 +735,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "252.111679077148 -723.952026367188 353.379486083984"
-    camOrientation = "0.998412489891052 -0.034002248197794 0.0449031814932823 1.3577253818512"
+    camPosition = "298.939880371094 -742.114135742188 224.705352783203"
+    camOrientation = "0.999325633049011 0.0305677391588688 0.0203477051109076 1.4871072769165"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1273.5389
-    camNear = 720.69391
+    camFar = 1271.6038
+    camNear = 722.62543
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -906,11 +906,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "534.060974121094 -705.142700195313 114.468338012695"
-    camOrientation = "0.979926466941833 0.125253200531006 0.155099079012871 1.62273991107941"
+    camPosition = "534.060913085938 -705.142700195313 114.468338012695"
+    camOrientation = "0.979926586151123 0.125253215432167 0.155099093914032 1.62273991107941"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
     camFar = 1313.3236
-    camNear = 680.98926
+    camNear = 680.9892
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -1500,11 +1500,11 @@ module ImageSave {
 }
 module View3D {
   internal  {
-    frame = "404 -49 144 56"
+    frame = "393 -51 144 72"
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "583 193 1026 640"
+        geometry = "660 326 1026 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
@@ -1535,12 +1535,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "334.160614013672 -424.018310546875 280.538818359375"
-    camOrientation = "0.992740213871002 0.0277889855206013 0.117024168372154 1.37949442863464"
+    camPosition = "224.77326965332 -722.685607910156 357.653198242188"
+    camOrientation = "0.995939910411835 -0.0706135481595993 0.0558333098888397 1.35421442985535"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 996.79419
-    camNear = 390.68439
-    camFocal = 693.43695
+    camFar = 1279.6421
+    camNear = 714.60291
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
     annotations = TRUE

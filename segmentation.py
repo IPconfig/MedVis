@@ -11,10 +11,9 @@
 
 # import mevis
 #import cv2
-#import OpenCVUtils
 import numpy as np
 from skimage import measure
-from skimage.morphology import ball, binary_opening, binary_closing, binary_dilation
+from scipy import ndimage as ndi
 import math
 
 # ----------- Helper functions ----------- #
@@ -190,12 +189,11 @@ if image:
     
     segmented_mask = segment_lung_and_trachea_mask(tile3D, True) 
     segmented_tile = segmented_mask * tile3D * -1 # multiply mask by tile3D to convert binary image to gray-values / HU. Invert hounsfield values
-    selem = ball(3) # structuring element of 3x3x3
-    trachea_mask = binary_dilation(trachea_mask, selem) # include trachea wand
-    trachea_mask = binary_closing(trachea_mask, selem) # fill in holes
+    selem = ndi.generate_binary_structure(3,2) # structuring element of 3x3x3, creating a ball
+    trachea_mask = ndi.binary_dilation(trachea_mask, selem) # include trachea wand
+    trachea_mask = ndi.binary_closing(trachea_mask, selem) # fill in holes
     lungs_mask =  segmented_mask - trachea_mask # substract trachea from lungs_trachea to create a mask of lungs only
-    lungs_mask = binary_opening(lungs_mask, selem) # remove some noise created by the substraction
-
+    lungs_mask = ndi.binary_opening(lungs_mask, selem) # remove some noise created by the substraction
     trachea_hu = trachea_mask * segmented_tile # apply trachea mask to segmentation of lungs and trachea
     lungs_hu = lungs_mask * segmented_tile # apply lungs mask to segmentation of lungs and trachea
     
