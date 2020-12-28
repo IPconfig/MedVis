@@ -5,39 +5,312 @@ network  {
 }
 module PythonImage {
   internal  {
-    frame = "741 269 104 56"
+    frame = "353 373 128 72"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = lungs_and_trachea
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1065 397 160 72"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = lungs_and_trachea_mask
+  }
+}
+module RegionGrowing {
+  internal  {
+    frame = "673 205 160 72"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "154 241 705 595"
+        sizeHint = "671 595"
+        wasOpen = no
+      }
+      window _automatic {
+        geometry = "859 180 897 697"
+        sizeHint = "262 217"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = RegionGrowing
+    autoUpdateMode = AutoUpdate
+    lowerThreshold = -2000
+    upperThreshold = -866
+    enableAutoThresholdInterval = FALSE
+    basicNeighborhoodType = BNBH_4D_8_XYZT
+    extendedNeighborhoodType = ENBH_2D_4_XY
+    useAdditionalSeed = TRUE
+    additionalSeed = "251 246 106 0 0 0"
+    additionalSeedType = 0
+    additionalSeedCoordSystem = VoxelCoordinates
+    initStackSizeTweak = 0.100000001490116
+    prohibitInputScalingTweak = FALSE
+    incrementalUpdateMode = Smart
+    useExtendedNBH = FALSE
+    calcBoundaryOverlap = FALSE
+    unitType = UnitTypeGrayValue
+    internalAccuracy = Auto
+    autoUpdateUnitType = FALSE
+    stretchOutputOverTime = FALSE
+    showPartialResults = FALSE
+    acceptedMarkerType = -1
+    autoSelectHigherCoords = TRUE
+    cCoord = 0
+    uCoord = 0
+    posFillValue = -1
+    negFillValue = 0
+    invertResult = FALSE
+    showOuterBoundariesOnly = FALSE
+    upperVolumeLimit_ml = 100
+    enableUpperVolumeLimit = FALSE
+    autoThresholdIntervalSizeInPercent = 5
+  }
+}
+module FastMorphology {
+  internal  {
+    frame = "669 125 152 72"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "779 423 365 397"
+        sizeHint = "360 397"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = FastMorphology
+    morphologicOperation = Dilation
+    xSize = 1
+    ySize = 1
+    zSize = 1
+    cSize = 0
+    tSize = 0
+    uSize = 0
+    useInputMaxValue = FALSE
+    userSetMaxValue = 1
+    autoUpdate = TRUE
+    useGreyScaleMorphology = FALSE
+    boundaryHandling = "Propagate boundary values"
+    boundaryFillValue = 0
+  }
+}
+module FastMorphology {
+  internal  {
+    frame = "669 29 152 88"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "779 423 365 397"
+        sizeHint = "360 397"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = trachea_mask
+    morphologicOperation = Closing
+    xSize = 1
+    ySize = 1
+    zSize = 1
+    cSize = 0
+    tSize = 0
+    uSize = 0
+    useInputMaxValue = FALSE
+    userSetMaxValue = 1
+    autoUpdate = TRUE
+    useGreyScaleMorphology = FALSE
+    boundaryHandling = "Propagate boundary values"
+    boundaryFillValue = 0
+  }
+}
+module Arithmetic2 {
+  internal  {
+    frame = "637 -131 184 88"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "340 129 375 105"
+        sizeHint = "370 105"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = Substract_trachea_from_mask
+    function = Subtract
+    outputImageSize = InvalidateOutputIfSizesDiffer
+    constant = 0
+    autoReplicate = FALSE
+  }
+}
+module FastMorphology {
+  internal  {
+    frame = "645 -275 152 88"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "779 423 365 397"
+        sizeHint = "360 397"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = lungs_mask
+    morphologicOperation = Opening
+    xSize = 1
+    ySize = 1
+    zSize = 1
+    cSize = 0
+    tSize = 0
+    uSize = 0
+    useInputMaxValue = FALSE
+    userSetMaxValue = 1
+    autoUpdate = TRUE
+    useGreyScaleMorphology = FALSE
+    boundaryHandling = "Propagate boundary values"
+    boundaryFillValue = 0
+  }
+}
+module Arithmetic2 {
+  internal  {
+    frame = "561 -371 96 88"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "340 129 375 105"
+        sizeHint = "370 105"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = Lungs_HU
+    function = Multiply
+    outputImageSize = InvalidateOutputIfSizesDiffer
+    constant = 0
+    autoReplicate = FALSE
+  }
+}
+module Arithmetic2 {
+  internal  {
+    frame = "537 -67 96 88"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "774 569 375 105"
+        sizeHint = "370 105"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = Trachea_HU
+    function = Multiply
+    outputImageSize = InvalidateOutputIfSizesDiffer
+    constant = 0
+    autoReplicate = FALSE
+  }
+}
+module Bypass {
+  internal  {
+    frame = "501 293 184 72"
+    moduleGroupName = ""
+    showNetworkPanel = true
+  }
+  fields  {
+    instanceName = lungs_and_trachea_HU
+    noBypass = FALSE
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1109 53 104 56"
     moduleGroupName = ""
   }
   fields  {
     instanceName = PythonImage
   }
 }
-module PythonImage {
-  internal  {
-    frame = "853 269 104 56"
-    moduleGroupName = ""
-  }
-  fields  {
-    instanceName = PythonImage1
+connections  {
+  RegionGrowing.input0 = lungs_and_trachea_HU.output0
+  FastMorphology.input0 = RegionGrowing.output0
+  trachea_mask.input0 = FastMorphology.output0
+  Substract_trachea_from_mask.input0 = lungs_and_trachea_mask.output0
+  Substract_trachea_from_mask.input1 = trachea_mask.output0
+  lungs_mask.input0 = Substract_trachea_from_mask.output0
+  Lungs_HU.input0 = lungs_mask.output0
+  Lungs_HU.input1 = lungs_and_trachea_HU.output0
+  Trachea_HU.input0 = trachea_mask.output0
+  Trachea_HU.input1 = lungs_and_trachea_HU.output0
+  lungs_and_trachea_HU.input0 = lungs_and_trachea.output0
+}
+networkModel  {
+  parentItems  {
+    0  {
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 38
+        objectName = ""
+        parentUniqueId = 0
+        frame = "75 -454 246 532"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "The python code results in an image of the lung-structure with the trachea and main bronchi attached. 
+Some additional python code is used for calculating the closest point with HU of -900 to the center of the image. The found coordinates are feed into the RegionGrowing module as a seeding point. This module segments all voxels that are connected in a 4D neighborhood relation and are within the specified threshold. Initially, the upper limit of the threshold is set at -900. The threshold will then be decreased by -64. The volume of the segmentations are compared with each other to make sure the lung is not segmented. If this is the case, the step size will be halved. This process is repeated until the step size is -1.
+
+To include the trachea wall with higher density values than the air-filled region we apply a morphological dilation with a 3x3x3 kernel.
+Holes are filled by a morphological closing operation with the same kernel size.
+
+The mask of the trachea is subtracted from the mask with the segmented lungs and trachea.
+Since this subtraction is not perfect, small noise is removed by a opening morphological operation 
+"
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>The python code results in an image of the lung-structure with the trachea and main bronchi attached.
+Some additional python code is used for calculating the closest point with HU of -900 to the center of the image. The found coordinates are feed into the RegionGrowing module as a seeding point. This module segments all voxels that are connected in a 4D neighborhood relation and are within the specified threshold. Initially, the upper limit of the threshold is set at -900. The threshold will then be decreased by -64. The volume of the segmentations are compared with each other to make sure the lung is not segmented. If this is the case, the step size will be halved. This process is repeated until the step size is -1.</p>
+<p>To include the trachea wall with higher density values than the air-filled region we apply a morphological dilation with a 3x3x3 kernel.
+Holes are filled by a morphological closing operation with the same kernel size.</p>
+<p>The mask of the trachea is subtracted from the mask with the segmented lungs and trachea.
+Since this subtraction is not perfect, small noise is removed by a opening morphological operation</p>
+
+
+  </body>
+</html>*"
+        titleText = "Seperation of lungs and trachea"
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "80 -449 236 22"
+      }
+    }
   }
 }
-module PythonImage {
-  internal  {
-    frame = "961 269 112 56"
-    moduleGroupName = ""
-  }
-  fields  {
-    instanceName = PythonImage2
-  }
-}
-module PythonImage {
-  internal  {
-    frame = "1073 269 112 56"
-    moduleGroupName = ""
-  }
-  fields  {
-    instanceName = PythonImage3
-  }
-}
-connections = ""
-networkModel = ""

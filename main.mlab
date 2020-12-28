@@ -120,7 +120,7 @@ module OrthoView2D {
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
-        geometry = "317 406 692 581"
+        geometry = "456 303 692 581"
         sizeHint = "400 436"
         wasOpen = no
       }
@@ -148,15 +148,15 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 0.100000001490116
-    grayCenter = 0.256000012159348
+    grayWidth = 400
+    grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
     annotationFontSize = ANNO_SIZE_AUTO
     valueHighPrecision = TRUE
     annoCoords = Voxel
     showCurrentPos = TRUE
-    worldPosition = "36.2901077270508 -4.3393030166626 -70.5"
+    worldPosition = "36.2901077270508 -4.3393030166626 115.5"
     coloredMode = FALSE
   }
 }
@@ -607,7 +607,7 @@ module View2D {
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
-        geometry = "132 402 400 400"
+        geometry = "1466 285 400 400"
         sizeHint = "400 400"
         wasOpen = no
       }
@@ -962,11 +962,11 @@ module ROISelect {
     usePreview = FALSE
     timepoint = 0
     unit = ""
-    startWorldPos = "-198.98828125 -112.98828125 -151"
+    startWorldPos = "-200.1953125 -114.1953125 -136.5"
     startVoxelX = 51
     startVoxelY = 51
     startVoxelZ = 14
-    endWorldPos = "-45.98828125 40.01171875 -109"
+    endWorldPos = "-50.78125 35.21875 -52.5"
     endVoxelX = 204
     endVoxelY = 204
     endVoxelZ = 56
@@ -1035,11 +1035,11 @@ module ROISelect {
     usePreview = FALSE
     timepoint = 0
     unit = ""
-    startWorldPos = "-198.98828125 -112.98828125 -151"
+    startWorldPos = "-200.1953125 -114.1953125 -136.5"
     startVoxelX = 51
     startVoxelY = 51
     startVoxelZ = 14
-    endWorldPos = "-45.98828125 40.01171875 -109"
+    endWorldPos = "-50.78125 35.21875 -52.5"
     endVoxelX = 204
     endVoxelY = 204
     endVoxelZ = 56
@@ -1151,74 +1151,13 @@ module PythonArithmetic {
     inputHandling4 = AllowAny
   }
 }
-module View2D {
-  internal  {
-    frame = "-627 -139 104 72"
-    moduleGroupName = "Lung Segmentation"
-    windows  {
-      window _default {
-        geometry = "124 460 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Lungs_unfilled
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 9
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
 module View3D {
   internal  {
-    frame = "-639 -195 144 56"
-    moduleGroupName = "Lung Segmentation"
+    frame = "-557 -25 144 56"
+    moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "885 446 1035 640"
+        geometry = "849 444 1035 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
@@ -1245,8 +1184,8 @@ module View3D {
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0.256000012159348 0.256000012159348 0.256000012159348, 366.251007080078 0.301961004734039 0.149020001292229 0.168626993894577, 405.213989257812 0.371502995491028 0.157560005784035 0.190587997436523, 919.524291992188 0.497492343187332 0.173032626509666 0.230374544858932, 966.283813476562 0.525489985942841 0.176470994949341 0.23921599984169, 4095 0.512000024318695 0.512000024318695 0.512000024318695 ]"
-    lutEditorAlphaPoints = "[ 0 0, 366.251007080078 0.273209989070892, 405.213989257812 0, 919.524291992188 0, 966.283813476562 0.95225465297699, 4095 0.512000024318695 ]"
+    lutEditorColorPoints = "[ -1024 0.256000012159348 0.256000012159348 0.256000012159348, -634.782104492188 0.30216571688652 0.232486918568611 0.232486918568611, -552.220764160156 0.796078443527222 0.0392156876623631 0.0392156876623631, -483.418579101562 0.521568655967712 0.521568655967712 0.521568655967712, 0 0.256000012159348 0.256000012159348 0.256000012159348, 9 0.257129430770874 0.253371149301529 0.253852963447571 ]"
+    lutEditorAlphaPoints = "[ -1024 0, -634.782104492188 0, -552.220764160156 0.368700265884399, -483.418579101562 0, 0 0, 9 0.00671367393806577 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
@@ -1259,12 +1198,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "250 -746.840942382813 141.000061035156"
-    camOrientation = "0.999999940395355 0 0 1.57079637050629"
+    camPosition = "182.100646972656 457.868041992188 846.883972167969"
+    camOrientation = "-0.917747676372528 -0.297969490289688 0.262589901685715 0.28000482916832"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1248.5884
-    camNear = 745.59467
-    camFocal = 996.841
+    camFar = 962.78638
+    camNear = 648.71686
+    camFocal = 805.59515
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1310,15 +1249,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputX = 512
+    renderer.sizeOutputY = 512
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndX = 512
+    renderer.subVolumeEndY = 512
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -1339,25 +1278,6 @@ module View3D {
     clip.rotation3 = "0 0 1 0"
     clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
     clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
-  }
-}
-module Arithmetic1 {
-  internal  {
-    frame = "-633 -32 112 72"
-    moduleGroupName = "Lung Segmentation"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "810 587 307 69"
-        sizeHint = "299 69"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic1
-    function = Multiply
-    constant = -1
   }
 }
 module Bypass {
@@ -1371,1202 +1291,14 @@ module Bypass {
     noBypass = FALSE
   }
 }
-module RegionGrowingMacro {
-  internal  {
-    frame = "809 493 144 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "671 85 1170 576"
-        sizeHint = "1170 576"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = RegionGrowingMacro
-    isInit = TRUE
-    autoUpdateMode = AutoClear
-    enableAutoThresholdInterval = FALSE
-    autoThresholdIntervalSizeInPercent = 4.96
-    basicNeighborhoodType = BNBH_4D_8_XYZT
-    extendedNeighborhoodType = ENBH_2D_4_XZ
-    lowerThreshold = -1085.4
-    upperThreshold = -250.6
-    useExtendedNBH = FALSE
-    stretchOutputOverTime = FALSE
-    cCoord = 0
-    uCoord = 0
-    unitType = UnitTypeHounsfieldUnits
-    upperVolumeLimit_ml = 100
-    enableUpperVolumeLimit = FALSE
-    autoUpdateUnitType = TRUE
-    showPartialResults = FALSE
-    posFillValue = -1
-    negFillValue = 0
-    invertResult = FALSE
-    showOuterBoundariesOnly = FALSE
-    incrementalUpdateMode = Smart
-    internalAccuracy = Auto
-    markerPersistence = FALSE
-    markerString = []
-    deleteMarkerOnClick = TRUE
-    markerOverflowMode = None
-    maxMarkers = 0
-    baseColor = "1 0.420675009489059 0"
-    blendMode = BLEND_BLEND
-    overlayAlpha = 0.5
-  }
-}
-module View3D {
-  internal  {
-    frame = "809 373 144 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "446 301 1026 640"
-        sizeHint = "1026 640"
-        wasOpen = no
-      }
-      window LutEditor {
-        geometry = "688 247 542 749"
-        sizeHint = "542 749"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View3D2
-    autoViewAll = TRUE
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    lutType = Editor
-    rendererType = Slicer
-    currentTimePoint = 0
-    staticSamplingRate = 1
-    quality = 1
-    filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ -1024 0 0 0, -870.141357421875 0 0 0, -863.945739746094 0 0 0, 0 0 0 0, 2976 0.726739943027496 0.726739943027496 0.726739943027496 ]"
-    lutEditorAlphaPoints = "[ -1024 0.571865439414978, -870.141357421875 0.608562707901001, -863.945739746094 0, 0 0, 2976 0.726739943027496 ]"
-    lutEditorRelativeLut = FALSE
-    lutEditorColorInterpolation = InterpolateRGB
-    lutEditorAlphaFactor = 1
-    orientationProjectionType = PERSPECTIVE
-    orientationLocation = LOWER_RIGHT
-    orientationOn = TRUE
-    orientationModel = CUBE
-    greyCenter = 0.5
-    greyWidth = 0.5
-    alphaFactor = 1
-    colorFactor = "1 1 1"
-    camType = TRUE
-    camPosition = "11.3530378341675 -244.932464599609 206.389007568359"
-    camOrientation = "-0.999475061893463 -0.0251022037118673 -0.0204838011413813 5.31970119476318"
-    initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 697.66998
-    camNear = 108.35633
-    camFocal = 402.71884
-    camHeight = 0.78539801
-    decoration = FALSE
-    annotations = TRUE
-    background = TRUE
-    mode = VolumeRendering
-    interactiveQuality = Medium
-  }
-  internalFields  {
-    renderer.gradientQuality = GradientQualityAutomatic
-    renderer.enhancementAlphaMix = 0.25
-    renderer.boundaryEnhancement = FALSE
-    renderer.boundaryEnhancementFactor = 1
-    renderer.boundaryEnhancementExponent = 1
-    renderer.boundaryEnhancementGradientBias = 0
-    renderer.silhouetteEnhancement = FALSE
-    renderer.silhouetteEnhancementExponent = 1
-    renderer.silhouetteEnhancementFactor = 1
-    renderer.toneShading = FALSE
-    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
-    renderer.toneShadingColdColor = "0 0 0.400000005960464"
-    renderer.toneShadingWarmDiffuse = 0.60000002
-    renderer.toneShadingColdDiffuse = 0.2
-    renderer.toneShadingAngle = 45
-    renderer.materialAmbient = 0.60000002
-    renderer.materialDiffuse = 1
-    renderer.materialSpecular = 1
-    renderer.materialSpecularity = 32
-    renderer.light1Enabled = TRUE
-    renderer.light1DiffuseIntensity = 1
-    renderer.light1SpecularIntensity = 1
-    renderer.light1Color = "1 1 1"
-    renderer.light1PolarPhi = 45
-    renderer.light1PolarRho = 0
-    renderer.light2Enabled = FALSE
-    renderer.light2DiffuseIntensity = 1
-    renderer.light2SpecularIntensity = 1
-    renderer.light2Color = "1 1 1"
-    renderer.light2PolarPhi = 0
-    renderer.light2PolarRho = 0
-    renderer.light3Enabled = FALSE
-    renderer.light3DiffuseIntensity = 1
-    renderer.light3SpecularIntensity = 1
-    renderer.light3Color = "1 1 1"
-    renderer.light3PolarPhi = -45
-    renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
-    renderer.subVolumeStartX = 0
-    renderer.subVolumeStartY = 0
-    renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
-    clip.hideGeometry = FALSE
-    clip.on = FALSE
-    clip.left = FALSE
-    clip.right = FALSE
-    clip.top = FALSE
-    clip.bottom = FALSE
-    clip.rear = FALSE
-    clip.front = FALSE
-    clip.translation0 = "1 0 0"
-    clip.translation1 = "-1 0 0"
-    clip.translation2 = "0 1 0"
-    clip.translation3 = "0 -1 0"
-    clip.translation4 = "0 0 1"
-    clip.translation5 = "0 0 -1"
-    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
-    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
-    clip.rotation2 = "0 0 -1 3.1415901184082"
-    clip.rotation3 = "0 0 1 0"
-    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
-    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
-  }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "593 333 96 72"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "774 569 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic2
-    function = Add
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
-  }
-}
-module View3D {
-  internal  {
-    frame = "697 309 144 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "1351 216 1156 640"
-        sizeHint = "1156 640"
-        wasOpen = no
-      }
-      window LutEditor {
-        geometry = "688 247 542 749"
-        sizeHint = "542 749"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View3D4
-    autoViewAll = TRUE
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    lutType = Editor
-    rendererType = Slicer
-    currentTimePoint = 0
-    staticSamplingRate = 1
-    quality = 1
-    filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ -1024 0 0 0, -870.141357421875 0 0 0, -863.945739746094 0 0 0, 0 0 0 0, 2976 0.726739943027496 0.726739943027496 0.726739943027496 ]"
-    lutEditorAlphaPoints = "[ -1024 0.571865439414978, -870.141357421875 0.608562707901001, -863.945739746094 0, 0 0, 2976 0.726739943027496 ]"
-    lutEditorRelativeLut = FALSE
-    lutEditorColorInterpolation = InterpolateRGB
-    lutEditorAlphaFactor = 1
-    orientationProjectionType = PERSPECTIVE
-    orientationLocation = LOWER_RIGHT
-    orientationOn = TRUE
-    orientationModel = CUBE
-    greyCenter = 0.5
-    greyWidth = 0.5
-    alphaFactor = 1
-    colorFactor = "1 1 1"
-    camType = TRUE
-    camPosition = "326.105346679688 -77.0966796875 147.957260131836"
-    camOrientation = "-0.983736991882324 -0.169791057705879 -0.0585868880152702 4.72674179077148"
-    initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 639.75598
-    camNear = 32.623478
-    camFocal = 335.88641
-    camHeight = 0.78539801
-    decoration = FALSE
-    annotations = TRUE
-    background = TRUE
-    mode = VolumeRendering
-    interactiveQuality = Medium
-  }
-  internalFields  {
-    renderer.gradientQuality = GradientQualityAutomatic
-    renderer.enhancementAlphaMix = 0.25
-    renderer.boundaryEnhancement = FALSE
-    renderer.boundaryEnhancementFactor = 1
-    renderer.boundaryEnhancementExponent = 1
-    renderer.boundaryEnhancementGradientBias = 0
-    renderer.silhouetteEnhancement = FALSE
-    renderer.silhouetteEnhancementExponent = 1
-    renderer.silhouetteEnhancementFactor = 1
-    renderer.toneShading = FALSE
-    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
-    renderer.toneShadingColdColor = "0 0 0.400000005960464"
-    renderer.toneShadingWarmDiffuse = 0.60000002
-    renderer.toneShadingColdDiffuse = 0.2
-    renderer.toneShadingAngle = 45
-    renderer.materialAmbient = 0.60000002
-    renderer.materialDiffuse = 1
-    renderer.materialSpecular = 1
-    renderer.materialSpecularity = 32
-    renderer.light1Enabled = TRUE
-    renderer.light1DiffuseIntensity = 1
-    renderer.light1SpecularIntensity = 1
-    renderer.light1Color = "1 1 1"
-    renderer.light1PolarPhi = 45
-    renderer.light1PolarRho = 0
-    renderer.light2Enabled = FALSE
-    renderer.light2DiffuseIntensity = 1
-    renderer.light2SpecularIntensity = 1
-    renderer.light2Color = "1 1 1"
-    renderer.light2PolarPhi = 0
-    renderer.light2PolarRho = 0
-    renderer.light3Enabled = FALSE
-    renderer.light3DiffuseIntensity = 1
-    renderer.light3SpecularIntensity = 1
-    renderer.light3Color = "1 1 1"
-    renderer.light3PolarPhi = -45
-    renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
-    renderer.subVolumeStartX = 0
-    renderer.subVolumeStartY = 0
-    renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
-    clip.hideGeometry = FALSE
-    clip.on = FALSE
-    clip.left = FALSE
-    clip.right = FALSE
-    clip.top = FALSE
-    clip.bottom = FALSE
-    clip.rear = FALSE
-    clip.front = FALSE
-    clip.translation0 = "1 0 0"
-    clip.translation1 = "-1 0 0"
-    clip.translation2 = "0 1 0"
-    clip.translation3 = "0 -1 0"
-    clip.translation4 = "0 0 1"
-    clip.translation5 = "0 0 -1"
-    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
-    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
-    clip.rotation2 = "0 0 -1 3.1415901184082"
-    clip.rotation3 = "0 0 1 0"
-    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
-    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
-  }
-}
-module RunPythonScript {
-  internal  {
-    frame = "-443 301 152 56"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "840 234 645 758"
-        sizeHint = "645 304"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = RunPythonScript
-    in0 = ""
-    in1 = ""
-    in2 = ""
-    in3 = ""
-    in4 = ""
-    in5 = ""
-    in6 = ""
-    in7 = ""
-    in8 = ""
-    in9 = ""
-    inComment0 = in0
-    inComment1 = in1
-    inComment2 = in2
-    inComment3 = in3
-    inComment4 = in4
-    inComment5 = in5
-    inComment6 = in6
-    inComment7 = in7
-    inComment8 = in8
-    inComment9 = in9
-    autoApply0 = TRUE
-    autoApply1 = TRUE
-    autoApply2 = TRUE
-    autoApply3 = TRUE
-    autoApply4 = TRUE
-    autoApply5 = TRUE
-    autoApply6 = TRUE
-    autoApply7 = TRUE
-    autoApply8 = TRUE
-    autoApply9 = TRUE
-    out0 = ""
-    out1 = ""
-    out2 = ""
-    out3 = ""
-    out4 = ""
-    out5 = ""
-    out6 = ""
-    out7 = ""
-    out8 = ""
-    out9 = ""
-    outComment0 = out0
-    outComment1 = out1
-    outComment2 = out2
-    outComment3 = out3
-    outComment4 = out4
-    outComment5 = out5
-    outComment6 = out6
-    outComment7 = out7
-    outComment8 = out8
-    outComment9 = out9
-    initCode = "# For backward compatibility, set up CTX as alias for ctx
-CTX = ctx # ctx is the network's context, not RunPythonScript's"
-    wakeUpCode = ""
-    code = ""
-    finalizeCode = ""
-    showFields = FALSE
-    showInitCode = FALSE
-    showWakeUpCode = FALSE
-    showCode = TRUE
-    showFinalizeCode = FALSE
-    showConsole = FALSE
-  }
-}
-module RemoveTrachea {
-  internal  {
-    frame = "-183 485 128 56"
-    moduleGroupName = ""
-    localMacro = 1
-    windows  {
-      window _default {
-        geometry = "709 321 500 600"
-        sizeHint = "260 237"
-        wasOpen = no
-      }
-      window _scriptingconsole {
-        geometry = "659 371 600 500"
-        sizeHint = "260 237"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = RemoveTrachea
-  }
-}
-module View2D {
-  internal  {
-    frame = "-351 389 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "651 363 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D3
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.175000309944153
-    lutWidth = 0.265000015497208
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-415 549 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "651 363 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D4
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-399 653 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "651 363 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D5
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-159 309 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "651 363 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D6
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-79 309 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "1069 309 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D7
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.42999991774559
-    lutWidth = 0.985000014305115
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-159 669 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "651 363 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D8
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-63 677 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "1069 309 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D9
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-51 389 88 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "1069 309 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D10
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.509999990463257
-    lutWidth = 0.935000061988831
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module Arithmetic1 {
-  internal  {
-    frame = "-257 -24 112 72"
-    moduleGroupName = "Lung Segmentation"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "810 587 307 69"
-        sizeHint = "299 69"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic11
-    function = Multiply
-    constant = -1
-  }
-}
-module View2D {
-  internal  {
-    frame = "-243 -131 88 72"
-    moduleGroupName = "Lung Segmentation"
-    windows  {
-      window _default {
-        geometry = "921 461 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Difference
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
-module View3D {
-  internal  {
-    frame = "-263 -187 144 56"
-    moduleGroupName = "Lung Segmentation"
-    windows  {
-      window _default {
-        geometry = "432 297 1035 640"
-        sizeHint = "1156 640"
-        wasOpen = no
-      }
-      window LutEditor {
-        geometry = "684 247 542 749"
-        sizeHint = "542 749"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View3D5
-    autoViewAll = TRUE
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    lutType = Editor
-    rendererType = Slicer
-    currentTimePoint = 0
-    staticSamplingRate = 1
-    quality = 1
-    filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0.256000012159348 0.256000012159348 0.256000012159348, 366.251007080078 0.301961004734039 0.149020001292229 0.168626993894577, 405.213989257812 0.371502995491028 0.157560005784035 0.190587997436523, 919.524291992188 0.497492343187332 0.173032626509666 0.230374544858932, 966.283813476562 0.525489985942841 0.176470994949341 0.23921599984169, 4095 0.512000024318695 0.512000024318695 0.512000024318695 ]"
-    lutEditorAlphaPoints = "[ 0 0, 366.251007080078 0.273209989070892, 405.213989257812 0, 919.524291992188 0, 966.283813476562 0.95225465297699, 4095 0.512000024318695 ]"
-    lutEditorRelativeLut = FALSE
-    lutEditorColorInterpolation = InterpolateRGB
-    lutEditorAlphaFactor = 1
-    orientationProjectionType = PERSPECTIVE
-    orientationLocation = LOWER_RIGHT
-    orientationOn = TRUE
-    orientationModel = CUBE
-    greyCenter = 0.439999997615814
-    greyWidth = 0.174999907612801
-    alphaFactor = 1
-    colorFactor = "1 1 1"
-    camType = TRUE
-    camPosition = "239.309722900391 -429.599151611328 278.425354003906"
-    camOrientation = "0.998168051242828 -0.0469366274774075 0.0381778702139854 1.37248909473419"
-    initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 971.81335
-    camNear = 415.61563
-    camFocal = 693.43701
-    camHeight = 0.78539801
-    decoration = FALSE
-    annotations = TRUE
-    background = TRUE
-    mode = VolumeRendering
-    interactiveQuality = Medium
-  }
-  internalFields  {
-    renderer.gradientQuality = GradientQualityAutomatic
-    renderer.enhancementAlphaMix = 0.25
-    renderer.boundaryEnhancement = FALSE
-    renderer.boundaryEnhancementFactor = 1
-    renderer.boundaryEnhancementExponent = 1
-    renderer.boundaryEnhancementGradientBias = 0
-    renderer.silhouetteEnhancement = FALSE
-    renderer.silhouetteEnhancementExponent = 1
-    renderer.silhouetteEnhancementFactor = 1
-    renderer.toneShading = FALSE
-    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
-    renderer.toneShadingColdColor = "0 0 0.400000005960464"
-    renderer.toneShadingWarmDiffuse = 0.60000002
-    renderer.toneShadingColdDiffuse = 0.2
-    renderer.toneShadingAngle = 45
-    renderer.materialAmbient = 0.60000002
-    renderer.materialDiffuse = 1
-    renderer.materialSpecular = 1
-    renderer.materialSpecularity = 32
-    renderer.light1Enabled = TRUE
-    renderer.light1DiffuseIntensity = 1
-    renderer.light1SpecularIntensity = 1
-    renderer.light1Color = "1 1 1"
-    renderer.light1PolarPhi = 45
-    renderer.light1PolarRho = 0
-    renderer.light2Enabled = FALSE
-    renderer.light2DiffuseIntensity = 1
-    renderer.light2SpecularIntensity = 1
-    renderer.light2Color = "1 1 1"
-    renderer.light2PolarPhi = 0
-    renderer.light2PolarRho = 0
-    renderer.light3Enabled = FALSE
-    renderer.light3DiffuseIntensity = 1
-    renderer.light3SpecularIntensity = 1
-    renderer.light3Color = "1 1 1"
-    renderer.light3PolarPhi = -45
-    renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
-    renderer.subVolumeStartX = 0
-    renderer.subVolumeStartY = 0
-    renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
-    clip.hideGeometry = FALSE
-    clip.on = FALSE
-    clip.left = FALSE
-    clip.right = FALSE
-    clip.top = FALSE
-    clip.bottom = FALSE
-    clip.rear = FALSE
-    clip.front = FALSE
-    clip.translation0 = "1 0 0"
-    clip.translation1 = "-1 0 0"
-    clip.translation2 = "0 1 0"
-    clip.translation3 = "0 -1 0"
-    clip.translation4 = "0 0 1"
-    clip.translation5 = "0 0 -1"
-    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
-    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
-    clip.rotation2 = "0 0 -1 3.1415901184082"
-    clip.rotation3 = "0 0 1 0"
-    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
-    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
-  }
-}
-module Arithmetic1 {
-  internal  {
-    frame = "-417 -24 112 72"
-    moduleGroupName = "Lung Segmentation"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "810 587 307 69"
-        sizeHint = "299 69"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic12
-    function = Multiply
-    constant = -1
-  }
-}
-module View2D {
-  internal  {
-    frame = "-409 -136 96 72"
-    moduleGroupName = "Lung Segmentation"
-    windows  {
-      window _default {
-        geometry = "522 460 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = LungsFilled
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 119
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 9
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
 module Counter {
   internal  {
-    frame = "-391 -299 80 72"
-    moduleGroupName = "Lung Segmentation"
+    frame = "-349 -129 80 72"
+    moduleGroupName = "Lung and Trachea Segmentation"
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "410 205 599 248"
+        geometry = "984 187 599 248"
         sizeHint = "599 248"
         wasOpen = no
       }
@@ -2579,7 +1311,7 @@ module Counter {
   }
   fields  {
     instanceName = Counter1
-    currentValue = 4
+    currentValue = 5
     minValue = 0
     maxValue = 9
     startValue = 0
@@ -2592,8 +1324,8 @@ module Counter {
 }
 module View3D {
   internal  {
-    frame = "-431 -187 144 56"
-    moduleGroupName = "Lung Segmentation"
+    frame = "-317 -25 144 56"
+    moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
         geometry = "682 178 1035 640"
@@ -2601,7 +1333,7 @@ module View3D {
         wasOpen = no
       }
       window LutEditor {
-        geometry = "684 247 542 749"
+        geometry = "1225 228 542 749"
         sizeHint = "542 749"
         wasOpen = no
       }
@@ -2623,8 +1355,8 @@ module View3D {
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0.256000012159348 0.256000012159348 0.256000012159348, 366.251007080078 0.301961004734039 0.149020001292229 0.168626993894577, 405.213989257812 0.371502995491028 0.157560005784035 0.190587997436523, 950.694580078125 0.497492343187332 0.173032626509666 0.230374544858932, 950.698669433594 0.525489985942841 0.176470994949341 0.23921599984169, 4095 0.512000024318695 0.512000024318695 0.512000024318695 ]"
-    lutEditorAlphaPoints = "[ 0 0, 366.251007080078 0.273209989070892, 405.213989257812 0, 950.694580078125 0, 950.698669433594 1, 4095 0.512000024318695 ]"
+    lutEditorColorPoints = "[ -1024 1 1 1, -250 0.658823549747467 0.658823549747467 0.658823549747467, -249.495712280273 1 1 1, 9 0.257129430770874 0.253371149301529 0.253852963447571 ]"
+    lutEditorAlphaPoints = "[ -1024 1, -250 1, -249.495712280273 0, 9 0 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
@@ -2637,12 +1369,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "270.806915283203 -217.973556518555 61.4767761230469"
-    camOrientation = "0.999535381793976 0.0105504048988223 0.0285952500998974 1.73992443084717"
+    camPosition = "229.287231445313 57.1506195068359 174.912231445313"
+    camOrientation = "0.881695985794067 0.154537990689278 -0.445791691541672 1.23649096488953"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 757.26984
-    camNear = 193.56877
-    camFocal = 475.13803
+    camFar = 515.27045
+    camNear = 0.51424098
+    camFocal = 226.17815
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -2688,15 +1420,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputX = 512
+    renderer.sizeOutputY = 512
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndX = 512
+    renderer.subVolumeEndY = 512
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = TRUE
     clip.left = FALSE
@@ -2741,7 +1473,7 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 4
+    userTimepoint = 5
     curveType = Line
     curveStyle = 0
   }
@@ -2752,7 +1484,7 @@ module CurveInspector {
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
-        geometry = "1008 130 623 326"
+        geometry = "1297 45 623 326"
         sizeHint = "232 208"
         wasOpen = no
       }
@@ -2778,8 +1510,8 @@ module CurveInspector {
 }
 module LungSegmentation {
   internal  {
-    frame = "-431 85 144 56"
-    moduleGroupName = "Lung Segmentation"
+    frame = "-385 255 136 56"
+    moduleGroupName = "Lung and Trachea Segmentation"
     localMacro = 1
     windows  {
       window _default {
@@ -2792,10 +1524,15 @@ module LungSegmentation {
         sizeHint = "266 266"
         wasOpen = no
       }
+      window _scriptingconsole {
+        geometry = "659 371 600 500"
+        sizeHint = "260 237"
+        wasOpen = no
+      }
     }
   }
   fields  {
-    instanceName = LungSegmentation1
+    instanceName = LungSegmentation
   }
 }
 module SubstractionImage {
@@ -2839,7 +1576,7 @@ module View2D {
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 0
+    maxTimePoint = 9
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_Z
@@ -2882,8 +1619,8 @@ module View3D {
     moduleGroupName = ""
     windows  {
       window _default {
-        geometry = "828 479 1078 640"
-        sizeHint = "1164 640"
+        geometry = "889 453 1070 640"
+        sizeHint = "1156 640"
         wasOpen = no
       }
       window LutEditor {
@@ -2905,7 +1642,7 @@ module View3D {
     inventorOutputOn = TRUE
     lutType = Editor
     rendererType = Slicer
-    currentTimePoint = 0
+    currentTimePoint = 5
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -2923,12 +1660,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "0.352650344371796 -2.50851988792419 -0.641402542591095"
-    camOrientation = "0.994073152542114 0.105450056493282 0.0264359805732965 1.81968283653259"
+    camPosition = "145.404296875 105.320648193359 598.810791015625"
+    camOrientation = "0.760378956794739 -0.60719507932663 0.230517044663429 0.349553883075714"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 3.6131265
-    camNear = 1.6131265
-    camFocal = 2.6131265
+    camFar = 747.66919
+    camNear = 373.50354
+    camFocal = 560.39972
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -2974,15 +1711,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputX = 512
+    renderer.sizeOutputY = 512
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndX = 512
+    renderer.subVolumeEndY = 512
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -3069,7 +1806,7 @@ module CurveCursor {
   }
   fields  {
     instanceName = Timepoint
-    posX = 4
+    posX = 5
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -3083,135 +1820,6 @@ module CurveCursor {
     cursorX = TRUE
     cursorY = FALSE
     curveStyle = 2
-  }
-}
-module View3D {
-  internal  {
-    frame = "-847 -123 144 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "412 477 595 640"
-        sizeHint = "1156 640"
-        wasOpen = no
-      }
-      window LutEditor {
-        geometry = "684 247 542 749"
-        sizeHint = "542 749"
-        wasOpen = no
-      }
-      window _automatic {
-        geometry = "709 321 500 600"
-        sizeHint = "262 217"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View3D7
-    autoViewAll = TRUE
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    lutType = Editor
-    rendererType = Slicer
-    currentTimePoint = 0
-    staticSamplingRate = 1
-    quality = 1
-    filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0.256000012159348 0.256000012159348 0.256000012159348, 366.251007080078 0.337254911661148 0.321568638086319 0.325490206480026, 405.213989257812 0.462745100259781 0.462745100259781 0.462745100259781, 919.524291992188 0.497492343187332 0.173032626509666 0.230374544858932, 4095 0.512000024318695 0.512000024318695 0.512000024318695 ]"
-    lutEditorAlphaPoints = "[ 0 0, 366.251007080078 0.273209989070892, 405.213989257812 0, 919.524291992188 0, 4095 0.512000024318695 ]"
-    lutEditorRelativeLut = FALSE
-    lutEditorColorInterpolation = InterpolateRGB
-    lutEditorAlphaFactor = 1
-    orientationProjectionType = PERSPECTIVE
-    orientationLocation = LOWER_RIGHT
-    orientationOn = TRUE
-    orientationModel = TORSO
-    greyCenter = 0.439999997615814
-    greyWidth = 0.174999907612801
-    alphaFactor = 1
-    colorFactor = "1 1 1"
-    camType = TRUE
-    camPosition = "463.953643798828 -722.661193847656 183.970855712891"
-    camOrientation = "0.987351655960083 0.0875725299119949 0.132165968418121 1.54469811916351"
-    initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1302.4309
-    camNear = 691.86005
-    camFocal = 996.84113
-    camHeight = 0.78539801
-    decoration = FALSE
-    annotations = FALSE
-    background = TRUE
-    mode = VolumeRendering
-    interactiveQuality = Medium
-  }
-  internalFields  {
-    renderer.gradientQuality = GradientQualityAutomatic
-    renderer.enhancementAlphaMix = 0.25
-    renderer.boundaryEnhancement = FALSE
-    renderer.boundaryEnhancementFactor = 1
-    renderer.boundaryEnhancementExponent = 1
-    renderer.boundaryEnhancementGradientBias = 0
-    renderer.silhouetteEnhancement = FALSE
-    renderer.silhouetteEnhancementExponent = 1
-    renderer.silhouetteEnhancementFactor = 1
-    renderer.toneShading = FALSE
-    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
-    renderer.toneShadingColdColor = "0 0 0.400000005960464"
-    renderer.toneShadingWarmDiffuse = 0.60000002
-    renderer.toneShadingColdDiffuse = 0.2
-    renderer.toneShadingAngle = 45
-    renderer.materialAmbient = 0.60000002
-    renderer.materialDiffuse = 1
-    renderer.materialSpecular = 1
-    renderer.materialSpecularity = 32
-    renderer.light1Enabled = TRUE
-    renderer.light1DiffuseIntensity = 1
-    renderer.light1SpecularIntensity = 1
-    renderer.light1Color = "1 1 1"
-    renderer.light1PolarPhi = 45
-    renderer.light1PolarRho = 0
-    renderer.light2Enabled = FALSE
-    renderer.light2DiffuseIntensity = 1
-    renderer.light2SpecularIntensity = 1
-    renderer.light2Color = "1 1 1"
-    renderer.light2PolarPhi = 0
-    renderer.light2PolarRho = 0
-    renderer.light3Enabled = FALSE
-    renderer.light3DiffuseIntensity = 1
-    renderer.light3SpecularIntensity = 1
-    renderer.light3Color = "1 1 1"
-    renderer.light3PolarPhi = -45
-    renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
-    renderer.subVolumeStartX = 0
-    renderer.subVolumeStartY = 0
-    renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
-    clip.hideGeometry = FALSE
-    clip.on = FALSE
-    clip.left = FALSE
-    clip.right = FALSE
-    clip.top = FALSE
-    clip.bottom = FALSE
-    clip.rear = FALSE
-    clip.front = FALSE
-    clip.translation0 = "1 0 0"
-    clip.translation1 = "-1 0 0"
-    clip.translation2 = "0 1 0"
-    clip.translation3 = "0 -1 0"
-    clip.translation4 = "0 0 1"
-    clip.translation5 = "0 0 -1"
-    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
-    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
-    clip.rotation2 = "0 0 -1 3.1415901184082"
-    clip.rotation3 = "0 0 1 0"
-    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
-    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
   }
 }
 module CurveProperties {
@@ -3284,145 +1892,13 @@ module Convolution {
     predefKernel = "3x3 Average Kernel"
   }
 }
-module ImageStatistics {
-  internal  {
-    frame = "-607 261 112 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "680 305 558 632"
-        sizeHint = "558 632"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = ImageStatistics
-    innerMin = 0
-    innerMax = 1
-    updateMode = AutoUpdate
-    perSlice = TRUE
-    currentSlice = 0
-    lowerWidth = 0
-    upperWidth = 0
-    useMask = FALSE
-  }
-}
-module View2D {
-  internal  {
-    frame = "-129 -24 120 56"
-    moduleGroupName = "Lung Segmentation"
-    windows  {
-      window _default {
-        geometry = "1380 126 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D2
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_ZT
-    cineDirection = CINE_FORWARD
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = TRUE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.514999747276306
-    lutWidth = 0.19999997317791
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = FALSE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = TRUE
-  }
-}
-module RegionGrowingMacro {
-  internal  {
-    frame = "-603 181 152 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "374 333 1170 576"
-        sizeHint = "1170 576"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = RegionGrowingMacro1
-    isInit = TRUE
-    autoUpdateMode = AutoClear
-    enableAutoThresholdInterval = FALSE
-    autoThresholdIntervalSizeInPercent = 5
-    basicNeighborhoodType = BNBH_3D_6_XYZ
-    extendedNeighborhoodType = ENBH_2D_4_XZ
-    lowerThreshold = -2000
-    upperThreshold = -900
-    useExtendedNBH = FALSE
-    stretchOutputOverTime = FALSE
-    cCoord = 0
-    uCoord = 0
-    unitType = UnitTypeGrayValue
-    upperVolumeLimit_ml = 100
-    enableUpperVolumeLimit = FALSE
-    autoUpdateUnitType = TRUE
-    showPartialResults = FALSE
-    posFillValue = -1
-    negFillValue = 0
-    invertResult = FALSE
-    showOuterBoundariesOnly = FALSE
-    incrementalUpdateMode = Smart
-    internalAccuracy = Auto
-    markerPersistence = FALSE
-    markerString = []
-    deleteMarkerOnClick = TRUE
-    markerOverflowMode = None
-    maxMarkers = 0
-    baseColor = "1 0.420675009489059 0"
-    blendMode = BLEND_BLEND
-    overlayAlpha = 0.5
-  }
-}
 module ConstantXMarkerList {
   internal  {
     frame = "-935 477 144 56"
     moduleGroupName = ""
     windows  {
       window _default {
-        geometry = "1462 293 570 563"
+        geometry = "1090 217 570 563"
         sizeHint = "357 539"
         wasOpen = no
       }
@@ -3430,297 +1906,16 @@ module ConstantXMarkerList {
   }
   fields  {
     instanceName = ConstantXMarkerList
-    markerList = "
-"
+    markerList = "246 225 233"
   }
 }
-module RegionGrowing {
+module View3D {
   internal  {
-    frame = "-1191 333 144 72"
+    frame = "-847 -123 144 56"
     moduleGroupName = ""
-    showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "624 324 671 595"
-        sizeHint = "671 595"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = RegionGrowing
-    autoUpdateMode = AutoClear
-    lowerThreshold = 0
-    upperThreshold = 600
-    enableAutoThresholdInterval = FALSE
-    basicNeighborhoodType = BNBH_2D_4_XY
-    extendedNeighborhoodType = ENBH_2D_4_XY
-    useAdditionalSeed = FALSE
-    additionalSeed = "0 0 0 0 0 0"
-    additionalSeedType = 0
-    additionalSeedCoordSystem = VoxelCoordinates
-    initStackSizeTweak = 0.100000001490116
-    prohibitInputScalingTweak = FALSE
-    incrementalUpdateMode = Smart
-    useExtendedNBH = FALSE
-    calcBoundaryOverlap = FALSE
-    unitType = UnitTypeGrayValue
-    internalAccuracy = Auto
-    autoUpdateUnitType = FALSE
-    stretchOutputOverTime = FALSE
-    showPartialResults = FALSE
-    acceptedMarkerType = -1
-    autoSelectHigherCoords = TRUE
-    cCoord = 0
-    uCoord = 0
-    posFillValue = -1
-    negFillValue = 0
-    invertResult = FALSE
-    showOuterBoundariesOnly = FALSE
-    upperVolumeLimit_ml = 100
-    enableUpperVolumeLimit = FALSE
-    autoThresholdIntervalSizeInPercent = 5
-  }
-}
-module RegionGrowingMacro {
-  internal  {
-    frame = "213 237 152 56"
-    moduleGroupName = "Import Dataset"
-    windows  {
-      window _default {
-        geometry = "748 292 1170 576"
-        sizeHint = "1170 576"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = RegionGrowingMacro2
-    isInit = TRUE
-    autoUpdateMode = AutoClear
-    enableAutoThresholdInterval = FALSE
-    autoThresholdIntervalSizeInPercent = 4.97
-    basicNeighborhoodType = BNBH_4D_8_XYZT
-    extendedNeighborhoodType = ENBH_2D_4_XZ
-    lowerThreshold = -1140
-    upperThreshold = -862
-    useExtendedNBH = FALSE
-    stretchOutputOverTime = FALSE
-    cCoord = 0
-    uCoord = 0
-    unitType = UnitTypeHounsfieldUnits
-    upperVolumeLimit_ml = 100
-    enableUpperVolumeLimit = FALSE
-    autoUpdateUnitType = TRUE
-    showPartialResults = FALSE
-    posFillValue = -1
-    negFillValue = 0
-    invertResult = FALSE
-    showOuterBoundariesOnly = FALSE
-    incrementalUpdateMode = Smart
-    internalAccuracy = Auto
-    markerPersistence = FALSE
-    markerString = "[(-5.98828 76.0117 -7) #1]"
-    deleteMarkerOnClick = TRUE
-    markerOverflowMode = None
-    maxMarkers = 0
-    baseColor = "1 0.420675009489059 0"
-    blendMode = BLEND_BLEND
-    overlayAlpha = 0.5
-  }
-}
-module View3D {
-  internal  {
-    frame = "281 -131 144 56"
-    moduleGroupName = "Import Dataset"
-    windows  {
-      window _default {
-        geometry = "1168 479 1026 640"
-        sizeHint = "1026 640"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View3D
-    autoViewAll = TRUE
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    lutType = Ramp
-    rendererType = Slicer
-    currentTimePoint = 0
-    staticSamplingRate = 1
-    quality = 1
-    filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0 0 0, 4095 1 1 1 ]"
-    lutEditorAlphaPoints = "[ 0 0, 4095 1 ]"
-    lutEditorRelativeLut = FALSE
-    lutEditorColorInterpolation = InterpolateRGB
-    lutEditorAlphaFactor = 1
-    orientationProjectionType = PERSPECTIVE
-    orientationLocation = LOWER_RIGHT
-    orientationOn = TRUE
-    orientationModel = CUBE
-    greyCenter = 0.5
-    greyWidth = 0.5
-    alphaFactor = 1
-    colorFactor = "1 1 1"
-    camType = TRUE
-    camPosition = "-15.1316986083984 -346.761444091797 189.075820922852"
-    camOrientation = "0.983001530170441 0.0717807114124298 -0.168984025716782 1.13031423091888"
-    initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 777.89001
-    camNear = 187.45656
-    camFocal = 482.3786
-    camHeight = 0.78539801
-    decoration = FALSE
-    annotations = TRUE
-    background = TRUE
-    mode = VolumeRendering
-    interactiveQuality = Medium
-  }
-  internalFields  {
-    renderer.gradientQuality = GradientQualityAutomatic
-    renderer.enhancementAlphaMix = 0.25
-    renderer.boundaryEnhancement = FALSE
-    renderer.boundaryEnhancementFactor = 1
-    renderer.boundaryEnhancementExponent = 1
-    renderer.boundaryEnhancementGradientBias = 0
-    renderer.silhouetteEnhancement = FALSE
-    renderer.silhouetteEnhancementExponent = 1
-    renderer.silhouetteEnhancementFactor = 1
-    renderer.toneShading = FALSE
-    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
-    renderer.toneShadingColdColor = "0 0 0.400000005960464"
-    renderer.toneShadingWarmDiffuse = 0.60000002
-    renderer.toneShadingColdDiffuse = 0.2
-    renderer.toneShadingAngle = 45
-    renderer.materialAmbient = 0.60000002
-    renderer.materialDiffuse = 1
-    renderer.materialSpecular = 1
-    renderer.materialSpecularity = 32
-    renderer.light1Enabled = TRUE
-    renderer.light1DiffuseIntensity = 1
-    renderer.light1SpecularIntensity = 1
-    renderer.light1Color = "1 1 1"
-    renderer.light1PolarPhi = 45
-    renderer.light1PolarRho = 0
-    renderer.light2Enabled = FALSE
-    renderer.light2DiffuseIntensity = 1
-    renderer.light2SpecularIntensity = 1
-    renderer.light2Color = "1 1 1"
-    renderer.light2PolarPhi = 0
-    renderer.light2PolarRho = 0
-    renderer.light3Enabled = FALSE
-    renderer.light3DiffuseIntensity = 1
-    renderer.light3SpecularIntensity = 1
-    renderer.light3Color = "1 1 1"
-    renderer.light3PolarPhi = -45
-    renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
-    renderer.subVolumeStartX = 0
-    renderer.subVolumeStartY = 0
-    renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
-    clip.hideGeometry = FALSE
-    clip.on = FALSE
-    clip.left = FALSE
-    clip.right = FALSE
-    clip.top = FALSE
-    clip.bottom = FALSE
-    clip.rear = FALSE
-    clip.front = FALSE
-    clip.translation0 = "1 0 0"
-    clip.translation1 = "-1 0 0"
-    clip.translation2 = "0 1 0"
-    clip.translation3 = "0 -1 0"
-    clip.translation4 = "0 0 1"
-    clip.translation5 = "0 0 -1"
-    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
-    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
-    clip.rotation2 = "0 0 -1 3.1415901184082"
-    clip.rotation3 = "0 0 1 0"
-    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
-    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
-  }
-}
-module Morphology {
-  internal  {
-    frame = "105 221 96 72"
-    moduleGroupName = "Import Dataset"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "647 344 319 487"
-        sizeHint = "314 487"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Morphology
-    borderHandling = PadSrcClamp
-    fillValue = 0
-    referenceExtentMode = Overlap
-    filterMode = Dilation
-    kernelX = 3
-    kernelY = 3
-    kernelZ = 3
-    kernelC = 1
-    kernelT = 1
-    kernelU = 1
-    makeSpherical = TRUE
-    intervalMinOfFilteredVoxels = 0
-    intervalMaxOfFilteredVoxels = 1024
-    useIntervalOfFilteredVoxels = FALSE
-    intervalMinOfVoxelsForFiltering = 0
-    intervalMaxOfVoxelsForFiltering = 1024
-    useIntervalOfVoxelsForFiltering = FALSE
-    externalKernel = ""
-    useExternalKernel = FALSE
-  }
-}
-module FastMorphology {
-  internal  {
-    frame = "67 87 152 72"
-    moduleGroupName = "Import Dataset"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "783 468 365 466"
-        sizeHint = "360 397"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = FastMorphology
-    morphologicOperation = Closing
-    xSize = 1
-    ySize = 1
-    zSize = 1
-    cSize = 0
-    tSize = 0
-    uSize = 0
-    useInputMaxValue = FALSE
-    userSetMaxValue = 1
-    autoUpdate = TRUE
-    useGreyScaleMorphology = FALSE
-    boundaryHandling = "Propagate boundary values"
-    boundaryFillValue = 0
-  }
-}
-module View3D {
-  internal  {
-    frame = "271 -287 144 56"
-    moduleGroupName = "Import Dataset"
-    windows  {
-      window _default {
-        geometry = "885 446 1035 640"
+        geometry = "176 463 927 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
@@ -3737,7 +1932,7 @@ module View3D {
     }
   }
   fields  {
-    instanceName = View3D8
+    instanceName = View3D7
     autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
@@ -3747,8 +1942,8 @@ module View3D {
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0.256000012159348 0.256000012159348 0.256000012159348, 366.251007080078 0.301961004734039 0.149020001292229 0.168626993894577, 405.213989257812 0.371502995491028 0.157560005784035 0.190587997436523, 919.524291992188 0.497492343187332 0.173032626509666 0.230374544858932, 966.283813476562 0.525489985942841 0.176470994949341 0.23921599984169, 4095 0.512000024318695 0.512000024318695 0.512000024318695 ]"
-    lutEditorAlphaPoints = "[ 0 0, 366.251007080078 0.273209989070892, 405.213989257812 0, 919.524291992188 0, 966.283813476562 0.95225465297699, 4095 0.512000024318695 ]"
+    lutEditorColorPoints = "[ 0 0.256000012159348 0.256000012159348 0.256000012159348, 366.251007080078 0.337254911661148 0.321568638086319 0.325490206480026, 405.213989257812 0.462745100259781 0.462745100259781 0.462745100259781, 919.524291992188 0.497492343187332 0.173032626509666 0.230374544858932, 4095 0.512000024318695 0.512000024318695 0.512000024318695 ]"
+    lutEditorAlphaPoints = "[ 0 0, 366.251007080078 0.273209989070892, 405.213989257812 0, 919.524291992188 0, 4095 0.512000024318695 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
@@ -3761,12 +1956,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "249.994735717773 -679.84619140625 136.765731811523"
-    camOrientation = "1 1.10988412416191e-05 -1.66869285749272e-05 1.57534980773926"
+    camPosition = "251.949478149414 709.428283691406 923.332946777344"
+    camOrientation = "-0.993523478507996 0.0190544724464417 0.112018339335918 0.491838872432709"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1182.1799
-    camNear = 678.034
-    camFocal = 929.85571
+    camFar = 1151.2142
+    camNear = 780.92786
+    camFocal = 965.88696
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -3812,15 +2007,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputX = 512
+    renderer.sizeOutputY = 512
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndX = 512
+    renderer.subVolumeEndY = 512
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -3843,145 +2038,179 @@ module View3D {
     clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
   }
 }
-module View2D {
+module ImageSave {
   internal  {
-    frame = "133 -571 120 56"
-    moduleGroupName = "Import Dataset"
+    frame = "-191 86 88 72"
+    moduleGroupName = "Lung and Trachea Segmentation"
+    showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "1222 170 659 698"
-        sizeHint = "400 400"
+        geometry = "900 174 611 492"
+        sizeHint = "420 492"
         wasOpen = no
       }
     }
   }
   fields  {
-    instanceName = View2D11
+    instanceName = ImageSave
+    taskVerboseLogging = FALSE
+    filename = $(NETWORK)/data/MLimage/trachea.dcm
+    addFileExtension = TRUE
+    format = DICOM
+    comment = MeVisLab
+    allowOverwrite = TRUE
+    autoFilename = FALSE
+    sourceName = $(NETWORK)/data/
+    postfix = trachea
+    dicomNameUsed = FALSE
+    dicomMetaHeader = TRUE
+    dicomDerived = TRUE
+    dicomDerivedImageType = "OTHER\\MEVISLAB"
+    dicomDiscardTags = FrameSpecific
+    dicomStoreTimeInfo = None
+    dicomSetWindow = FALSE
+    dicomWindowCenter = 0
+    dicomWindowWidth = 0
+    dicomIgnoreHalfVoxelShift = FALSE
+    tiffCompression = LZW
+    tiffTileX = 128
+    tiffTileY = 128
+    tiffTileXAuto = TRUE
+    tiffTileYAuto = TRUE
+    tiffLinearRGB = FALSE
+    saveDicomHeaderOnly = FALSE
+    pngCompression = Default
+    pngInterlaced = FALSE
+    jpegQuality = 75
+    jpegProgressive = FALSE
+  }
+}
+module View3D {
+  internal  {
+    frame = "-239 189 144 56"
+    moduleGroupName = "Lung and Trachea Segmentation"
+    windows  {
+      window _default {
+        geometry = "447 293 1026 640"
+        sizeHint = "1026 640"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = View3D
+    autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 163
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 9
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_ZT
-    cineDirection = CINE_FORWARD
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = TRUE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = -977.515014648438
-    lutWidth = 692.109741210938
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = FALSE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = TRUE
+    lutType = Ramp
+    rendererType = Slicer
+    currentTimePoint = 1
+    staticSamplingRate = 1
+    quality = 1
+    filterVolumeData = FilterLinear
+    lutEditorColorPoints = "[ 0 0 0 0, 4095 1 1 1 ]"
+    lutEditorAlphaPoints = "[ 0 0, 4095 1 ]"
+    lutEditorRelativeLut = FALSE
+    lutEditorColorInterpolation = InterpolateRGB
+    lutEditorAlphaFactor = 1
+    orientationProjectionType = PERSPECTIVE
+    orientationLocation = LOWER_RIGHT
+    orientationOn = TRUE
+    orientationModel = CUBE
+    greyCenter = 0.5
+    greyWidth = 0.5
+    alphaFactor = 1
+    colorFactor = "1 1 1"
+    camType = TRUE
+    camPosition = "315.841491699219 61.3456726074219 168.913970947266"
+    camOrientation = "0.955191910266876 0.114498198032379 0.272944539785385 1.17054975032806"
+    initialCameraOrientation = CAMERA_KEEP_AS_IS
+    camFar = 546.23114
+    camNear = 0.54513979
+    camFocal = 226.17812
+    camHeight = 0.78539801
+    decoration = FALSE
+    annotations = TRUE
+    background = TRUE
+    mode = VolumeRendering
+    interactiveQuality = Medium
   }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "93 -227 104 72"
-    moduleGroupName = "Import Dataset"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "774 569 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic22
-    function = Subtract
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
-  }
-}
-module FastMorphology {
-  internal  {
-    frame = "77 -339 152 72"
-    moduleGroupName = "Import Dataset"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "637 401 365 397"
-        sizeHint = "360 397"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = FastMorphology1
-    morphologicOperation = Opening
-    xSize = 1
-    ySize = 1
-    zSize = 1
-    cSize = 0
-    tSize = 0
-    uSize = 0
-    useInputMaxValue = FALSE
-    userSetMaxValue = 1
-    autoUpdate = TRUE
-    useGreyScaleMorphology = FALSE
-    boundaryHandling = "Propagate boundary values"
-    boundaryFillValue = 0
-  }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "102 -473 104 72"
-    moduleGroupName = "Import Dataset"
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "774 569 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic23
-    function = Multiply
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
+  internalFields  {
+    renderer.gradientQuality = GradientQualityAutomatic
+    renderer.enhancementAlphaMix = 0.25
+    renderer.boundaryEnhancement = FALSE
+    renderer.boundaryEnhancementFactor = 1
+    renderer.boundaryEnhancementExponent = 1
+    renderer.boundaryEnhancementGradientBias = 0
+    renderer.silhouetteEnhancement = FALSE
+    renderer.silhouetteEnhancementExponent = 1
+    renderer.silhouetteEnhancementFactor = 1
+    renderer.toneShading = FALSE
+    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
+    renderer.toneShadingColdColor = "0 0 0.400000005960464"
+    renderer.toneShadingWarmDiffuse = 0.60000002
+    renderer.toneShadingColdDiffuse = 0.2
+    renderer.toneShadingAngle = 45
+    renderer.materialAmbient = 0.60000002
+    renderer.materialDiffuse = 1
+    renderer.materialSpecular = 1
+    renderer.materialSpecularity = 32
+    renderer.light1Enabled = TRUE
+    renderer.light1DiffuseIntensity = 1
+    renderer.light1SpecularIntensity = 1
+    renderer.light1Color = "1 1 1"
+    renderer.light1PolarPhi = 45
+    renderer.light1PolarRho = 0
+    renderer.light2Enabled = FALSE
+    renderer.light2DiffuseIntensity = 1
+    renderer.light2SpecularIntensity = 1
+    renderer.light2Color = "1 1 1"
+    renderer.light2PolarPhi = 0
+    renderer.light2PolarRho = 0
+    renderer.light3Enabled = FALSE
+    renderer.light3DiffuseIntensity = 1
+    renderer.light3SpecularIntensity = 1
+    renderer.light3Color = "1 1 1"
+    renderer.light3PolarPhi = -45
+    renderer.light3PolarRho = 0
+    renderer.sizeOutputX = 512
+    renderer.sizeOutputY = 512
+    renderer.sizeOutputZ = 141
+    renderer.subVolumeStartX = 0
+    renderer.subVolumeStartY = 0
+    renderer.subVolumeStartZ = 0
+    renderer.subVolumeEndX = 512
+    renderer.subVolumeEndY = 512
+    renderer.subVolumeEndZ = 141
+    clip.hideGeometry = FALSE
+    clip.on = FALSE
+    clip.left = FALSE
+    clip.right = FALSE
+    clip.top = FALSE
+    clip.bottom = FALSE
+    clip.rear = FALSE
+    clip.front = FALSE
+    clip.translation0 = "1 0 0"
+    clip.translation1 = "-1 0 0"
+    clip.translation2 = "0 1 0"
+    clip.translation3 = "0 -1 0"
+    clip.translation4 = "0 0 1"
+    clip.translation5 = "0 0 -1"
+    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
+    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
+    clip.rotation2 = "0 0 -1 3.1415901184082"
+    clip.rotation3 = "0 0 1 0"
+    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
+    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
   }
 }
 connections  {
   ApplyDicomPixelModifiers.input0 = DirectDicomImport.output0
   DownSampling.input0 = Switch.output0
-  OutputImage.input0 = Resample3D.output0
+  OutputImage.input0 = SampleToggle.output0
   Switch.input0 = LocalImage1.outImage
   Switch.input1 = ApplyDicomPixelModifiers.output0
+  DataPreview.image = SampleToggle.output0
   SampleToggle.input0 = DownSampling.output0
   SampleToggle.input1 = Bypass2.output0
   SampleToggle.input2 = UpSampling.output0
@@ -3999,61 +2228,29 @@ connections  {
   Arithmetic21.input1 = ROISelect3.outImage
   PythonArithmetic2.input0 = ROISelect2.outImage
   PythonArithmetic2.input1 = ROISelect3.outImage
-  Lungs_unfilled.inImage = Arithmetic1.output0
-  View3D3.inImage = Arithmetic1.output0
+  View3D3.inImage = LungSegmentation.lungs
   View3D3.currentTimePoint = Counter1.currentValue
-  Arithmetic1.input0 = LungSegmentation1.lungs_unfilled
   Bypass2.input0 = Switch.output0
-  RegionGrowingMacro.inImage = OutputImage.output0
-  View3D2.inImage = RegionGrowingMacro.outImage
-  Arithmetic2.input0 = Arithmetic1.output0
-  Arithmetic2.input1 = RegionGrowingMacro.outImage
-  View3D4.inImage = Arithmetic2.output0
-  View2D3.inImage = RemoveTrachea.output0
-  View2D4.inImage = RemoveTrachea.output1
-  View2D5.inImage = RemoveTrachea.output2
-  View2D6.inImage = RemoveTrachea.output3
-  View2D7.inImage = RemoveTrachea.output4
-  View2D8.inImage = RemoveTrachea.output5
-  View2D9.inImage = RemoveTrachea.output6
-  View2D10.inImage = RemoveTrachea.output7
-  Arithmetic11.input0 = LungSegmentation1.difference
-  Difference.inImage = Arithmetic11.output0
-  View3D5.inImage = Arithmetic11.output0
-  LungsFilled.inImage = LungSegmentation1.lungs_trachea_mask
-  View3D1.inImage = Arithmetic12.output0
+  View3D1.inImage = LungSegmentation.trachea
   View3D1.currentTimePoint = Counter1.currentValue
-  CalculateVolume.input0 = Arithmetic1.output0
   CalculateVolume.userTimepoint = Counter1.currentValue
   CurveInspector.inCurve = ConcatenateCurves.outCurveList
-  LungSegmentation1.input0 = OutputImage.output0
-  SubstractionImage.input0 = LungSegmentation1.lungs_unfilled
+  LungSegmentation.input0 = OutputImage.output0
   View2D1.inImage = Arithmetic13.output0
   View3D6.inImage = Convolution.output0
   View3D6.currentTimePoint = Counter1.currentValue
   Arithmetic13.input0 = SubstractionImage.output0
   CurveProperties.inCurves = CalculateVolume.outTimeCurve
   Timepoint.posX = Counter1.currentValue
-  View3D7.inImage = Arithmetic1.output0
-  View3D7.inInvPreLUT = View3D6.self
-  View3D7.currentTimePoint = Counter1.currentValue
   CurveProperties1.inCurves = Timepoint.outCurveList
   ConcatenateCurves.inCurve1 = CurveProperties.outCurves
   ConcatenateCurves.inCurve2 = CurveProperties1.outCurves
   Convolution.input0 = Arithmetic13.output0
-  ImageStatistics.input0 = Arithmetic1.output0
-  View2D2.inImage = LungSegmentation1.trachea
-  RegionGrowingMacro1.inImage = LungSegmentation1.lungs_unfilled
-  RegionGrowingMacro2.inImage = OutputImage.output0
-  View3D.inImage = FastMorphology.output0
-  Morphology.input0 = RegionGrowingMacro2.outMask
-  FastMorphology.input0 = Morphology.output0
-  View2D11.inImage = Arithmetic23.output0
-  Arithmetic22.input0 = LungSegmentation1.lungs_trachea_mask
-  Arithmetic22.input1 = FastMorphology.output0
-  FastMorphology1.input0 = Arithmetic22.output0
-  Arithmetic23.input0 = LungSegmentation1.lungs_unfilled
-  Arithmetic23.input1 = FastMorphology1.output0
+  View3D7.inImage = LungSegmentation.lungs
+  View3D7.inInvPreLUT = View3D6.self
+  View3D7.currentTimePoint = Counter1.currentValue
+  ImageSave.input0 = LungSegmentation.trachea
+  View3D.inImage = LungSegmentation.test
 }
 networkModel  {
   parentItems  {
@@ -4082,7 +2279,7 @@ networkModel  {
       }
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 241
-        objectName = "Lung Segmentation"
+        objectName = "Lung and Trachea Segmentation"
         parentUniqueId = 0
         color  {
           r = 140
