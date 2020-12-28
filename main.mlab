@@ -5,7 +5,7 @@ network  {
 }
 module LocalImage {
   internal  {
-    frame = "72 980 152 72"
+    frame = "304 1127 152 72"
     moduleGroupName = "Import Dataset"
     showNetworkPanel = true
     windows  {
@@ -24,7 +24,7 @@ module LocalImage {
 }
 module ApplyDicomPixelModifiers {
   internal  {
-    frame = "280 956 168 56"
+    frame = "512 1103 168 56"
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
@@ -47,7 +47,7 @@ module ApplyDicomPixelModifiers {
 }
 module ImageResample {
   internal  {
-    frame = "92 766 112 72"
+    frame = "324 913 112 72"
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
@@ -79,7 +79,7 @@ module ImageResample {
 }
 module Bypass {
   internal  {
-    frame = "216 390 136 72"
+    frame = "448 537 136 72"
     moduleGroupName = "Import Dataset"
     showNetworkPanel = true
     windows  {
@@ -97,7 +97,7 @@ module Bypass {
 }
 module Switch {
   internal  {
-    frame = "212 860 112 72"
+    frame = "444 1007 112 72"
     moduleGroupName = "Import Dataset"
     showNetworkPanel = true
     windows  {
@@ -116,7 +116,7 @@ module Switch {
 }
 module OrthoView2D {
   internal  {
-    frame = "104 534 120 72"
+    frame = "336 681 120 72"
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
@@ -162,7 +162,7 @@ module OrthoView2D {
 }
 module Switch {
   internal  {
-    frame = "184 660 152 88"
+    frame = "416 807 152 88"
     moduleGroupName = "Import Dataset"
     showNetworkPanel = true
     windows  {
@@ -186,7 +186,7 @@ module Switch {
 }
 module ImageResample {
   internal  {
-    frame = "356 758 112 72"
+    frame = "588 905 112 72"
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
@@ -218,7 +218,7 @@ module ImageResample {
 }
 module DirectDicomImport {
   internal  {
-    frame = "286 1061 160 56"
+    frame = "518 1208 160 56"
     moduleGroupName = "Import Dataset"
     showNetworkPanel = true
     windows  {
@@ -603,7 +603,7 @@ validImage hasIssues fileType voxelType imgExt numVoxels numSlices numTimePoints
 }
 module View2D {
   internal  {
-    frame = "352 478 120 56"
+    frame = "584 625 120 56"
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
@@ -664,7 +664,7 @@ module View2D {
 }
 module Resample3D {
   internal  {
-    frame = "304 566 104 56"
+    frame = "536 713 104 56"
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
@@ -688,477 +688,14 @@ module Resample3D {
     useReferenceImage = FALSE
   }
 }
-module Counter {
-  internal  {
-    frame = "612 72 72 72"
-    moduleGroupName = Substraction
-    showNetworkPanel = true
-    windows  {
-      window _automatic {
-        geometry = "709 321 500 600"
-        sizeHint = "256 192"
-        wasOpen = no
-      }
-      window _default {
-        geometry = "256 208 599 248"
-        sizeHint = "599 248"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Counter
-    currentValue = 5
-    minValue = 0
-    maxValue = 8
-    startValue = 0
-    stepValue = 1
-    loop = TRUE
-    checkConsistency = TRUE
-    autoStepInterval_s = 1
-    stepDirection = Up
-  }
-}
-module Arithmetic0 {
-  internal  {
-    frame = "760 64 96 72"
-    moduleGroupName = Substraction
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "371 502 484 260"
-        sizeHint = "464 260"
-        wasOpen = no
-      }
-      window _automatic {
-        geometry = "543 429 500 600"
-        sizeHint = "256 192"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic0
-    debugLevel = 0
-    arg1 = "5 0 0"
-    arg1X = 5
-    arg1XAsVec = FALSE
-    operation = Add
-    arg2 = "1 0 0"
-    arg2X = 1
-    arg2XAsVec = FALSE
-    resultsAsPercent = FALSE
-    formatString = ""
-  }
-}
-module View2D {
-  internal  {
-    frame = "748 -264 120 56"
-    moduleGroupName = Substraction
-    windows  {
-      window _default {
-        geometry = "1022 301 689 514"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D12
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 21
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 0
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_ZT
-    cineDirection = CINE_FORWARD
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = TRUE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0
-    lutWidth = 400
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = FALSE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = TRUE
-  }
-}
-module SoOrthoView2D {
-  internal  {
-    frame = "608 -256 120 56"
-    moduleGroupName = Substraction
-    windows  {
-      window _default {
-        geometry = "753 345 413 552"
-        sizeHint = "413 552"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = SoOrthoView2D
-    renderCaching = AUTO
-    boundingBoxCaching = AUTO
-    renderCulling = AUTO
-    pickCulling = AUTO
-    worldPosition = "0 0 0"
-    viewerId1 = viewer1
-    viewerId2 = viewer2
-    viewerId3 = viewer3
-    blendMode = BLEND_REPLACE
-    filterMode = FILTER_LINEAR
-    slab = 1
-    layoutMode = LAYOUT_ROW
-    worldPosSticky = FALSE
-    snapToCenter = FALSE
-    drawImageData = TRUE
-    alphaFactor = 1
-    baseColor = "1 1 1"
-    synchronizeZoom = TRUE
-    sliceZoom = 1
-    minSliceZoomKeyboard = 1
-    sliceOrigin1 = "0 0"
-    sliceOrigin2 = "0 0"
-    sliceOrigin3 = "0 0"
-    synchronizePanning = FALSE
-    keepSlicesInView = FALSE
-    viewingCenter = "-1 -1 -1"
-    viewingCenter1 = "148.92578125 85.51171875 -23.5"
-    viewingCenter2 = "-0.48828125 -63.90234375 -23.5"
-    viewingCenter3 = "-0.48828125 85.51171875 -107.5"
-    invertKeyPanningDirections = FALSE
-    extraViewSize = "0.666000008583069 0.666000008583069"
-    margin = "2 2"
-    alternCubeLayout = FALSE
-    cacheMode = SLICE_CACHING_OFF
-    timePoint = 0
-    maxTimePoint = 0
-    useManagedInteraction = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    zoomModeParameter = 1
-    sliceStep1 = 1
-    sliceStep2 = 1
-    sliceStep3 = 1
-    numSlices1 = 1
-    numSlices2 = 1
-    numSlices3 = 1
-    numXSlices1 = 1
-    numXSlices2 = 1
-    numXSlices3 = 1
-    synchronizeFilterMode = TRUE
-    cineCenterT = 0
-    cineIntervalT = 0
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineFullRangeT = TRUE
-    cineAlwaysReset = TRUE
-    useGlobalInputImage = TRUE
-    applyModifyPatientOrientationMatrix = FALSE
-    modifyPatientOrientationMatrix = "1 0 0 0
-0 1 0 0
-0 0 1 0
-0 0 0 1"
-  }
-}
-module OrthoView2D {
-  internal  {
-    frame = "883 -263 120 56"
-    moduleGroupName = Substraction
-    windows  {
-      window _default {
-        geometry = "269 382 400 436"
-        sizeHint = "400 436"
-        wasOpen = no
-      }
-      window Settings {
-        geometry = "253 342 375 513"
-        sizeHint = "375 513"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = OrthoView2D3
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    synchronizePosition = TRUE
-    layout = LAYOUT_CUBE_EQUAL
-    filterMode = FILTER_LINEAR
-    synchronizeZoom = TRUE
-    synchronizePanning = FALSE
-    useGlobalInputImage = TRUE
-    snapToCenter = FALSE
-    alternCubeLayout = FALSE
-    timePoint = 0
-    useManagedInteraction = FALSE
-    enableSlicing = TRUE
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 0.0799999982118607
-    grayCenter = 0.5
-    annotationOn = TRUE
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationFontSize = ANNO_SIZE_AUTO
-    valueHighPrecision = TRUE
-    annoCoords = Voxel
-    showCurrentPos = TRUE
-    worldPosition = "-118.65234375 186.795211791992 -107.5"
-    coloredMode = FALSE
-  }
-}
-module ROISelect {
-  internal  {
-    frame = "671 -33 88 56"
-    moduleGroupName = Substraction
-    windows  {
-      window _default {
-        geometry = "165 520 710 410"
-        sizeHint = "710 410"
-        wasOpen = no
-      }
-      window _automatic {
-        geometry = "114 290 825 697"
-        sizeHint = "262 217"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = ROISelect2
-    editMode = Navigate
-    currentPosOn = Navigate
-    editModeFieldDisable = TRUE
-    allTimepoints = FALSE
-    usePreview = FALSE
-    timepoint = 0
-    unit = ""
-    startWorldPos = "-200.1953125 -114.1953125 -136.5"
-    startVoxelX = 51
-    startVoxelY = 51
-    startVoxelZ = 14
-    endWorldPos = "-50.78125 35.21875 -52.5"
-    endVoxelX = 204
-    endVoxelY = 204
-    endVoxelZ = 56
-    boxOn = TRUE
-    boxShiftListen = PRESSED
-    boxCtrlListen = RELEASED
-    boxBlend = 0.14
-    boxColor = "1 0.979525029659271 0.38740399479866"
-    allowDraw = TRUE
-    reset = FALSE
-    currentPos = "-0.48828125 85.51171875 -23.5"
-    currentPosShiftListen = RELEASED
-    currentPosCtrlListen = RELEASED
-    currentPosColor = "1 1 1"
-    layout = LAYOUT_ROW_EQUAL
-    worldPosition = "-0.48828125 85.51171875 -23.5"
-    useGlobalInputImage = TRUE
-    restriction = MaxMBytesIsotropic
-    limit = 10
-    grayWidth = 0.5
-    grayCenter = 0.25
-    annotationColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationOn = TRUE
-    annotShowAnnot = ANNO_SHOW_HIDE
-    annotFontSize = ANNO_SIZE_AUTO
-    annotShowOrientation = ANNO_ORIENTATION_SIZE_WEIGHTED
-    annotVerticalRuler = TRUE
-    annotHorizontalRuler = FALSE
-  }
-}
-module Bypass {
-  internal  {
-    frame = "716 176 104 56"
-    moduleGroupName = Substraction
-    showNetworkPanel = true
-  }
-  fields  {
-    instanceName = Bypass
-    noBypass = FALSE
-  }
-}
-module ROISelect {
-  internal  {
-    frame = "778 -36 96 56"
-    moduleGroupName = Substraction
-    windows  {
-      window _default {
-        geometry = "1185 417 710 410"
-        sizeHint = "710 410"
-        wasOpen = no
-      }
-      window _automatic {
-        geometry = "1079 306 500 600"
-        sizeHint = "262 217"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = ROISelect3
-    editMode = Edit
-    currentPosOn = Navigate
-    editModeFieldDisable = FALSE
-    allTimepoints = FALSE
-    usePreview = FALSE
-    timepoint = 0
-    unit = ""
-    startWorldPos = "-200.1953125 -114.1953125 -136.5"
-    startVoxelX = 51
-    startVoxelY = 51
-    startVoxelZ = 14
-    endWorldPos = "-50.78125 35.21875 -52.5"
-    endVoxelX = 204
-    endVoxelY = 204
-    endVoxelZ = 56
-    boxOn = TRUE
-    boxShiftListen = RELEASED
-    boxCtrlListen = RELEASED
-    boxBlend = 0.14
-    boxColor = "1 0.979525029659271 0.38740399479866"
-    allowDraw = TRUE
-    reset = FALSE
-    currentPos = "-0.48828125 85.51171875 -23.5"
-    currentPosShiftListen = PRESSED
-    currentPosCtrlListen = RELEASED
-    currentPosColor = "1 1 1"
-    layout = LAYOUT_ROW_EQUAL
-    worldPosition = "-0.48828125 85.51171875 -23.5"
-    useGlobalInputImage = TRUE
-    restriction = MaxMBytesIsotropic
-    limit = 10
-    grayWidth = 0.5
-    grayCenter = 0.25
-    annotationColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationOn = TRUE
-    annotShowAnnot = ANNO_SHOW_HIDE
-    annotFontSize = ANNO_SIZE_AUTO
-    annotShowOrientation = ANNO_ORIENTATION_SIZE_WEIGHTED
-    annotVerticalRuler = TRUE
-    annotHorizontalRuler = FALSE
-  }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "720 -158 96 72"
-    moduleGroupName = Substraction
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "774 569 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic21
-    function = Subtract
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
-  }
-}
-module PythonArithmetic {
-  internal  {
-    frame = "566 -144 128 56"
-    moduleGroupName = Substraction
-    windows  {
-      window _default {
-        geometry = "700 373 519 497"
-        sizeHint = "519 497"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = PythonArithmetic2
-    calculateOutputSubImage = ""
-    calculateInputSubImageBox = ""
-    calculateOutputImageProperties = ""
-    numberOfInputs = 2
-    doubleConstant0 = 0
-    doubleConstant1 = 0
-    doubleConstant2 = 0
-    doubleConstant3 = 0
-    doubleConstant4 = 0
-    doubleConstant5 = 0
-    doubleConstantName0 = ""
-    doubleConstantName1 = ""
-    doubleConstantName2 = ""
-    doubleConstantName3 = ""
-    doubleConstantName4 = ""
-    doubleConstantName5 = ""
-    intConstant0 = 0
-    intConstant1 = 0
-    intConstant2 = 0
-    intConstant3 = 0
-    intConstant4 = 0
-    intConstant5 = 0
-    intConstantName0 = ""
-    intConstantName1 = ""
-    intConstantName2 = ""
-    intConstantName3 = ""
-    intConstantName4 = ""
-    intConstantName5 = ""
-    setMinMaxValues = FALSE
-    minVoxelValue = 0
-    maxVoxelValue = 0
-    setDataType = FALSE
-    dataType = "unsigned int8"
-    inputDataType0 = "output type"
-    inputDataType1 = "output type"
-    inputDataType2 = "output type"
-    inputDataType3 = "output type"
-    inputDataType4 = "output type"
-    inputHandling0 = AllowAny
-    inputHandling1 = AllowAny
-    inputHandling2 = AllowAny
-    inputHandling3 = AllowAny
-    inputHandling4 = AllowAny
-  }
-}
 module View3D {
   internal  {
-    frame = "-557 -25 144 56"
+    frame = "-10 -47 144 56"
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "849 444 1035 640"
-        sizeHint = "1156 640"
+        geometry = "143 52 905 640"
+        sizeHint = "1026 640"
         wasOpen = no
       }
       window LutEditor {
@@ -1174,18 +711,18 @@ module View3D {
     }
   }
   fields  {
-    instanceName = View3D3
+    instanceName = lungs_and_trachea
     autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
-    lutType = Editor
+    lutType = Ramp
     rendererType = Slicer
     currentTimePoint = 0
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ -1024 0.256000012159348 0.256000012159348 0.256000012159348, -634.782104492188 0.30216571688652 0.232486918568611 0.232486918568611, -552.220764160156 0.796078443527222 0.0392156876623631 0.0392156876623631, -483.418579101562 0.521568655967712 0.521568655967712 0.521568655967712, 0 0.256000012159348 0.256000012159348 0.256000012159348, 9 0.257129430770874 0.253371149301529 0.253852963447571 ]"
-    lutEditorAlphaPoints = "[ -1024 0, -634.782104492188 0, -552.220764160156 0.368700265884399, -483.418579101562 0, 0 0, 9 0.00671367393806577 ]"
+    lutEditorColorPoints = "[ -2976 0.256000012159348 0.256000012159348 0.256000012159348, -1889.0009765625 0.256000012159348 0.256000012159348 0.256000012159348, -1476.47570800781 0.256000012159348 0.256000012159348 0.256000012159348, -1034.99145507812 0.256000012159348 0.256000012159348 0.256000012159348, -555.448120117188 0.256000012159348 0.256000012159348 0.256000012159348, 0 0.256000012159348 0.256000012159348 0.256000012159348, 0.00400000018998981 0.257129430770874 0.253371149301529 0.253852963447571, 555.874389648438 0.257129430770874 0.253371149301529 0.253852963447571, 769.004760742188 0.257129430770874 0.253371149301529 0.253852963447571, 1024 0.257129430770874 0.253371149301529 0.253852963447571 ]"
+    lutEditorAlphaPoints = "[ -2976 0, -1889.0009765625 0, -1476.47570800781 0.527851462364197, -1034.99145507812 0.618037164211273, -555.448120117188 0, 0 0, 0.00400000018998981 0.00917431153357029, 555.874389648438 0.143730893731117, 769.004760742188 0.388379216194153, 1024 0.00671367393806577 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
@@ -1198,12 +735,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "182.100646972656 457.868041992188 846.883972167969"
-    camOrientation = "-0.917747676372528 -0.297969490289688 0.262589901685715 0.28000482916832"
+    camPosition = "252.111679077148 -723.952026367188 353.379486083984"
+    camOrientation = "0.998412489891052 -0.034002248197794 0.0449031814932823 1.3577253818512"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 962.78638
-    camNear = 648.71686
-    camFocal = 805.59515
+    camFar = 1273.5389
+    camNear = 720.69391
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1249,15 +786,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 512
-    renderer.sizeOutputY = 512
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputX = 500
+    renderer.sizeOutputY = 500
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 512
-    renderer.subVolumeEndY = 512
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndX = 500
+    renderer.subVolumeEndY = 500
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -1282,7 +819,7 @@ module View3D {
 }
 module Bypass {
   internal  {
-    frame = "212 774 112 56"
+    frame = "444 921 112 56"
     moduleGroupName = "Import Dataset"
     showNetworkPanel = true
   }
@@ -1293,12 +830,12 @@ module Bypass {
 }
 module Counter {
   internal  {
-    frame = "-349 -129 80 72"
-    moduleGroupName = "Lung and Trachea Segmentation"
+    frame = "417 -427 80 72"
+    moduleGroupName = "Timepoint Control"
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "984 187 599 248"
+        geometry = "989 183 599 248"
         sizeHint = "599 248"
         wasOpen = no
       }
@@ -1311,25 +848,25 @@ module Counter {
   }
   fields  {
     instanceName = Counter1
-    currentValue = 5
+    currentValue = 0
     minValue = 0
     maxValue = 9
     startValue = 0
     stepValue = 1
     loop = TRUE
     checkConsistency = TRUE
-    autoStepInterval_s = 0.11
+    autoStepInterval_s = 0.21
     stepDirection = Up
   }
 }
 module View3D {
   internal  {
-    frame = "-317 -25 144 56"
+    frame = "230 -47 144 56"
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "682 178 1035 640"
-        sizeHint = "1156 640"
+        geometry = "764 427 905 640"
+        sizeHint = "1026 640"
         wasOpen = no
       }
       window LutEditor {
@@ -1345,11 +882,11 @@ module View3D {
     }
   }
   fields  {
-    instanceName = View3D1
+    instanceName = trachea
     autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
-    lutType = Editor
+    lutType = Ramp
     rendererType = Slicer
     currentTimePoint = 0
     staticSamplingRate = 1
@@ -1369,12 +906,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "229.287231445313 57.1506195068359 174.912231445313"
-    camOrientation = "0.881695985794067 0.154537990689278 -0.445791691541672 1.23649096488953"
+    camPosition = "534.060974121094 -705.142700195313 114.468338012695"
+    camOrientation = "0.979926466941833 0.125253200531006 0.155099079012871 1.62273991107941"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 515.27045
-    camNear = 0.51424098
-    camFocal = 226.17815
+    camFar = 1313.3236
+    camNear = 680.98926
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1420,15 +957,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 512
-    renderer.sizeOutputY = 512
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputX = 500
+    renderer.sizeOutputY = 500
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 512
-    renderer.subVolumeEndY = 512
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndX = 500
+    renderer.subVolumeEndY = 500
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = TRUE
     clip.left = FALSE
@@ -1453,7 +990,7 @@ module View3D {
 }
 module CalculateVolume {
   internal  {
-    frame = "-1181 -183 152 72"
+    frame = "814 -383 152 72"
     moduleGroupName = "Lung Volume"
     showNetworkPanel = true
     windows  {
@@ -1473,18 +1010,18 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 5
+    userTimepoint = 0
     curveType = Line
     curveStyle = 0
   }
 }
 module CurveInspector {
   internal  {
-    frame = "-1196 -475 112 56"
+    frame = "799 -675 112 56"
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
-        geometry = "1297 45 623 326"
+        geometry = "347 554 623 346"
         sizeHint = "232 208"
         wasOpen = no
       }
@@ -1508,37 +1045,10 @@ module CurveInspector {
     showLegend = TRUE
   }
 }
-module LungSegmentation {
-  internal  {
-    frame = "-385 255 136 56"
-    moduleGroupName = "Lung and Trachea Segmentation"
-    localMacro = 1
-    windows  {
-      window _default {
-        geometry = "812 380 489 469"
-        sizeHint = "249 106"
-        wasOpen = no
-      }
-      window _automatic {
-        geometry = "709 321 500 600"
-        sizeHint = "266 266"
-        wasOpen = no
-      }
-      window _scriptingconsole {
-        geometry = "659 371 600 500"
-        sizeHint = "260 237"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = LungSegmentation
-  }
-}
 module SubstractionImage {
   internal  {
-    frame = "-875 261 136 56"
-    moduleGroupName = ""
+    frame = "205 -432 136 56"
+    moduleGroupName = "Substraction Images"
     localMacro = 1
     windows  {
       window _default {
@@ -1552,74 +1062,13 @@ module SubstractionImage {
     instanceName = SubstractionImage
   }
 }
-module View2D {
-  internal  {
-    frame = "-943 101 80 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "124 460 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D1
-    inventorInputOn = FALSE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 0
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 9
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_Z
-    cineDirection = CINE_PINGPONG
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = FALSE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0.5
-    lutWidth = 1
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = TRUE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = FALSE
-  }
-}
 module View3D {
   internal  {
-    frame = "-1095 37 144 56"
-    moduleGroupName = ""
+    frame = "202 -633 144 72"
+    moduleGroupName = "Substraction Images"
     windows  {
       window _default {
-        geometry = "889 453 1070 640"
+        geometry = "424 298 1070 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
@@ -1636,18 +1085,18 @@ module View3D {
     }
   }
   fields  {
-    instanceName = View3D6
+    instanceName = substraction_images
     autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = TRUE
     lutType = Editor
     rendererType = Slicer
-    currentTimePoint = 5
+    currentTimePoint = 0
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ -975 0.756862998008728 0.0431373007595539 0.0235293991863728, -742.956237792969 0.478430986404419 0 0.0470587983727455, -377.772583007812 0.423526793718338 0.0631906762719154 0.0986335724592209, -119.100997924805 0.346015006303787 0.152401000261307 0.171444997191429, 0 0.256000012159348 0.256000012159348 0.256000012159348, 2.02835011482239 0 0 0, 367.810668945312 0.0564514622092247 0.380525469779968 0, 713.974304199219 0.105881996452808 0.713725984096527 0, 1024 0.0431373007595539 0.792156994342804 0 ]"
-    lutEditorAlphaPoints = "[ -975 1, -742.956237792969 0.220159158110619, -377.772583007812 0.050397876650095, -119.100997924805 0, 0 0, 2.02835011482239 0, 367.810668945312 0.0344827584922314, 713.974304199219 0.236074268817902, 1024 1 ]"
+    lutEditorColorPoints = "[ -975 0.756862998008728 0.0431373007595539 0.0235293991863728, -742.955993652344 0.478430986404419 0 0.0470587983727455, -377.773010253906 0.423527002334595 0.0631906986236572 0.0986336022615433, -119.100997924805 0.346015006303787 0.152401000261307 0.171444997191429, 0 0.256000012159348 0.256000012159348 0.256000012159348, 2.02835011482239 0 0 0, 367.811004638672 0.0564514994621277 0.38052499294281 0, 713.973999023438 0.105881996452808 0.713725984096527 0, 1024 0.0431373007595539 0.792156994342804 0 ]"
+    lutEditorAlphaPoints = "[ -975 1, -742.955993652344 0.220158994197845, -377.773010253906 0.0503978990018368, -119.100997924805 0, 0 0, 2.02835011482239 0, 367.811004638672 0.0344827994704247, 713.973999023438 0.236074000597, 1024 1 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
@@ -1660,12 +1109,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "145.404296875 105.320648193359 598.810791015625"
-    camOrientation = "0.760378956794739 -0.60719507932663 0.230517044663429 0.349553883075714"
+    camPosition = "250 -746.840942382813 141.000061035156"
+    camOrientation = "0.999999940395355 0 0 1.57079637050629"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 747.66919
-    camNear = 373.50354
-    camFocal = 560.39972
+    camFar = 1248.5884
+    camNear = 745.59467
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1711,15 +1160,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 512
-    renderer.sizeOutputY = 512
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputX = 500
+    renderer.sizeOutputY = 500
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 512
-    renderer.subVolumeEndY = 512
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndX = 500
+    renderer.subVolumeEndY = 500
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -1742,28 +1191,9 @@ module View3D {
     clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
   }
 }
-module Arithmetic1 {
-  internal  {
-    frame = "-983 173 112 72"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "810 587 307 69"
-        sizeHint = "299 69"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Arithmetic13
-    function = Multiply
-    constant = -1
-  }
-}
 module CurveProperties {
   internal  {
-    frame = "-1232 -331 120 56"
+    frame = "812 -469 152 72"
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
@@ -1774,7 +1204,7 @@ module CurveProperties {
     }
   }
   fields  {
-    instanceName = CurveProperties
+    instanceName = Modify_Volume_Curve
     applyStyle = TRUE
     style = 1
     applyType = TRUE
@@ -1789,7 +1219,7 @@ module CurveProperties {
 }
 module CurveCursor {
   internal  {
-    frame = "-1092 -267 96 72"
+    frame = "1012 -381 120 72"
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
@@ -1805,8 +1235,8 @@ module CurveCursor {
     }
   }
   fields  {
-    instanceName = Timepoint
-    posX = 5
+    instanceName = Timepoint_Curve
+    posX = 0
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -1824,7 +1254,7 @@ module CurveCursor {
 }
 module CurveProperties {
   internal  {
-    frame = "-1104 -331 120 56"
+    frame = "992 -469 160 72"
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
@@ -1835,7 +1265,7 @@ module CurveProperties {
     }
   }
   fields  {
-    instanceName = CurveProperties1
+    instanceName = Modify_Timepoint_Curve
     applyStyle = FALSE
     style = 1
     applyType = FALSE
@@ -1850,7 +1280,7 @@ module CurveProperties {
 }
 module ConcatenateCurves {
   internal  {
-    frame = "-1208 -395 136 56"
+    frame = "787 -595 136 56"
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
@@ -1870,11 +1300,11 @@ module ConcatenateCurves {
 }
 module Convolution {
   internal  {
-    frame = "-1207 37 96 56"
-    moduleGroupName = ""
+    frame = "225 -512 96 56"
+    moduleGroupName = "Substraction Images"
     windows  {
       window _default {
-        geometry = "313 593 319 178"
+        geometry = "522 236 319 178"
         sizeHint = "314 178"
         wasOpen = no
       }
@@ -1892,30 +1322,13 @@ module Convolution {
     predefKernel = "3x3 Average Kernel"
   }
 }
-module ConstantXMarkerList {
-  internal  {
-    frame = "-935 477 144 56"
-    moduleGroupName = ""
-    windows  {
-      window _default {
-        geometry = "1090 217 570 563"
-        sizeHint = "357 539"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = ConstantXMarkerList
-    markerList = "246 225 233"
-  }
-}
 module View3D {
   internal  {
-    frame = "-847 -123 144 56"
-    moduleGroupName = ""
+    frame = "141 -752 152 72"
+    moduleGroupName = "Substraction Images"
     windows  {
       window _default {
-        geometry = "176 463 927 640"
+        geometry = "993 341 927 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
@@ -1932,7 +1345,7 @@ module View3D {
     }
   }
   fields  {
-    instanceName = View3D7
+    instanceName = substraction_overlayed
     autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
@@ -1956,12 +1369,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "251.949478149414 709.428283691406 923.332946777344"
-    camOrientation = "-0.993523478507996 0.0190544724464417 0.112018339335918 0.491838872432709"
+    camPosition = "394.961578369141 -422.858673095703 225.27409362793"
+    camOrientation = "0.987467229366302 0.112888500094414 0.11029364168644 1.45985567569733"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1151.2142
-    camNear = 780.92786
-    camFocal = 965.88696
+    camFar = 1007.0723
+    camNear = 380.42676
+    camFocal = 693.43695
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -2007,15 +1420,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 512
-    renderer.sizeOutputY = 512
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputX = 500
+    renderer.sizeOutputY = 500
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 512
-    renderer.subVolumeEndY = 512
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndX = 500
+    renderer.subVolumeEndY = 500
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -2040,7 +1453,7 @@ module View3D {
 }
 module ImageSave {
   internal  {
-    frame = "-191 86 88 72"
+    frame = "381 133 88 72"
     moduleGroupName = "Lung and Trachea Segmentation"
     showNetworkPanel = true
     windows  {
@@ -2087,29 +1500,29 @@ module ImageSave {
 }
 module View3D {
   internal  {
-    frame = "-239 189 144 56"
+    frame = "404 -49 144 56"
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "447 293 1026 640"
+        geometry = "583 193 1026 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
     }
   }
   fields  {
-    instanceName = View3D
+    instanceName = lungs
     autoViewAll = TRUE
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
     lutType = Ramp
     rendererType = Slicer
-    currentTimePoint = 1
+    currentTimePoint = 0
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ 0 0 0 0, 4095 1 1 1 ]"
-    lutEditorAlphaPoints = "[ 0 0, 4095 1 ]"
+    lutEditorColorPoints = "[ 0 0 0 0, 467.554718017578 0.114176973700523 0.114176973700523 0.114176973700523, 864.976196289062 0.211227402091026 0.211227402091026 0.211227402091026, 4095 1 1 1 ]"
+    lutEditorAlphaPoints = "[ 0 0, 467.554718017578 0.211009174585342, 864.976196289062 0.418960243463516, 4095 1 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
@@ -2122,12 +1535,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "315.841491699219 61.3456726074219 168.913970947266"
-    camOrientation = "0.955191910266876 0.114498198032379 0.272944539785385 1.17054975032806"
+    camPosition = "334.160614013672 -424.018310546875 280.538818359375"
+    camOrientation = "0.992740213871002 0.0277889855206013 0.117024168372154 1.37949442863464"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 546.23114
-    camNear = 0.54513979
-    camFocal = 226.17812
+    camFar = 996.79419
+    camNear = 390.68439
+    camFocal = 693.43695
     camHeight = 0.78539801
     decoration = FALSE
     annotations = TRUE
@@ -2173,15 +1586,15 @@ module View3D {
     renderer.light3Color = "1 1 1"
     renderer.light3PolarPhi = -45
     renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 512
-    renderer.sizeOutputY = 512
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputX = 500
+    renderer.sizeOutputY = 500
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 512
-    renderer.subVolumeEndY = 512
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndX = 500
+    renderer.subVolumeEndY = 500
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -2204,10 +1617,38 @@ module View3D {
     clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
   }
 }
+module segmentation {
+  internal  {
+    frame = "185 168 112 56"
+    moduleGroupName = "Lung and Trachea Segmentation"
+    localMacro = 1
+    windows  {
+      window _default {
+        geometry = "709 321 500 600"
+        sizeHint = "266 266"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = segmentation
+  }
+}
+module Bypass {
+  internal  {
+    frame = "125 -368 104 56"
+    moduleGroupName = "Substraction Images"
+    showNetworkPanel = true
+  }
+  fields  {
+    instanceName = Bypass
+    noBypass = FALSE
+  }
+}
 connections  {
   ApplyDicomPixelModifiers.input0 = DirectDicomImport.output0
   DownSampling.input0 = Switch.output0
-  OutputImage.input0 = SampleToggle.output0
+  OutputImage.input0 = Resample3D.output0
   Switch.input0 = LocalImage1.outImage
   Switch.input1 = ApplyDicomPixelModifiers.output0
   DataPreview.image = SampleToggle.output0
@@ -2217,40 +1658,29 @@ connections  {
   UpSampling.input0 = Switch.output0
   View2D.inImage = Resample3D.output0
   Resample3D.input0 = SampleToggle.output0
-  Arithmetic0.arg1X = Counter.currentValue
-  View2D12.inImage = Arithmetic21.output0
-  ROISelect2.inImage = Bypass.output0
-  ROISelect2.timepoint = Arithmetic0.arg1X
-  Bypass.input0 = OutputImage.output0
-  ROISelect3.inImage = Bypass.output0
-  ROISelect3.timepoint = Arithmetic0.resultX
-  Arithmetic21.input0 = ROISelect2.outImage
-  Arithmetic21.input1 = ROISelect3.outImage
-  PythonArithmetic2.input0 = ROISelect2.outImage
-  PythonArithmetic2.input1 = ROISelect3.outImage
-  View3D3.inImage = LungSegmentation.lungs
-  View3D3.currentTimePoint = Counter1.currentValue
+  lungs_and_trachea.inImage = segmentation.lungs_with_trachea
+  lungs_and_trachea.currentTimePoint = Counter1.currentValue
   Bypass2.input0 = Switch.output0
-  View3D1.inImage = LungSegmentation.trachea
-  View3D1.currentTimePoint = Counter1.currentValue
+  trachea.inImage = segmentation.trachea
+  trachea.currentTimePoint = Counter1.currentValue
+  CalculateVolume.input0 = segmentation.lungs
   CalculateVolume.userTimepoint = Counter1.currentValue
   CurveInspector.inCurve = ConcatenateCurves.outCurveList
-  LungSegmentation.input0 = OutputImage.output0
-  View2D1.inImage = Arithmetic13.output0
-  View3D6.inImage = Convolution.output0
-  View3D6.currentTimePoint = Counter1.currentValue
-  Arithmetic13.input0 = SubstractionImage.output0
-  CurveProperties.inCurves = CalculateVolume.outTimeCurve
-  Timepoint.posX = Counter1.currentValue
-  CurveProperties1.inCurves = Timepoint.outCurveList
-  ConcatenateCurves.inCurve1 = CurveProperties.outCurves
-  ConcatenateCurves.inCurve2 = CurveProperties1.outCurves
-  Convolution.input0 = Arithmetic13.output0
-  View3D7.inImage = LungSegmentation.lungs
-  View3D7.inInvPreLUT = View3D6.self
-  View3D7.currentTimePoint = Counter1.currentValue
-  ImageSave.input0 = LungSegmentation.trachea
-  View3D.inImage = LungSegmentation.test
+  SubstractionImage.input0 = Bypass.output0
+  substraction_images.inImage = Convolution.output0
+  substraction_images.currentTimePoint = Counter1.currentValue
+  Modify_Volume_Curve.inCurves = CalculateVolume.outTimeCurve
+  Timepoint_Curve.posX = Counter1.currentValue
+  Modify_Timepoint_Curve.inCurves = Timepoint_Curve.outCurveList
+  ConcatenateCurves.inCurve1 = Modify_Volume_Curve.outCurves
+  ConcatenateCurves.inCurve2 = Modify_Timepoint_Curve.outCurves
+  Convolution.input0 = SubstractionImage.output0
+  substraction_overlayed.inImage = Bypass.output0
+  substraction_overlayed.inInvPreLUT = substraction_images.self
+  substraction_overlayed.currentTimePoint = Counter1.currentValue
+  lungs.inImage = segmentation.lungs
+  segmentation.input0 = OutputImage.output0
+  Bypass.input0 = segmentation.lungs
 }
 networkModel  {
   parentItems  {
@@ -2258,17 +1688,6 @@ networkModel  {
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 100
         objectName = "Import Dataset"
-        parentUniqueId = 0
-        color  {
-          r = 140
-          g = 140
-          b = 140
-          a = 40
-        }
-      }
-      MLABNetworkModelItem MLABNetworkModelItemGroup {
-        uniqueId = 187
-        objectName = Substraction
         parentUniqueId = 0
         color  {
           r = 140
@@ -2288,6 +1707,58 @@ networkModel  {
           a = 40
         }
       }
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 185
+        objectName = ""
+        parentUniqueId = 241
+        frame = "589 -132 428 495"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "Step 1 (automatic segmentation of lungs and trachea):
+
+Create a mask of HU values < -250 over the thorax dataset, cutting away air / the tray the patient is laying on and fill up structures inside the lungs that contain some air. The resulting image contains the lungs and trachea only, everything else is cut away. The image is then flipped, so all values become positive. This makes it easier to visualize the images in MeVislab, as LUTs don't have to be adjusted as often. 
+
+Step 2 (segmentation of the trachea):
+
+Apply RegionGrowing module with a calculated seedpoint to thorax dataset. The initial threshold is set to -900HU and is increasing over time. Whenever the calculated volume of the segment is twice as large as before, we can assume the RegionGrowing module connects with a lung. In that case the RegionGrowing operation is performed again with a smaller threshold step. This process is repeated until the threshold can't be increased anymore without connecting the trachea to the lung, resulting in the largest possible trachea volume. A dilation and closing-morphological operations are performed to include the trachea wand and to fill in holes in the structure.
+
+Step 3 (segmentation of the lungs):
+
+The mask of the trachea is substracted from the mask that contains both the lungs and trachea. Since the trachea-mask does not overlap perfectly with the mask of the lungs and trachea, an opening-morphological operation is performed to remove some leftover spots.
+The resulting mask is applied to the image created in step 1 to create a segmentation of the lungs."
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>Step 1 (automatic segmentation of lungs and trachea):</p>
+<p>Create a mask of HU values &lt; -250 over the thorax dataset, cutting away air / the tray the patient is laying on and fill up structures inside the lungs that contain some air. The resulting image contains the lungs and trachea only, everything else is cut away. The image is then flipped, so all values become positive. This makes it easier to visualize the images in MeVislab, as LUTs don't have to be adjusted as often.</p>
+<p>Step 2 (segmentation of the trachea):</p>
+<p>Apply RegionGrowing module with a calculated seedpoint to thorax dataset. The initial threshold is set to -900HU and is increasing over time. Whenever the calculated volume of the segment is twice as large as before, we can assume the RegionGrowing module connects with a lung. In that case the RegionGrowing operation is performed again with a smaller threshold step. This process is repeated until the threshold can't be increased anymore without connecting the trachea to the lung, resulting in the largest possible trachea volume. A dilation and closing-morphological operations are performed to include the trachea wand and to fill in holes in the structure.</p>
+<p>Step 3 (segmentation of the lungs):</p>
+<p>The mask of the trachea is substracted from the mask that contains both the lungs and trachea. Since the trachea-mask does not overlap perfectly with the mask of the lungs and trachea, an opening-morphological operation is performed to remove some leftover spots.
+The resulting mask is applied to the image created in step 1 to create a segmentation of the lungs.</p>
+
+
+  </body>
+</html>*"
+        titleText = "Lung and Trachea Segmentation"
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "594 -127 418 22"
+      }
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 239
         objectName = "Lung Volume"
@@ -2298,6 +1769,146 @@ networkModel  {
           b = 140
           a = 40
         }
+      }
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 450
+        objectName = ""
+        parentUniqueId = 239
+        frame = "1162 -680 239 371"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "the CalculateVolume-module calculates the volume of the lungs.
+A new curve is created based on the timepoint-counter to visually show at which timepoint the counter (and thus all images) is
+The ConcatenateCurves-module concatenates the two curves together so they can be shown in the CurveInspector at the same time"
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>the CalculateVolume-module calculates the volume of the lungs.
+A new curve is created based on the timepoint-counter to visually show at which timepoint the counter (and thus all images) is
+The ConcatenateCurves-module concatenates the two curves together so they can be shown in the CurveInspector at the same time</p>
+
+
+  </body>
+</html>*"
+        titleText = "Lung Volume Graph"
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "1167 -675 229 22"
+      }
+      MLABNetworkModelItem MLABNetworkModelItemGroup {
+        uniqueId = 125
+        objectName = "Substraction Images"
+        parentUniqueId = 0
+        color  {
+          r = 140
+          g = 140
+          b = 140
+          a = 40
+        }
+      }
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 452
+        objectName = ""
+        parentUniqueId = 125
+        frame = "-204 -758 332 366"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "*A subtraction image is created for each time-point of the source image by subtracting the image of the previous time-point from the image of the current time-point. Example: for time-point 2, the image of time-point 1 is subtracted from the image at time-point 2.
+
+To remove some noise/errors created by moving voxels, a Convolution-module with a 3x3x3 local-average kernel is applied over the subtraction images.
+
+A bowl shaped LUT-curve is applied in the "substraction_images View3D" module, so big changes are highlighted more than small changes. Furthermore, positive changes (corresponding to inspiration) are highlighted in green and negative changes (corresponding to expiration) are highlighted in red.
+
+This LUT is then covered over the regular lung segmentation, so movement through time-points becomes easier to see.*"
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>A subtraction image is created for each time-point of the source image by subtracting the image of the previous time-point from the image of the current time-point. Example: for time-point 2, the image of time-point 1 is subtracted from the image at time-point 2.</p>
+<p>To remove some noise/errors created by moving voxels, a Convolution-module with a 3x3x3 local-average kernel is applied over the subtraction images.</p>
+<p>A bowl shaped LUT-curve is applied in the &quot;substraction_images View3D&quot; module, so big changes are highlighted more than small changes. Furthermore, positive changes (corresponding to inspiration) are highlighted in green and negative changes (corresponding to expiration) are highlighted in red.</p>
+<p>This LUT is then covered over the regular lung segmentation, so movement through time-points becomes easier to see.</p>
+
+
+  </body>
+</html>*"
+        titleText = "Substraction Images"
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "-199 -753 322 22"
+      }
+      MLABNetworkModelItem MLABNetworkModelItemGroup {
+        uniqueId = 436
+        objectName = "Timepoint Control"
+        parentUniqueId = 0
+        color  {
+          r = 140
+          g = 140
+          b = 140
+          a = 40
+        }
+      }
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 451
+        objectName = ""
+        parentUniqueId = 436
+        frame = "503 -517 200 200"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "This counter is used to select which time-point should be visualized in various View3D modules in this application. It is also used in the Lung Volume section to calculate the volume for the selected time-point and to create a visual marker for the selected time-point in the CurveInspector-module"
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>This counter is used to select which time-point should be visualized in various View3D modules in this application. It is also used in the Lung Volume section to calculate the volume for the selected time-point and to create a visual marker for the selected time-point in the CurveInspector-module</p>
+
+
+  </body>
+</html>*"
+        titleText = "Timepoint Counter"
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "508 -512 190 22"
       }
     }
   }

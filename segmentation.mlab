@@ -5,7 +5,7 @@ network  {
 }
 module PythonImage {
   internal  {
-    frame = "353 373 128 72"
+    frame = "721 365 128 72"
     moduleGroupName = ""
   }
   fields  {
@@ -14,16 +14,16 @@ module PythonImage {
 }
 module PythonImage {
   internal  {
-    frame = "1065 397 160 72"
+    frame = "549 357 136 72"
     moduleGroupName = ""
   }
   fields  {
-    instanceName = lungs_and_trachea_mask
+    instanceName = RegionGrowingInput
   }
 }
 module RegionGrowing {
   internal  {
-    frame = "673 205 160 72"
+    frame = "553 237 144 72"
     moduleGroupName = ""
     showNetworkPanel = true
     windows  {
@@ -74,191 +74,26 @@ module RegionGrowing {
     autoThresholdIntervalSizeInPercent = 5
   }
 }
-module FastMorphology {
-  internal  {
-    frame = "669 125 152 72"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "779 423 365 397"
-        sizeHint = "360 397"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = FastMorphology
-    morphologicOperation = Dilation
-    xSize = 1
-    ySize = 1
-    zSize = 1
-    cSize = 0
-    tSize = 0
-    uSize = 0
-    useInputMaxValue = FALSE
-    userSetMaxValue = 1
-    autoUpdate = TRUE
-    useGreyScaleMorphology = FALSE
-    boundaryHandling = "Propagate boundary values"
-    boundaryFillValue = 0
-  }
-}
-module FastMorphology {
-  internal  {
-    frame = "669 29 152 88"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "779 423 365 397"
-        sizeHint = "360 397"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = trachea_mask
-    morphologicOperation = Closing
-    xSize = 1
-    ySize = 1
-    zSize = 1
-    cSize = 0
-    tSize = 0
-    uSize = 0
-    useInputMaxValue = FALSE
-    userSetMaxValue = 1
-    autoUpdate = TRUE
-    useGreyScaleMorphology = FALSE
-    boundaryHandling = "Propagate boundary values"
-    boundaryFillValue = 0
-  }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "637 -131 184 88"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "340 129 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Substract_trachea_from_mask
-    function = Subtract
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
-  }
-}
-module FastMorphology {
-  internal  {
-    frame = "645 -275 152 88"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "779 423 365 397"
-        sizeHint = "360 397"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = lungs_mask
-    morphologicOperation = Opening
-    xSize = 1
-    ySize = 1
-    zSize = 1
-    cSize = 0
-    tSize = 0
-    uSize = 0
-    useInputMaxValue = FALSE
-    userSetMaxValue = 1
-    autoUpdate = TRUE
-    useGreyScaleMorphology = FALSE
-    boundaryHandling = "Propagate boundary values"
-    boundaryFillValue = 0
-  }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "561 -371 96 88"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "340 129 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Lungs_HU
-    function = Multiply
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
-  }
-}
-module Arithmetic2 {
-  internal  {
-    frame = "537 -67 96 88"
-    moduleGroupName = ""
-    showNetworkPanel = true
-    windows  {
-      window _default {
-        geometry = "774 569 375 105"
-        sizeHint = "370 105"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = Trachea_HU
-    function = Multiply
-    outputImageSize = InvalidateOutputIfSizesDiffer
-    constant = 0
-    autoReplicate = FALSE
-  }
-}
-module Bypass {
-  internal  {
-    frame = "501 293 184 72"
-    moduleGroupName = ""
-    showNetworkPanel = true
-  }
-  fields  {
-    instanceName = lungs_and_trachea_HU
-    noBypass = FALSE
-  }
-}
 module PythonImage {
   internal  {
-    frame = "1109 53 104 56"
+    frame = "877 373 104 56"
     moduleGroupName = ""
   }
   fields  {
     instanceName = PythonImage
   }
 }
+module PythonImage {
+  internal  {
+    frame = "1013 373 104 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage1
+  }
+}
 connections  {
-  RegionGrowing.input0 = lungs_and_trachea_HU.output0
-  FastMorphology.input0 = RegionGrowing.output0
-  trachea_mask.input0 = FastMorphology.output0
-  Substract_trachea_from_mask.input0 = lungs_and_trachea_mask.output0
-  Substract_trachea_from_mask.input1 = trachea_mask.output0
-  lungs_mask.input0 = Substract_trachea_from_mask.output0
-  Lungs_HU.input0 = lungs_mask.output0
-  Lungs_HU.input1 = lungs_and_trachea_HU.output0
-  Trachea_HU.input0 = trachea_mask.output0
-  Trachea_HU.input1 = lungs_and_trachea_HU.output0
-  lungs_and_trachea_HU.input0 = lungs_and_trachea.output0
+  RegionGrowing.input0 = RegionGrowingInput.output0
 }
 networkModel  {
   parentItems  {
