@@ -148,7 +148,7 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 1
+    grayWidth = 400
     grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -607,7 +607,7 @@ module View2D {
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
-        geometry = "1466 285 400 400"
+        geometry = "1209 275 400 400"
         sizeHint = "400 400"
         wasOpen = no
       }
@@ -618,14 +618,14 @@ module View2D {
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
     view2DExtensionsOn = TRUE
-    startSlice = 0
+    startSlice = 141
     numSlices = 1
     numXSlices = 1
     sliceStep = 1
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 0
+    maxTimePoint = 9
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_ZT
@@ -644,7 +644,7 @@ module View2D {
     useShaders = TRUE
     useManagedInteraction = FALSE
     lutCenter = 0
-    lutWidth = 1
+    lutWidth = 400
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -668,7 +668,7 @@ module Resample3D {
     moduleGroupName = "Import Dataset"
     windows  {
       window _default {
-        geometry = "790 451 339 340"
+        geometry = "611 451 339 340"
         sizeHint = "339 340"
         wasOpen = no
       }
@@ -677,7 +677,7 @@ module Resample3D {
   fields  {
     instanceName = Resample3D
     keep = "Voxel size"
-    filter = Lanczos_3
+    filter = Lanczos_2
     isotropic = FALSE
     filterAlways = FALSE
     filterAlwaysTolerance = 0
@@ -735,12 +735,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "298.939880371094 -742.114135742188 224.705352783203"
-    camOrientation = "0.999325633049011 0.0305677391588688 0.0203477051109076 1.4871072769165"
+    camPosition = "345.012420654297 -688.890502929688 99.6655426025391"
+    camOrientation = "0.99737948179245 0.0538917109370232 0.0482693389058113 1.5421644449234"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1271.6038
-    camNear = 722.62543
-    camFocal = 996.841
+    camFar = 1221.8674
+    camNear = 666.95837
+    camFocal = 944.13629
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -788,13 +788,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -906,12 +906,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "534.060913085938 -705.142700195313 114.468338012695"
-    camOrientation = "0.979926586151123 0.125253215432167 0.155099093914032 1.62273991107941"
+    camPosition = "645.348571777344 -431.013671875 68.5414123535156"
+    camOrientation = "0.933526992797852 0.274147540330887 0.231020480394363 1.62983739376068"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1313.3236
-    camNear = 680.9892
-    camFocal = 996.841
+    camFar = 1131.1665
+    camNear = 444.427
+    camFocal = 787.45404
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -959,13 +959,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = TRUE
     clip.left = FALSE
@@ -1422,13 +1422,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -1504,7 +1504,7 @@ module View3D {
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "660 326 1026 640"
+        geometry = "508 374 1026 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
@@ -1535,12 +1535,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "224.77326965332 -722.685607910156 357.653198242188"
-    camOrientation = "0.995939910411835 -0.0706135481595993 0.0558333098888397 1.35421442985535"
+    camPosition = "169.799377441406 -270.501922607422 380.049682617188"
+    camOrientation = "0.979576647281647 -0.191300168633461 0.0619172714650631 1.14717304706573"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1279.6421
-    camNear = 714.60291
-    camFocal = 996.841
+    camFar = 897.91882
+    camNear = 259.43628
+    camFocal = 578.35901
     camHeight = 0.78539801
     decoration = FALSE
     annotations = TRUE
@@ -1588,13 +1588,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
+    renderer.sizeOutputZ = 141
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
+    renderer.subVolumeEndZ = 141
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE

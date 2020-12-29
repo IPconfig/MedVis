@@ -25,7 +25,7 @@ def show_array(y):
 
 # Helper function for reversing the order of dimensions from MevisLab to numpy format
 def reverse(tuples): 
-    new_tup = tuples[::-1] 
+    new_tup = tuples[::-1]
     return new_tup 
 
 
@@ -50,7 +50,7 @@ def segment_lung_and_trachea_mask(img, fill_lung_structures=True):
     # 0 is treated as background, which we do not want
     # tissues with a value of > -250 (lungs and air) have a value of 1
     # soft tissues, bonestructure and fluids will have a value of 2.
-    binary_image = np.array(img > -250, dtype=np.int16)+1
+    binary_image = np.array(img > -250, dtype=np.int8)+1
     labels = measure.label(input = binary_image, background = None,connectivity=3)
     
     # Pick pixel in every corner to determine which label is air.
@@ -126,7 +126,7 @@ def grow_trachea(interface, img, extent):
   trachea_volume_new = trachea_volume
   print(f"{trachea_volume} ml volume calculated")
 
-  while trachea_treshold_step <= -1:
+  while trachea_treshold_step < -1:
     if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea     
       trachea_treshold = trachea_treshold + trachea_treshold_step # restore old treshold value
       trachea_treshold_step = math.floor(trachea_treshold_step / 2) # halve the treshold step
@@ -136,12 +136,6 @@ def grow_trachea(interface, img, extent):
     ctx.field("RegionGrowing.update").touch() # press update button
     trachea_volume_new = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
 
-    # if step is still too large, decrease step by 1 and break. This is guaranteed to be the largest possible region without including a lung
-    if trachea_treshold_step == -1 and trachea_volume_new > 2 * trachea_volume:
-      trachea_treshold = trachea_treshold - 1
-      ctx.field("RegionGrowing.upperThreshold").value = trachea_treshold
-      ctx.field("RegionGrowing.update").touch() # press update button
-      break
   print(f'{round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)} ml volume final')
   return ctx.field("RegionGrowing.output0").image()
 
