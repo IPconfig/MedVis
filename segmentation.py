@@ -23,14 +23,14 @@ def show_array(y):
   print('array.ndim: ', y.ndim)
   print('array.shape: ', y.shape)
 
-# Helper function for reversing the order of dimensions from MevisLab to numpy format
 def reverse(tuples): 
+    """ Helper function for reversing the order of dimensions from MevisLab to numpy format. """
     new_tup = tuples[::-1]
     return new_tup 
 
 
-# Helper method that returns the label with the maximum volume
 def largest_label_volume(im, bg=-1):
+    """ Helper function for segment_lung_and_trachea_mask() that returns the label with the maximum volume"""
     vals, counts = np.unique(im, return_counts=True)
 
     counts = counts[vals != bg]
@@ -99,10 +99,21 @@ def find_nearest_air_coordinates(img, coordinates):
     nearest_index = np.argmin(distances)
     return filtered[nearest_index]
   
-def grow_trachea(interface, img, extent):
-  # we need to find a seed point of the trachea for the regiongrowing module.
+def grow_trachea(interface, img):
+  """
+      Calculate a seed point at 75% on the the z-axis (trachea is close to midpoint)
+      Apply regionGrowing module starting from calculated seed point
+      
+      Parameters:
+        interface: Interface of the regionGrowing module
+        img:       input image (at least 3D)
+      
+      Returns:
+        img: segmented image of the trachea
+  """
   # at around 75% on the z-axis, the trachea is located a little left and above of the midpoint
   # we will search for the first pixel with a HU-value of -900 from the midpoint of the image and update the coordinates accordingly
+  extent = img.imageExtent()
   regiongrowing_input = img.getTile((0,0,0,0,0,0),(extent))
   interface.setImage(regiongrowing_input) # output image to interface, so RegionGrowing-module can use it
   x_coordinate, y_coordinate, z_coordinate = int(extent[0]/2), int(extent[1]/2), int(round(0.75 * extent[2], 0))
@@ -126,15 +137,18 @@ def grow_trachea(interface, img, extent):
   trachea_volume_new = trachea_volume
   print(f"{trachea_volume} ml volume calculated")
 
-  while trachea_treshold_step < -1:
-    if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea     
+  while trachea_treshold_step < 0:
+    if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea
       trachea_treshold = trachea_treshold + trachea_treshold_step # restore old treshold value
-      trachea_treshold_step = math.floor(trachea_treshold_step / 2) # halve the treshold step
-    
+      trachea_treshold_step = math.ceil(trachea_treshold_step / 2) # halve the treshold step, if step becomes 0 we are done
+      
     trachea_treshold = trachea_treshold - trachea_treshold_step
     ctx.field("RegionGrowing.upperThreshold").value = trachea_treshold
     ctx.field("RegionGrowing.update").touch() # press update button
     trachea_volume_new = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
+    # edge case: final check to break out of loop; region is not twice as large and step is -1
+    if ((trachea_treshold_step == -1)  and not (trachea_volume_new > 2 * trachea_volume)):
+      break
 
   print(f'{round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)} ml volume final')
   return ctx.field("RegionGrowing.output0").image()
@@ -154,17 +168,14 @@ image = ctx.field("input0").image()
 # if we have a valid image, continue
 if image:
   extent = image.imageExtent()
-  print(f"extent in (x,y,z,c,t,u) order: {extent}")
-
   
-  # create output images that will be filled in with data
+  # create output images that will be filled with data
   lungs_with_trachea = np.empty(reverse(extent), np.int16)
   trachea = np.empty(reverse(extent), np.int16)
   lungs = np.empty(reverse(extent), np.int16)
 
-  # apply RegionGrowing module to grow the trachea without connecting to lung
-  trachea_image = grow_trachea(interface1, image, extent)
-  
+  print("Start trachea segmentation")
+  trachea_image = grow_trachea(interface1, image)
 
   # skimage.measure is needed, but it only supports up to 3 dimensions. Dimension 4 and 6 are 0 in DICOM Data. Dimension 5 are timepoints
   # Loop through each timepoint, selecting tile for that timepoint, shrink and calculate lung segmentation over 3 dimensions. 
@@ -201,4 +212,35 @@ if image:
   interface.setImage(lungs_with_trachea)
   interface2.setImage(trachea)
   interface3.setImage(lungs)
-  print("segmentation complete")
+  
+  
+  ## calculate inspiration and expiration timepoints so we can mass correcy inspiration images
+  #min_tp = ctx.field("CalculateVolume.minTimepoint").value
+  #max_tp = ctx.field("CalculateVolume.maxTimepoint").value
+  #expiration_volume = []
+  #inspiration_volume = []
+  #expiration_tp = []
+  #inspiration_tp = []
+  #print(f"min volume on: {min_tp} and max on: {max_tp}")
+  #for t in range(0, extent[4]):
+  #  ctx.field("CalculateVolume.userTimepoint").value = t
+  #  volume = ctx.field("CalculateVolume.userTimepointVolume").value
+  #  print(f"{volume} ml on timepoint {t}")
+  # # if ((min_tp < max_tp and (t <= min_tp or t > max_tp)) or (min_tp > max_tp and (t <= min_tp and t > max_tp))):
+  #  if (t <= min_tp and t > max_tp):
+  #    # determine expiration timepoints. Minimal volume is counted as expiration, max volume is counted as expiration too, acoording to paper of Guerrero
+  #    expiration_volume.append(volume)
+  #    expiration_tp.append(t)
+  #  else:
+  #    inspiration_tp.append(t)
+  #    inspiration_volume.append(volume)
+  #
+  #print(f"inspiration on {inspiration_tp} and expiration on {expiration_tp}")
+  #
+  #discrepency  = (sum(expiration_volume) * len(expiration_tp)) / (sum(inspiration_volume) * len(inspiration_tp))
+  #discrepency2  = (sum(expiration_volume) ) / (sum(inspiration_volume))
+  #print(f"discrepency is: {discrepency} or {discrepency2}")
+  #print(f"expiration {sum(expiration_volume)} over {len(expiration_tp)} timepoints and inspiration {sum(inspiration_volume)} over {len(inspiration_tp)} timepoints")
+  ##
+  ##
+  #print("segmentation complete")

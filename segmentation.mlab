@@ -43,12 +43,12 @@ module RegionGrowing {
     instanceName = RegionGrowing
     autoUpdateMode = AutoUpdate
     lowerThreshold = -2000
-    upperThreshold = -866
+    upperThreshold = -862
     enableAutoThresholdInterval = FALSE
     basicNeighborhoodType = BNBH_4D_8_XYZT
     extendedNeighborhoodType = ENBH_2D_4_XY
     useAdditionalSeed = TRUE
-    additionalSeed = "251 246 106 0 0 0"
+    additionalSeed = "246 240 212 0 0 0"
     additionalSeedType = 0
     additionalSeedCoordSystem = VoxelCoordinates
     initStackSizeTweak = 0.100000001490116
@@ -92,8 +92,36 @@ module PythonImage {
     instanceName = PythonImage1
   }
 }
+module CalculateVolume {
+  internal  {
+    frame = "541 101 152 72"
+    moduleGroupName = ""
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "776 469 367 305"
+        sizeHint = "367 305"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = CalculateVolume
+    minMode = UserDefined
+    intMin = 1
+    maxMode = ImageMax
+    intMax = 255
+    autoUpdate = TRUE
+    unit = Milliliters
+    factor = 1
+    userTimepoint = 0
+    curveType = Line
+    curveStyle = 0
+  }
+}
 connections  {
   RegionGrowing.input0 = RegionGrowingInput.output0
+  CalculateVolume.input0 = PythonImage1.output0
 }
 networkModel  {
   parentItems  {
@@ -102,7 +130,7 @@ networkModel  {
         uniqueId = 38
         objectName = ""
         parentUniqueId = 0
-        frame = "75 -454 246 532"
+        frame = "75 -180 259 559"
         backgroundColor  {
           r = 247
           g = 221
@@ -117,7 +145,10 @@ Holes are filled by a morphological closing operation with the same kernel size.
 
 The mask of the trachea is subtracted from the mask with the segmented lungs and trachea.
 Since this subtraction is not perfect, small noise is removed by a opening morphological operation 
-"
+
+
+
+The calculateVolume module is used to determine the timepoint with the minimal and maximal volume only"
         richText = "*<html>
   <head>
     <style type="text/css">
@@ -137,6 +168,7 @@ Some additional python code is used for calculating the closest point with HU of
 Holes are filled by a morphological closing operation with the same kernel size.</p>
 <p>The mask of the trachea is subtracted from the mask with the segmented lungs and trachea.
 Since this subtraction is not perfect, small noise is removed by a opening morphological operation</p>
+<p>The calculateVolume module is used to determine the timepoint with the minimal and maximal volume only</p>
 
 
   </body>
@@ -144,7 +176,7 @@ Since this subtraction is not perfect, small noise is removed by a opening morph
         titleText = "Seperation of lungs and trachea"
         isCollapsed = False
         drawAsComment = False
-        titleFrame = "80 -449 236 22"
+        titleFrame = "80 -175 249 22"
       }
     }
   }
