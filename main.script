@@ -1,0 +1,372 @@
+// -----------------------------------------------------------------------------
+// All MeVisLab modules are essentially defined using MDL. It consists of the Interface, Commands and Window components.
+//
+// \file    main.py
+// \author  MedVis group 4
+// \date    01/2021
+//
+// -----------------------------------------------------------------------------
+
+
+// The Interface part is mostly used to declare extra fields.
+// Imagine if your interface calculated the volume of a tumor and you wanted to store this value.
+// You would need to create a Field, as shown below.
+Interface {
+  Parameters {
+    /* Start of Import parameters */
+    Field importOption {
+      type = Enum
+      value = DICOM
+      values = DICOM,Preprocessed
+    }
+    
+    Field dataPath {
+      type  = String
+      value = ImportModule.fullPath
+    }
+    
+    Field SegmentationPath {
+      type = String
+      value = SaveTrachea.sourceName
+    }
+    
+    Field LungPath {
+      type = String
+      value = SaveLungs.sourceName
+    }
+    
+    Field SamplingDICOM {
+      type   = Enum
+      value  = None
+      values = Downsampling,None,Upsampling
+    }
+    Field xResample {
+      type  = Int
+      min   = 1
+      value = 1
+    } 
+    Field yResample {
+      type  = Int
+      min   = 1
+      value = 1
+    }
+    Field zResample {
+      type  = Int
+      min   = 1
+      value = 1
+    }
+    
+    /* End of Import parameters */
+    
+    
+    
+    // Define a float value on [-100, 100], starting on 33.
+    Field SomeFloatValue {
+      type  = Float
+      value = 33
+      min   = -100
+      max   = 100
+    }
+    
+    // Define an integer field on [0, 9], starting on 5.
+    Field TimepointCurrent {
+      type  = Int
+      value = 0
+      min   = 0
+      max   = 9
+    }
+    
+    // Define a float field on [0, 1] for the ProgressBar
+    Field MyProgressBar {
+      type  = Float
+      value = 0
+      min   = 0
+      max   = 1
+    }
+    
+    Field MyLineTextField {
+      type  = string
+      value = "This is MyLineTextField. Any LineEdit bound to this Field stays in sync"
+    }
+  }
+}
+
+///////////////////////////////////////
+
+// Secondly, there is the Commands section. It is used to declare and import Python scripts and assign functions.
+// For instance, a Button may require a certain function to trigger, but MeVisLab will need to know where the source definitions are located.
+Commands {
+
+  // Indicate the source Python file
+  source = $(LOCAL)/main.py
+  
+  // Set Fields used in control panels on opening of GUI
+  initCommand = initialize
+
+  FieldListener {
+    command     = "py: updateField('dataPath', 'ImportModule.fullPath')"
+    listenField = ImportModule.fullPath
+  }
+  
+  FieldListener {
+    command     = "py: updateField('SegmentationPath', 'SaveTrachea.sourceName')"
+    listenField = SaveTrachea.sourceName
+  }
+  
+  FieldListener {
+    command     = "py: updateField('SegmentationPath', 'SaveLungs.sourceName')"
+    listenField = SaveLungs.sourceName
+  }
+  
+  FieldListener {
+    command     = toggleSampling
+    listenField = SamplingDICOM
+  }
+  
+  FieldListener {
+    command     = toggleImportSwitches
+    listenField = importOption
+  }
+  
+  FieldListener {
+    command     = "py: updateResample(\"x\")"
+    listenField = xResample
+  }
+  FieldListener {
+    command     = "py: updateResample(\"y\")"
+    listenField = yResample
+  }
+  FieldListener {
+    command     = "py: updateResample(\"z\")"
+    listenField = zResample
+  }
+  
+
+  
+  
+  
+  // Sometimes you also want a function to trigger when a Field changes a value, for instance if the user changes some slider or a types in a number. This is where FieldListener's come in.
+  
+  // This FieldListener triggers the function `updateCounter` in `Assignment-2-3.py` when the currentValue field from TimepointCurrent changes.
+  
+  FieldListener {
+    command     = updateSliderField
+    listenField = TimepointCounter.currentValue
+  }
+  
+  // With just the above, if you change the slider's position, the Counter module's value will not change.
+  // If you want a bi-directional update, you need to add another FieldListener that updates the Counter's value using the updateCounter function.
+  FieldListener {
+    command     = updateCounter
+    listenField = TimepointCurrent
+  }
+  
+
+}
+
+///////////////////////////////////////
+
+// Window definition! Here all the MDL code will go which dictates how UI elements look.
+Window MyViewer {
+  // A TabView lets us have multiple options or settings in a compact area
+  TabView {
+    TabViewItem "Import data" {
+      Splitter {
+        direction = vertical
+        Splitter{
+          direction = horizontal
+            Box "Control Panel" {              
+              minimumHeight = 350
+              minimumWidth  = 350
+              expandX       = MinimumExpanding
+              expandY       = MinimumExpanding
+              alignY = Top
+              Label Instruction {
+                title    = "Load DICOM files for segmentation or load preprocessed files"
+                textWrap = WordBreak
+              }
+              Horizontal { // put label and field on same line
+                Label {title = "import mode: "}
+                Field importOption {title = ""}
+              }
+              
+              Box {
+                alignY = Top
+                stretchY = 350
+                Box "Load preprocessed files" {
+                  visibleOn = "* importOption == /^(Preprocessed)$/ *"
+                  Label { title    = "Select the preprocessed segmentation iamges of trachea and lungs" textWrap = WordBreak }
+                  Horizontal {
+                    Label {title = "Trachea segmentation: "}
+                    Button {
+                      title          = "Load File"
+                      preferredWidth = 50
+                      alignX         = Right
+                      command        = "py: BrowseFile(\"ProcessedTrachea\")"
+                    }
+                  }
+                  Horizontal {
+                    Label {title = "Lungs segmentation: "}
+                    Button {
+                      title          = "Load File"
+                      preferredWidth = 50
+                      alignX         = Right
+                      command        = "py: BrowseFile(\"ProcessedLungs\")"
+                    }
+                  }
+                  
+                }
+                Box "Directory Settings" {
+                  visibleOn = "* importOption == /^(DICOM)$/ *"
+                  Label Instruction { title = "Make sure to set the output path different to the DICOM path" textWrap = WordBreak }
+                  Horizontal {
+                    Label label { title = "DICOM Path: "}
+                    Label {
+                      titleField = dataPath
+                      textWrap   = WordBreak
+                    }
+                    Button {
+                      title          = "Browse..."
+                      preferredWidth = 50
+                      alignX = Right
+                      command        = "py: Browse(\"ImportModule.source\")"
+                    }
+                  }
+                  Horizontal {
+                    Label { title = "Output Path: " }
+                    Label { titleField = SegmentationPath textWrap = WordBreak}
+                    Button {
+                      title          = "Browse..."
+                      preferredWidth = 50
+                      alignX = Right
+                      command        = "py: Browse(\"SaveTrachea.sourceName\")"
+                    }
+                  }
+                }
+                Box "Resampling options" {
+                  visibleOn = "* importOption == /^(DICOM)$/ *"
+                  Horizontal { // put label and field on same line
+                    Label {title = "resampling mode: "}
+                    Field SamplingDICOM {title = ""}
+                  }
+            
+                  Label label {
+                    title = "Resampling Factor:"
+                  }
+                  Horizontal {
+                    Label x {title = "x:"}
+                    NumberEdit xResample {
+                      step  = 1
+                    }
+                  }
+                  Horizontal {
+                    Label y {title = "y:"}
+                    NumberEdit yResample {
+                      step     = 1
+                    }
+                  }
+                  Horizontal {
+                    Label z {title = "z:"}
+                    NumberEdit zResample {
+                      step     = 1
+                    }
+                  }
+                }                
+                Horizontal {
+                  visibleOn = "* importOption == /^(DICOM)$/ *"
+                  Button  {
+                    title          = "Load DICOM Files"
+                    command        = "py: Import()"
+                    alignX         = Left
+                  }
+                  Button  {
+                    title          = "Start Segmentation"
+                    command        = "py: ReloadModule(\"segmentation\")"
+                    alignX         = Center
+                  }
+                  Button {
+                    title          = "Save Segmentation"
+                    command        = "py: saveSegmentation()"
+                    alignX         = Right
+                  }
+                } // close horizontal of buttons
+              } // close box
+            } // close control panel box
+            Box "DICOM Preview" {
+              minimumHeight = 350
+              minimumWidth  = 350
+              expandX       = MinimumExpanding
+              expandY       = MinimumExpanding
+              
+              Label {title = "<p style=\"color:tomato\"> DICOM preview is disabled</p>"
+                visibleOn = "* importOption == /^(Preprocessed)$/ *" textAlignment = Center }
+              
+              
+              Viewer DataPreview.self {
+                visibleOn = "* importOption == /^(DICOM)$/ *"
+                type = SoRenderArea
+              }
+            }
+        }
+        Splitter {
+          Box "Trachea Segmentation" {
+            Viewer trachea.self {
+              name          = "Trachea"
+              minimumHeight = 350
+              minimumWidth  = 350
+              expandX       = MinimumExpanding
+              expandY       = MinimumExpanding
+            }
+          } // close Trachea segmentation box
+          
+          Box "Lungs Segmentation" {
+            Viewer lungs.self {
+              name          = "Lungs"
+              minimumHeight = 350
+              minimumWidth  = 350
+              expandX       = MinimumExpanding
+              expandY       = MinimumExpanding
+            }
+          } // close Trachea segmentation box
+        } // close splitter (2nd row)
+      } // close outer splitter
+    } // Close TabView of Import
+    /* Diagnosis related to trachea */
+    TabViewItem "Trachea Diameter" {
+      Splitter {
+        direction = vertical
+        Splitter {
+          panel {
+            module = ImportModule
+            minimumHeight = 350
+            minimumWidth  = 350
+            expandX       = MinimumExpanding
+            expandY       = MinimumExpanding
+          }
+        } // splitter row 1
+        Splitter {} // splitter row 2
+      }
+    }
+    
+    /* Diagnoses related to lungs */
+    TabViewItem "Lung" {
+      Splitter {
+        direction = vertical
+        Splitter {
+          Panel {
+            module        = CurveInspector
+            minimumHeight = 350
+            minimumWidth  = 350
+            expandX       = MinimumExpanding
+            expandY       = MinimumExpanding
+          }
+        } // splitter row 1
+        Splitter {} // splitter row 2
+      }
+    }
+
+  } // close tabviewer
+} // close MyViewer window
+
+
+

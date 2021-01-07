@@ -5,8 +5,8 @@ network  {
 }
 module LocalImage {
   internal  {
-    frame = "304 1127 152 72"
-    moduleGroupName = "Import Dataset"
+    frame = "352 1079 152 72"
+    moduleGroupName = "Import Dicom data"
     showNetworkPanel = true
     windows  {
       window _default {
@@ -18,14 +18,14 @@ module LocalImage {
   }
   fields  {
     instanceName = LocalImage1
-    name = $(NETWORK)/data/4DCT-Dicom/00/00-slice000.dcm
+    name = $(NETWORK)/data/preprocessed/trachea.dcm
     autoLoad = TRUE
   }
 }
 module ApplyDicomPixelModifiers {
   internal  {
-    frame = "512 1103 168 56"
-    moduleGroupName = "Import Dataset"
+    frame = "560 1055 168 56"
+    moduleGroupName = "Import Dicom data"
     windows  {
       window _default {
         geometry = "787 456 346 228"
@@ -47,11 +47,11 @@ module ApplyDicomPixelModifiers {
 }
 module ImageResample {
   internal  {
-    frame = "324 913 112 72"
-    moduleGroupName = "Import Dataset"
+    frame = "372 865 112 72"
+    moduleGroupName = "Import Dicom data"
     windows  {
       window _default {
-        geometry = "626 516 285 274"
+        geometry = "227 745 285 274"
         sizeHint = "270 274"
         wasOpen = no
       }
@@ -65,9 +65,9 @@ module ImageResample {
   fields  {
     instanceName = DownSampling
     resamplingOperation = Downsampling
-    xResample = 8
-    yResample = 8
-    zResample = 8
+    xResample = 2
+    yResample = 2
+    zResample = 2
     cResample = 1
     tResample = 1
     uResample = 1
@@ -79,8 +79,8 @@ module ImageResample {
 }
 module Bypass {
   internal  {
-    frame = "448 537 136 72"
-    moduleGroupName = "Import Dataset"
+    frame = "496 489 136 72"
+    moduleGroupName = "Import Dicom data"
     showNetworkPanel = true
     windows  {
       window _default {
@@ -97,8 +97,8 @@ module Bypass {
 }
 module Switch {
   internal  {
-    frame = "444 1007 112 72"
-    moduleGroupName = "Import Dataset"
+    frame = "492 959 112 72"
+    moduleGroupName = "Import Dicom data"
     showNetworkPanel = true
     windows  {
       window _default {
@@ -116,11 +116,11 @@ module Switch {
 }
 module OrthoView2D {
   internal  {
-    frame = "336 681 120 72"
-    moduleGroupName = "Import Dataset"
+    frame = "341 613 120 72"
+    moduleGroupName = "Import Dicom data"
     windows  {
       window _default {
-        geometry = "456 303 692 581"
+        geometry = "717 243 692 581"
         sizeHint = "400 436"
         wasOpen = no
       }
@@ -156,14 +156,14 @@ module OrthoView2D {
     valueHighPrecision = TRUE
     annoCoords = Voxel
     showCurrentPos = TRUE
-    worldPosition = "36.2901077270508 -4.3393030166626 115.5"
+    worldPosition = "-9.52052307128906 93.7797317504883 117"
     coloredMode = FALSE
   }
 }
 module Switch {
   internal  {
-    frame = "416 807 152 88"
-    moduleGroupName = "Import Dataset"
+    frame = "464 759 152 88"
+    moduleGroupName = "Import Dicom data"
     showNetworkPanel = true
     windows  {
       window _default {
@@ -186,8 +186,8 @@ module Switch {
 }
 module ImageResample {
   internal  {
-    frame = "588 905 112 72"
-    moduleGroupName = "Import Dataset"
+    frame = "636 857 112 72"
+    moduleGroupName = "Import Dicom data"
     windows  {
       window _default {
         geometry = "326 541 285 274"
@@ -218,24 +218,29 @@ module ImageResample {
 }
 module DirectDicomImport {
   internal  {
-    frame = "518 1208 160 56"
-    moduleGroupName = "Import Dataset"
+    frame = "566 1152 160 72"
+    moduleGroupName = "Import Dicom data"
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "277 177 1082 618"
+        geometry = "274 49 1082 618"
         sizeHint = "800 347"
         wasOpen = no
       }
-      window VolumeDetails {
-        geometry = "586 438 747 367"
-        sizeHint = "747 367"
+      window _scriptingconsole {
+        geometry = "1148 314 600 500"
+        sizeHint = "256 192"
+        wasOpen = no
+      }
+      window Configuration {
+        geometry = "482 461 955 320"
+        sizeHint = "955 320"
         wasOpen = no
       }
     }
   }
   fields  {
-    instanceName = DirectDicomImport
+    instanceName = ImportModule
     tagDumpSize = 10000
     dumpPrivateTagValues = FALSE
     numShownBinaryEntries = 8
@@ -601,71 +606,10 @@ validImage hasIssues fileType voxelType imgExt numVoxels numSlices numTimePoints
     guiCachePath = ""
   }
 }
-module View2D {
-  internal  {
-    frame = "584 625 120 56"
-    moduleGroupName = "Import Dataset"
-    windows  {
-      window _default {
-        geometry = "1209 275 400 400"
-        sizeHint = "400 400"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = View2D
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    view2DExtensionsOn = TRUE
-    startSlice = 141
-    numSlices = 1
-    numXSlices = 1
-    sliceStep = 1
-    slab = 1
-    blendMode = BLEND_REPLACE
-    timePoint = 0
-    maxTimePoint = 9
-    filterMode = FILTER_LINEAR
-    standardKeys = TRUE
-    cineMode = CINE_ZT
-    cineDirection = CINE_FORWARD
-    cineRepeat = CINE_ONCE
-    cineSpeed = 0.1
-    cineAlwaysReset = TRUE
-    snapToCenter = TRUE
-    zoomMode = VIEW2D_AUTO_ZOOM
-    unzoomOnImageChange = FALSE
-    sliceZoom = 1
-    sliceZoomSynced = 1
-    baseColor = "1 1 1"
-    margin = "2 2"
-    sliceOrigin = "0 0"
-    useShaders = TRUE
-    useManagedInteraction = FALSE
-    lutCenter = 0
-    lutWidth = 400
-    annotationOn = TRUE
-    annotationMode = ANNO_MODE_AUTO
-    annotationSizeMode = ANNO_SHOW_DETAILED
-    annotationCol = "0.899999976158142 0.899999976158142 0.899999976158142"
-    annotationFontSize = ANNO_SIZE_AUTO
-    annoCoords = Voxel
-    annoCTValue = AsIs
-    borderOn = FALSE
-    borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
-    maxPrecision = 4
-    enableSlicing = TRUE
-    useRelativeLUTIfNoInputImage = TRUE
-  }
-}
 module Resample3D {
   internal  {
-    frame = "536 713 104 56"
-    moduleGroupName = "Import Dataset"
+    frame = "501 637 104 56"
+    moduleGroupName = "Import Dicom data"
     windows  {
       window _default {
         geometry = "611 451 339 340"
@@ -676,8 +620,8 @@ module Resample3D {
   }
   fields  {
     instanceName = Resample3D
-    keep = "Voxel size"
-    filter = Lanczos_2
+    keep = "Scale factor"
+    filter = Lanczos_3
     isotropic = FALSE
     filterAlways = FALSE
     filterAlwaysTolerance = 0
@@ -694,7 +638,7 @@ module View3D {
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "669 255 905 640"
+        geometry = "996 245 905 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
@@ -735,12 +679,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "345.012420654297 -688.890502929688 99.6655426025391"
-    camOrientation = "0.99737948179245 0.0538917109370232 0.0482693389058113 1.5421644449234"
+    camPosition = "289.616119384766 -398.211212158203 219.942337036133"
+    camOrientation = "0.999190747737885 0.0331602282822132 0.0227676667273045 1.34691786766052"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1221.8674
-    camNear = 666.95837
-    camFocal = 944.13629
+    camFar = 951.22485
+    camNear = 393.14056
+    camFocal = 671.90424
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -788,13 +732,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -819,8 +763,8 @@ module View3D {
 }
 module Bypass {
   internal  {
-    frame = "444 921 112 56"
-    moduleGroupName = "Import Dataset"
+    frame = "492 873 112 56"
+    moduleGroupName = "Import Dicom data"
     showNetworkPanel = true
   }
   fields  {
@@ -830,12 +774,12 @@ module Bypass {
 }
 module Counter {
   internal  {
-    frame = "417 -427 80 72"
+    frame = "406 -425 128 88"
     moduleGroupName = "Timepoint Control"
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "989 183 599 248"
+        geometry = "1321 295 599 248"
         sizeHint = "599 248"
         wasOpen = no
       }
@@ -847,15 +791,15 @@ module Counter {
     }
   }
   fields  {
-    instanceName = Counter1
-    currentValue = 0
+    instanceName = TimepointCounter
+    currentValue = 7
     minValue = 0
     maxValue = 9
     startValue = 0
     stepValue = 1
     loop = TRUE
     checkConsistency = TRUE
-    autoStepInterval_s = 0.21
+    autoStepInterval_s = 0.81
     stepDirection = Up
   }
 }
@@ -865,7 +809,7 @@ module View3D {
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "764 427 905 640"
+        geometry = "942 185 905 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
@@ -901,17 +845,17 @@ module View3D {
     orientationLocation = LOWER_RIGHT
     orientationOn = TRUE
     orientationModel = TORSO
-    greyCenter = 0.439999997615814
-    greyWidth = 0.174999907612801
+    greyCenter = 0.46000000834465
+    greyWidth = 0.199999883770943
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "645.348571777344 -431.013671875 68.5414123535156"
-    camOrientation = "0.933526992797852 0.274147540330887 0.231020480394363 1.62983739376068"
+    camPosition = "310.548889160156 -710.451477050781 400.920989990234"
+    camOrientation = "0.99776953458786 0.0126059325411916 0.0655518025159836 1.31030595302582"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1131.1665
-    camNear = 444.427
-    camFocal = 787.45404
+    camFar = 1291.5979
+    camNear = 702.67133
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -959,13 +903,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = TRUE
     clip.left = FALSE
@@ -1010,7 +954,7 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 0
+    userTimepoint = 7
     curveType = Line
     curveStyle = 0
   }
@@ -1021,20 +965,25 @@ module CurveInspector {
     moduleGroupName = "Lung Volume"
     windows  {
       window _default {
-        geometry = "347 554 623 346"
-        sizeHint = "232 208"
+        geometry = "983 371 937 547"
+        sizeHint = "412 346"
         wasOpen = no
       }
       window _automatic {
-        geometry = "709 321 500 600"
+        geometry = "1292 329 500 600"
         sizeHint = "262 217"
+        wasOpen = no
+      }
+      window _scriptingconsole {
+        geometry = "659 371 600 500"
+        sizeHint = "256 192"
         wasOpen = no
       }
     }
   }
   fields  {
     instanceName = CurveInspector
-    detail = FALSE
+    detail = TRUE
     panelPlacement = Left
     autoRangeXY = TRUE
     autoRangeX = TRUE
@@ -1047,7 +996,7 @@ module CurveInspector {
 }
 module SubstractionImage {
   internal  {
-    frame = "205 -432 136 56"
+    frame = "207 -423 136 56"
     moduleGroupName = "Substraction Images"
     localMacro = 1
     windows  {
@@ -1064,11 +1013,11 @@ module SubstractionImage {
 }
 module View3D {
   internal  {
-    frame = "202 -633 144 72"
+    frame = "204 -624 144 72"
     moduleGroupName = "Substraction Images"
     windows  {
       window _default {
-        geometry = "424 298 1070 640"
+        geometry = "56 438 1070 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
@@ -1109,12 +1058,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "250 -746.840942382813 141.000061035156"
+    camPosition = "0 -2.61312627792358 1.55754477759729e-07"
     camOrientation = "0.999999940395355 0 0 1.57079637050629"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1248.5884
-    camNear = 745.59467
-    camFocal = 996.841
+    camFar = 3.6131265
+    camNear = 1.6131265
+    camFocal = 2.6131265
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1236,7 +1185,7 @@ module CurveCursor {
   }
   fields  {
     instanceName = Timepoint_Curve
-    posX = 0
+    posX = 7
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -1300,7 +1249,7 @@ module ConcatenateCurves {
 }
 module Convolution {
   internal  {
-    frame = "225 -512 96 56"
+    frame = "227 -503 96 56"
     moduleGroupName = "Substraction Images"
     windows  {
       window _default {
@@ -1324,11 +1273,11 @@ module Convolution {
 }
 module View3D {
   internal  {
-    frame = "141 -752 152 72"
+    frame = "143 -743 152 72"
     moduleGroupName = "Substraction Images"
     windows  {
       window _default {
-        geometry = "993 341 927 640"
+        geometry = "915 424 927 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
@@ -1369,12 +1318,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "394.961578369141 -422.858673095703 225.27409362793"
-    camOrientation = "0.987467229366302 0.112888500094414 0.11029364168644 1.45985567569733"
+    camPosition = "774.278442382813 269.067901611328 79.7142181396484"
+    camOrientation = "0.576112985610962 0.620152473449707 0.532451570034027 2.16231489181519"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1007.0723
-    camNear = 380.42676
-    camFocal = 693.43695
+    camFar = 803.09973
+    camNear = 253.83356
+    camFocal = 528.19244
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1422,13 +1371,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -1453,28 +1402,33 @@ module View3D {
 }
 module ImageSave {
   internal  {
-    frame = "381 133 88 72"
+    frame = "-99 109 104 88"
     moduleGroupName = "Lung and Trachea Segmentation"
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "900 174 611 492"
+        geometry = "44 477 611 492"
         sizeHint = "420 492"
+        wasOpen = no
+      }
+      window _scriptingconsole {
+        geometry = "659 371 600 500"
+        sizeHint = "256 192"
         wasOpen = no
       }
     }
   }
   fields  {
-    instanceName = ImageSave
+    instanceName = SaveTrachea
     taskVerboseLogging = FALSE
-    filename = $(NETWORK)/data/MLimage/trachea.dcm
+    filename = $(NETWORK)/data/test/trachea.dcm
     addFileExtension = TRUE
     format = DICOM
-    comment = MeVisLab
+    comment = "Segmented Image"
     allowOverwrite = TRUE
-    autoFilename = FALSE
-    sourceName = $(NETWORK)/data/
-    postfix = trachea
+    autoFilename = TRUE
+    sourceName = /Users/justin/Documents/GitHub/MedVis/data/test
+    postfix = /trachea
     dicomNameUsed = FALSE
     dicomMetaHeader = TRUE
     dicomDerived = TRUE
@@ -1504,7 +1458,7 @@ module View3D {
     moduleGroupName = "Lung and Trachea Segmentation"
     windows  {
       window _default {
-        geometry = "508 374 1026 640"
+        geometry = "129 244 1026 640"
         sizeHint = "1026 640"
         wasOpen = no
       }
@@ -1529,21 +1483,21 @@ module View3D {
     orientationProjectionType = PERSPECTIVE
     orientationLocation = LOWER_RIGHT
     orientationOn = TRUE
-    orientationModel = CUBE
+    orientationModel = TORSO
     greyCenter = 0.5
     greyWidth = 0.5
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "169.799377441406 -270.501922607422 380.049682617188"
-    camOrientation = "0.979576647281647 -0.191300168633461 0.0619172714650631 1.14717304706573"
+    camPosition = "353.60791015625 -601.747009277344 648.429260253906"
+    camOrientation = "0.98866856098175 0.0366123057901859 0.145581871271133 1.04903650283813"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 897.91882
-    camNear = 259.43628
-    camFocal = 578.35901
+    camFar = 1310.2535
+    camNear = 684.05267
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
-    annotations = TRUE
+    annotations = FALSE
     background = TRUE
     mode = VolumeRendering
     interactiveQuality = Medium
@@ -1588,13 +1542,13 @@ module View3D {
     renderer.light3PolarRho = 0
     renderer.sizeOutputX = 500
     renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 141
+    renderer.sizeOutputZ = 282
     renderer.subVolumeStartX = 0
     renderer.subVolumeStartY = 0
     renderer.subVolumeStartZ = 0
     renderer.subVolumeEndX = 500
     renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 141
+    renderer.subVolumeEndZ = 282
     clip.hideGeometry = FALSE
     clip.on = FALSE
     clip.left = FALSE
@@ -1619,7 +1573,7 @@ module View3D {
 }
 module segmentation {
   internal  {
-    frame = "185 168 112 56"
+    frame = "201 269 112 56"
     moduleGroupName = "Lung and Trachea Segmentation"
     localMacro = 1
     windows  {
@@ -1636,7 +1590,7 @@ module segmentation {
 }
 module Bypass {
   internal  {
-    frame = "125 -368 104 56"
+    frame = "127 -359 104 56"
     moduleGroupName = "Substraction Images"
     showNetworkPanel = true
   }
@@ -1645,8 +1599,131 @@ module Bypass {
     noBypass = FALSE
   }
 }
+module ImageSave {
+  internal  {
+    frame = "5 109 88 88"
+    moduleGroupName = "Lung and Trachea Segmentation"
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "900 174 611 492"
+        sizeHint = "420 492"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = SaveLungs
+    taskVerboseLogging = FALSE
+    filename = $(NETWORK)/data/test/lungs.dcm
+    addFileExtension = TRUE
+    format = DICOM
+    comment = "Segmented Image"
+    allowOverwrite = TRUE
+    autoFilename = TRUE
+    sourceName = /Users/justin/Documents/GitHub/MedVis/data/test
+    postfix = /lungs
+    dicomNameUsed = FALSE
+    dicomMetaHeader = TRUE
+    dicomDerived = TRUE
+    dicomDerivedImageType = "OTHER\\MEVISLAB"
+    dicomDiscardTags = FrameSpecific
+    dicomStoreTimeInfo = None
+    dicomSetWindow = FALSE
+    dicomWindowCenter = 0
+    dicomWindowWidth = 0
+    dicomIgnoreHalfVoxelShift = FALSE
+    tiffCompression = LZW
+    tiffTileX = 128
+    tiffTileY = 128
+    tiffTileXAuto = TRUE
+    tiffTileYAuto = TRUE
+    tiffLinearRGB = FALSE
+    saveDicomHeaderOnly = FALSE
+    pngCompression = Default
+    pngInterlaced = FALSE
+    jpegQuality = 75
+    jpegProgressive = FALSE
+  }
+}
+module LocalImage {
+  internal  {
+    frame = "-23 485 160 88"
+    moduleGroupName = "Import Preprocessed data"
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "438 609 598 179"
+        sizeHint = "598 179"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = ProcessedTrachea
+    name = /Users/justin/Documents/GitHub/MedVis/data/test/lungs.dcm
+    autoLoad = TRUE
+  }
+}
+module Switch {
+  internal  {
+    frame = "253 109 152 88"
+    moduleGroupName = "Lung and Trachea Segmentation"
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "857 590 205 62"
+        sizeHint = "205 62"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = TracheaSwitch
+    currentInput = 1
+    numberOfInputs = 2
+  }
+}
+module Switch {
+  internal  {
+    frame = "409 109 144 88"
+    moduleGroupName = "Lung and Trachea Segmentation"
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "857 590 205 62"
+        sizeHint = "205 62"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = LungsSwitch
+    currentInput = 1
+    numberOfInputs = 2
+  }
+}
+module LocalImage {
+  internal  {
+    frame = "154 489 136 88"
+    moduleGroupName = "Import Preprocessed data"
+    showNetworkPanel = true
+    windows  {
+      window _default {
+        geometry = "691 532 536 179"
+        sizeHint = "536 179"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = ProcessedLungs
+    name = /Users/justin/Documents/GitHub/MedVis/data/test/trachea.dcm
+    autoLoad = TRUE
+  }
+}
 connections  {
-  ApplyDicomPixelModifiers.input0 = DirectDicomImport.output0
+  ApplyDicomPixelModifiers.input0 = ImportModule.output0
   DownSampling.input0 = Switch.output0
   OutputImage.input0 = Resample3D.output0
   Switch.input0 = LocalImage1.outImage
@@ -1656,38 +1733,43 @@ connections  {
   SampleToggle.input1 = Bypass2.output0
   SampleToggle.input2 = UpSampling.output0
   UpSampling.input0 = Switch.output0
-  View2D.inImage = Resample3D.output0
   Resample3D.input0 = SampleToggle.output0
   lungs_and_trachea.inImage = segmentation.lungs_with_trachea
-  lungs_and_trachea.currentTimePoint = Counter1.currentValue
+  lungs_and_trachea.currentTimePoint = TimepointCounter.currentValue
   Bypass2.input0 = Switch.output0
-  trachea.inImage = segmentation.trachea
-  trachea.currentTimePoint = Counter1.currentValue
-  CalculateVolume.input0 = segmentation.lungs
-  CalculateVolume.userTimepoint = Counter1.currentValue
+  trachea.inImage = TracheaSwitch.output0
+  trachea.currentTimePoint = TimepointCounter.currentValue
+  CalculateVolume.input0 = LungsSwitch.output0
+  CalculateVolume.userTimepoint = TimepointCounter.currentValue
   CurveInspector.inCurve = ConcatenateCurves.outCurveList
   SubstractionImage.input0 = Bypass.output0
   substraction_images.inImage = Convolution.output0
-  substraction_images.currentTimePoint = Counter1.currentValue
+  substraction_images.currentTimePoint = TimepointCounter.currentValue
   Modify_Volume_Curve.inCurves = CalculateVolume.outTimeCurve
-  Timepoint_Curve.posX = Counter1.currentValue
+  Timepoint_Curve.posX = TimepointCounter.currentValue
   Modify_Timepoint_Curve.inCurves = Timepoint_Curve.outCurveList
   ConcatenateCurves.inCurve1 = Modify_Volume_Curve.outCurves
   ConcatenateCurves.inCurve2 = Modify_Timepoint_Curve.outCurves
   Convolution.input0 = SubstractionImage.output0
   substraction_overlayed.inImage = Bypass.output0
   substraction_overlayed.inInvPreLUT = substraction_images.self
-  substraction_overlayed.currentTimePoint = Counter1.currentValue
-  lungs.inImage = segmentation.lungs
+  substraction_overlayed.currentTimePoint = TimepointCounter.currentValue
+  SaveTrachea.input0 = segmentation.trachea
+  lungs.inImage = LungsSwitch.output0
   segmentation.input0 = OutputImage.output0
-  Bypass.input0 = segmentation.lungs
+  Bypass.input0 = LungsSwitch.output0
+  SaveLungs.input0 = segmentation.lungs
+  TracheaSwitch.input0 = segmentation.trachea
+  TracheaSwitch.input1 = ProcessedTrachea.outImage
+  LungsSwitch.input0 = segmentation.lungs
+  LungsSwitch.input1 = ProcessedLungs.outImage
 }
 networkModel  {
   parentItems  {
     0  {
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 100
-        objectName = "Import Dataset"
+        objectName = "Import Dicom data"
         parentUniqueId = 0
         color  {
           r = 140
@@ -1824,7 +1906,7 @@ The ConcatenateCurves-module concatenates the two curves together so they can be
         uniqueId = 452
         objectName = ""
         parentUniqueId = 125
-        frame = "-204 -758 332 366"
+        frame = "-202 -749 332 366"
         backgroundColor  {
           r = 247
           g = 221
@@ -1862,7 +1944,7 @@ This LUT is then covered over the regular lung segmentation, so movement through
         titleText = "Substraction Images"
         isCollapsed = False
         drawAsComment = False
-        titleFrame = "-199 -753 322 22"
+        titleFrame = "-197 -744 322 22"
       }
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 436
@@ -1879,7 +1961,7 @@ This LUT is then covered over the regular lung segmentation, so movement through
         uniqueId = 451
         objectName = ""
         parentUniqueId = 436
-        frame = "503 -517 200 200"
+        frame = "536 -507 200 200"
         backgroundColor  {
           r = 247
           g = 221
@@ -1908,7 +1990,18 @@ This LUT is then covered over the regular lung segmentation, so movement through
         titleText = "Timepoint Counter"
         isCollapsed = False
         drawAsComment = False
-        titleFrame = "508 -512 190 22"
+        titleFrame = "541 -502 190 22"
+      }
+      MLABNetworkModelItem MLABNetworkModelItemGroup {
+        uniqueId = 146
+        objectName = "Import Preprocessed data"
+        parentUniqueId = 0
+        color  {
+          r = 140
+          g = 140
+          b = 140
+          a = 40
+        }
       }
     }
   }
