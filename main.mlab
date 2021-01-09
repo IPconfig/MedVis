@@ -153,7 +153,7 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 1
+    grayWidth = 400
     grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -784,12 +784,12 @@ module Counter {
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "1319 265 599 248"
+        geometry = "245 45 599 248"
         sizeHint = "599 248"
         wasOpen = no
       }
       window _automatic {
-        geometry = "1111 152 500 600"
+        geometry = "1334 325 500 600"
         sizeHint = "256 192"
         wasOpen = no
       }
@@ -797,14 +797,14 @@ module Counter {
   }
   fields  {
     instanceName = TimepointCounter
-    currentValue = 0
+    currentValue = 6
     minValue = 0
     maxValue = 9
     startValue = 0
     stepValue = 1
     loop = TRUE
     checkConsistency = TRUE
-    autoStepInterval_s = 0.81
+    autoStepInterval_s = 0.15
     stepDirection = Up
   }
 }
@@ -855,11 +855,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "342.361694335938 -742.533569335938 134.806793212891"
-    camOrientation = "0.997810304164886 0.0385122075676918 0.0537716299295425 1.57992696762085"
+    camPosition = "341.166931152344 -716.867858886719 365.827209472656"
+    camOrientation = "0.99675714969635 0.0368776023387909 0.0715214237570763 1.34738457202911"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1271.6179
-    camNear = 722.61102
+    camFar = 1295.9272
+    camNear = 698.35065
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -944,8 +944,13 @@ module CalculateVolume {
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "157 312 375 305"
+        geometry = "207 179 375 305"
         sizeHint = "375 305"
+        wasOpen = no
+      }
+      window _automatic {
+        geometry = "709 321 500 600"
+        sizeHint = "262 217"
         wasOpen = no
       }
     }
@@ -959,7 +964,7 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 0
+    userTimepoint = 6
     curveType = Line
     curveStyle = 0
   }
@@ -1173,7 +1178,7 @@ module CurveCursor {
   }
   fields  {
     instanceName = Timepoint_Curve
-    posX = 0
+    posX = 6
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -1301,11 +1306,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "170.528793334961 -737.25 253.755950927734"
-    camOrientation = "0.998199999332428 -0.0470541827380657 -0.0371841117739677 1.45867609977722"
+    camPosition = "235.607116699219 -737.710144042969 274.841400146484"
+    camOrientation = "0.999436497688293 -0.0291328057646751 0.0166743882000446 1.43636703491211"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1282.1881
-    camNear = 712.06238
+    camFar = 1268.9297
+    camNear = 725.29413
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -1415,7 +1420,7 @@ module ImageSave {
     comment = "Segmented Image"
     allowOverwrite = TRUE
     autoFilename = TRUE
-    sourceName = /Users/justin/Documents/GitHub/MedVis/data/test
+    sourceName = /Users/justin/Documents/GitHub/MedVis/data/preprocessed
     postfix = /trachea
     dicomNameUsed = FALSE
     dicomMetaHeader = TRUE
@@ -1477,11 +1482,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "343.316650390625 -714.248046875 375.967437744141"
-    camOrientation = "0.996998965740204 0.0493768490850925 0.0596228651702404 1.33564984798431"
+    camPosition = "342.706695556641 -692.596618652344 451.820190429688"
+    camOrientation = "0.987034201622009 -0.0189266186207533 0.15939000248909 1.27252757549286"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1297.2496
-    camNear = 697.03052
+    camFar = 1302.4281
+    camNear = 691.86279
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -1614,7 +1619,7 @@ module ImageSave {
     comment = "Segmented Image"
     allowOverwrite = TRUE
     autoFilename = TRUE
-    sourceName = /Users/justin/Documents/GitHub/MedVis/data/test
+    sourceName = /Users/justin/Documents/GitHub/MedVis/data/preprocessed
     postfix = /lungs
     dicomNameUsed = FALSE
     dicomMetaHeader = TRUE
@@ -1646,15 +1651,15 @@ module LocalImage {
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "438 609 598 179"
-        sizeHint = "598 179"
+        geometry = "299 497 670 179"
+        sizeHint = "670 179"
         wasOpen = no
       }
     }
   }
   fields  {
     instanceName = ProcessedTrachea
-    name = /Users/justin/Documents/GitHub/MedVis/data/test/trachea.dcm
+    name = /Users/justin/Documents/GitHub/MedVis/data/preprocessed/trachea.dcm
     autoLoad = TRUE
   }
 }
@@ -1673,7 +1678,7 @@ module Switch {
   }
   fields  {
     instanceName = TracheaSwitch
-    currentInput = 1
+    currentInput = 0
     numberOfInputs = 2
   }
 }
@@ -1692,7 +1697,7 @@ module Switch {
   }
   fields  {
     instanceName = LungsSwitch
-    currentInput = 1
+    currentInput = 0
     numberOfInputs = 2
   }
 }
@@ -1703,8 +1708,8 @@ module LocalImage {
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "691 532 536 179"
-        sizeHint = "536 179"
+        geometry = "694 500 591 179"
+        sizeHint = "591 179"
         wasOpen = no
       }
       window _automatic {
@@ -1716,7 +1721,7 @@ module LocalImage {
   }
   fields  {
     instanceName = ProcessedLungs
-    name = /Users/justin/Documents/GitHub/MedVis/data/test/lungs.dcm
+    name = /Users/justin/Documents/GitHub/MedVis/data/preprocessed/lungs.dcm
     autoLoad = TRUE
   }
 }
@@ -1760,14 +1765,14 @@ module View2D {
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
     view2DExtensionsOn = TRUE
-    startSlice = 0
+    startSlice = 141
     numSlices = 1
     numXSlices = 1
     sliceStep = 1
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 0
+    maxTimePoint = 9
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_ZT
@@ -1785,8 +1790,8 @@ module View2D {
     sliceOrigin = "0 0"
     useShaders = TRUE
     useManagedInteraction = FALSE
-    lutCenter = 1
-    lutWidth = 1
+    lutCenter = 0
+    lutWidth = 400
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -2781,7 +2786,7 @@ module ROISelect {
     editModeFieldDisable = FALSE
     allTimepoints = FALSE
     usePreview = FALSE
-    timepoint = 0
+    timepoint = 6
     unit = ""
     startWorldPos = "4.5 8.5 321.5"
     startVoxelX = 4
@@ -2843,7 +2848,7 @@ module ROISelect {
     editModeFieldDisable = FALSE
     allTimepoints = FALSE
     usePreview = FALSE
-    timepoint = 0
+    timepoint = 2
     unit = ""
     startWorldPos = "4.5 8.5 321.5"
     startVoxelX = 4

@@ -28,7 +28,20 @@ def BrowseFile(module):
   if target:
     ctx.field(f"{module}.name").value = target
     ctx.field(f"{module}.load").touch()
-  
+    # check if result is valid when you switch inputs. Field used for conditional GUI
+    updateField('validVolume', 'CalculateVolume.resultsValid')
+    # If the result is valid, calculate subtraction image
+    if ctx.field("validVolume").value:
+      ReloadModule("SubtractionImage")
+
+
+def StartSegmentation(module):
+    """ A new segmentation will need to execute a few actions """
+    ReloadModule(module)
+    updateField('validVolume', 'CalculateVolume.resultsValid')
+    # If the result is valid, calculate subtraction image
+    if ctx.field("validVolume").value:
+      ReloadModule("SubtractionImage") 
 
 
 def saveSegmentation():
@@ -79,22 +92,24 @@ def touchField(Field):
 def ReloadModule(module):
     """ Reload a MeVisLab module with a given name. """
     ctx.module(f"{module}").reload()
-
-
+    
+    
 def updateField(target, source):
     """ Updates a target field with the value of the source field. """
     ctx.field(f"{target}").value = ctx.field(f"{source}").value
     #print(f"Updated {target} to value of {source}")
 
+def clearField(target):
+    ctx.field(f"{target}").value = None
 
 def updateCounter(changedField):
-  ''' If the slider in the GUI changes, push the change to the counter in Mevislab. '''
-  ctx.field("TimepointCounter.currentValue").value = changedField.value
+    """ If the slider in the GUI changes, push the change to the counter in Mevislab. """
+    ctx.field("TimepointCounter.currentValue").value = changedField.value
 
 
 def updateSliderField(changedField):
-  ''' If MevisLab Counter changes, push the change to the slider in the GUI. '''
-  ctx.field("TimepointCurrent").value = changedField.value
+    """ If MevisLab Counter changes, push the change to the slider in the GUI. """
+    ctx.field("timepointCurrent").value = changedField.value
 
 
 def initialize():
@@ -103,15 +118,24 @@ def initialize():
     """
     updateField('dataPath', 'ImportModule.fullPath')
     updateField('SegmentationPath', 'SaveTrachea.sourceName')
-    updateField('TracheaPathFileName', 'ProcessedTrachea.name') 
-    updateField('LungPathFileName', 'ProcessedLungs.name') 
     updateField('xResample', 'DownSampling.xResample')
     updateField('yResample', 'DownSampling.yResample')
     updateField('zResample', 'DownSampling.zResample')
     updateField('zResample', 'DownSampling.zResample')
-    updateField('timePointVolume', 'CalculateVolume.userTimepointVolume')
+    
     updateField('validVolume', 'CalculateVolume.resultsValid')
+    updateField('timepointVolumeCurrent', 'CalculateVolume.userTimepointVolume')
+    updateField('timepointVolumeMin', 'CalculateVolume.minTimepointVolume')
+    updateField('timepointVolumeMax', 'CalculateVolume.maxTimepointVolume')
+    
+    updateField('timepointCurrent', 'TimepointCounter.currentValue')
+    updateField('timepointMin', 'CalculateVolume.minTimepoint')
+    updateField('timepointMax', 'CalculateVolume.maxTimepoint')
+    updateField('timepointAutoStep', 'TimepointCounter.autoStep')
+    updateField('timepointAutoStepInterval', 'TimepointCounter.autoStepInterval_s')
+    updateField('timepointStepDirection', 'TimepointCounter.stepDirection')
     
     
     # Reset switches to default settings on initialization
     toggleImportSwitches()
+    

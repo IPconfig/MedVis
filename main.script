@@ -67,27 +67,62 @@ Interface {
     /* End of import data parameters */
     
     
-    Field timePointVolume {
-      type  = Int
-      value = CalculateVolume.userTimepointVolume
-    }
-    
-    
-    
     Field validVolume {
       type  = Bool
       value = CalculateVolume.resultsValid
     }
     
+    Field timepointVolumeCurrent {
+      type  = Int
+      value = CalculateVolume.userTimepointVolume
+    }
+    
+    Field timepointVolumeMin {
+      type  = Int
+      value = CalculateVolume.minTimepointVolume
+    }
+    
+    Field timepointVolumeMax {
+      type  = Int
+      value = CalculateVolume.maxTimepointVolume
+    }
+    
+    
+    
+    
     // This is the current counter field in the MeVisLab network that is linked to modules that work with timepoints
-    Field TimepointCurrent {
+    Field timepointCurrent {
       type  = Int
       value = 0
       min   = 0
       max   = 9
     }
     
+    Field timepointMin {
+      type  = Int
+      value = CalculateVolume.minTimepoint
+    }
     
+    Field timepointMax {
+      type  = Int
+      value = CalculateVolume.maxTimepoint
+    }
+    
+    Field timepointAutoStep {
+      type = Bool
+      value = TimepointCounter.autoStep
+    }
+    
+    Field timepointAutoStepInterval {
+      type = Double
+      value = TimepointCounter.autoStepInterval_s
+    }
+    
+    Field timepointStepDirection {
+      type = Enum
+      value = Up
+      values = Up,Down
+    }
   }
 }
 
@@ -138,27 +173,84 @@ Commands {
   }
   
   FieldListener {
-    command     = "py: updateResample(\"x\")"
+    command     = "py: updateResample('x')"
     listenField = xResample
   }
   FieldListener {
-    command     = "py: updateResample(\"y\")"
+    command     = "py: updateResample('y')"
     listenField = yResample
   }
   FieldListener {
-    command     = "py: updateResample(\"z\")"
+    command     = "py: updateResample('z')"
     listenField = zResample
   }
   
-  FieldListener  {
-    command     = "py: updateField('timePointVolume', 'CalculateVolume.userTimepointVolume')"
-    listenField = CalculateVolume.userTimepointVolume
-  }
+  
+  
   
   FieldListener  {
     command     = "py: updateField('validVolume', 'CalculateVolume.resultsValid')"
     listenField = CalculateVolume.resultsValid
   }
+  FieldListener  {
+    command     = "py: updateField('timepointVolumeCurrent', 'CalculateVolume.userTimepointVolume')"
+    listenField = CalculateVolume.userTimepointVolume
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointVolumeMin', 'CalculateVolume.minTimepointVolume')"
+    listenField = CalculateVolume.minTimepointVolume
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointVolumeMax', 'CalculateVolume.maxTimepointVolume')"
+    listenField = CalculateVolume.maxTimepointVolume
+  }
+  
+  
+  
+  
+  FieldListener  {
+    command     = "py: updateField('timepointCurrent', 'TimepointCounter.currentValue')"
+    listenField = TimepointCounter.currentValue
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointMin', 'CalculateVolume.minTimepoint')"
+    listenField = CalculateVolume.minTimepoint
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointMax', 'CalculateVolume.maxTimepoint')"
+    listenField = CalculateVolume.maxTimepoint
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointAutoStep', 'TimepointCounter.autoStep')"
+    listenField = TimepointCounter.autoStep
+  }
+  FieldListener  {
+    command     = "py: updateField('TimepointCounter.autoStep', 'timepointAutoStep')"
+    listenField = timepointAutoStep
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointAutoStepInterval', 'TimepointCounter.autoStepInterval_s')"
+    listenField = TimepointCounter.autoStepInterval_s
+  }
+  FieldListener  {
+    command     = "py: updateField('TimepointCounter.autoStepInterval_s', 'timepointAutoStepInterval')"
+    listenField = timepointAutoStepInterval
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointStepDirection', 'TimepointCounter.stepDirection')"
+    listenField = TimepointCounter.stepDirection
+  }
+  FieldListener  {
+    command     = "py: updateField('TimepointCounter.stepDirection', 'timepointStepDirection')"
+    listenField = timepointStepDirection
+  }
+  
+  
+  
+  
+  
+  
+  
   
   
   // This FieldListener triggers the function `updateCounter` in `Assignment-2-3.py` when the currentValue field from TimepointCurrent changes.
@@ -171,7 +263,7 @@ Commands {
   // If you want a bi-directional update, you need to add another FieldListener that updates the Counter's value using the updateCounter function.
   FieldListener {
     command     = updateCounter
-    listenField = TimepointCurrent
+    listenField = timepointCurrent
   }
   
 
@@ -180,7 +272,7 @@ Commands {
 ///////////////////////////////////////
 
 // Window definition! Here all the MDL code will go which dictates how UI elements look.
-Window MyViewer {
+Window "MedVis Group4" {
   // A TabView lets us have multiple options or settings in a compact area
   TabView {
     TabViewItem "Import data" {
@@ -225,7 +317,7 @@ Window MyViewer {
               }
             }
               
-            Box "Segmentation controls" {
+            Box "Segmentation Controls" {
               minimumHeight = 120
               Horizontal {
                 Horizontal {
@@ -235,7 +327,7 @@ Window MyViewer {
                 }  
                 Button  {
                   title     = "Start Segmentation"
-                  command   = "py: ReloadModule(\"segmentation\")"
+                  command   = "py: StartSegmentation(\"segmentation\")"
                   visibleOn = "* segmentationOption == /^(New)$/ *"
                   //alignGroupX = segmentationbuttonsnew
                   alignX    = right
@@ -347,23 +439,62 @@ Window MyViewer {
         direction = vertical
         Splitter {
           Box "Control Panel" {
-            minimumHeight = 350
+            alignY = Top
+     //       minimumHeight = 350
             minimumWidth  = 350
+            
+            Box " Lung Volume" {
+              Horizontal {
+              Label { title = "Min. Timepoint: " }
+              Label {titleField = timepointMin }
+              Label {titleField = timepointVolumeMin alignX = Right}
+              Label {title = ml alignX = Right}
+              }
+              
+              Horizontal {
+                Label { title = "Max. Timepoint: " }
+                Label {titleField = timepointMax }
+                Label {titleField = timepointVolumeMax maximumWidth = 40 alignX = Right}
+                Label {title = ml maximumWidth = 20 alignX = Right}
+              }
+              
+              Horizontal {
+                Label { title = "User Timepoint: " }
+                Label {titleField = timepointCurrent }
+                Label {titleField = timepointVolumeCurrent alignX = Right}
+                Label {title = ml alignX = Right}
+              }
+              
+              
+              
+            }
+            
             Box "Timepoint Control" {
-              Slider TimepointCurrent {
+             Horizontal {
+              Slider timepointCurrent {
                 pageStep  = 1  // Step-size when user clicks left or right
                 snap      = 1    // Snap to multiples of 1
                 direction = Horizontal
               }
+               Label {titleField = timepointCurrent}
+
+             }
+              Horizontal {
+                CheckBox timepointAutoStep {title = "Auto-update every"}
+                Field timepointAutoStepInterval {title = "" step = 0.1} 
+                Label {title = seconds}
+              }
+              Label {title = "Step Direction: " alignX = Right }
+              Field timepointStepDirection {title = "" alignX = Right }
             }
           }
           
           Panel {
             module        = CurveInspector
-            minimumHeight = 350
-            minimumWidth  = 350
-            expandX       = MinimumExpanding
-            expandY       = MinimumExpanding
+            //minimumHeight = 350
+            //minimumWidth  = 350
+            //expandX       = MinimumExpanding
+            //expandY       = MinimumExpanding
           }
         } // splitter row 1
         Splitter {
