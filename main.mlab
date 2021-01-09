@@ -32,6 +32,11 @@ module ApplyDicomPixelModifiers {
         sizeHint = "346 228"
         wasOpen = no
       }
+      window _automatic {
+        geometry = "709 321 500 600"
+        sizeHint = "262 217"
+        wasOpen = no
+      }
     }
   }
   fields  {
@@ -156,7 +161,7 @@ module OrthoView2D {
     valueHighPrecision = TRUE
     annoCoords = Voxel
     showCurrentPos = TRUE
-    worldPosition = "-247.48828125 333.01171875 -165"
+    worldPosition = "-14.9510955810547 75.18115234375 -86.5"
     coloredMode = FALSE
   }
 }
@@ -611,6 +616,11 @@ module Resample3D {
         sizeHint = "339 340"
         wasOpen = no
       }
+      window _automatic {
+        geometry = "709 321 500 600"
+        sizeHint = "262 217"
+        wasOpen = no
+      }
     }
   }
   fields  {
@@ -845,11 +855,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "300.879821777344 -709.248046875 407.357696533203"
-    camOrientation = "0.997915089130402 0.00387125369161367 0.064423456788063 1.30347621440887"
+    camPosition = "342.361694335938 -742.533569335938 134.806793212891"
+    camOrientation = "0.997810304164886 0.0385122075676918 0.0537716299295425 1.57992696762085"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1289.7773
-    camNear = 704.48779
+    camFar = 1271.6179
+    camNear = 722.61102
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -989,27 +999,10 @@ module CurveInspector {
     showLegend = TRUE
   }
 }
-module SubstractionImage {
-  internal  {
-    frame = "207 -423 136 56"
-    moduleGroupName = "Substraction Images"
-    localMacro = 1
-    windows  {
-      window _default {
-        geometry = "709 321 500 600"
-        sizeHint = "266 266"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = SubstractionImage
-  }
-}
 module View3D {
   internal  {
     frame = "204 -624 144 72"
-    moduleGroupName = "Substraction Images"
+    moduleGroupName = "Subtraction Images"
     windows  {
       window _default {
         geometry = "115 347 1070 640"
@@ -1245,7 +1238,7 @@ module ConcatenateCurves {
 module Convolution {
   internal  {
     frame = "227 -503 96 56"
-    moduleGroupName = "Substraction Images"
+    moduleGroupName = "Subtraction Images"
     windows  {
       window _default {
         geometry = "522 236 319 178"
@@ -1269,7 +1262,7 @@ module Convolution {
 module View3D {
   internal  {
     frame = "143 -743 152 72"
-    moduleGroupName = "Substraction Images"
+    moduleGroupName = "Subtraction Images"
     windows  {
       window _default {
         geometry = "541 217 927 640"
@@ -1308,12 +1301,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "203.891555786133 -322.794464111328 206.419921875"
-    camOrientation = "0.998199999332428 -0.0470541752874851 -0.0371841117739677 1.45867609977722"
+    camPosition = "170.528793334961 -737.25 253.755950927734"
+    camOrientation = "0.998199999332428 -0.0470541827380657 -0.0371841117739677 1.45867609977722"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 863.28748
-    camNear = 293.99884
-    camFocal = 578.35901
+    camFar = 1282.1881
+    camNear = 712.06238
+    camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1406,6 +1399,11 @@ module ImageSave {
         sizeHint = "256 192"
         wasOpen = no
       }
+      window _automatic {
+        geometry = "709 321 500 600"
+        sizeHint = "262 217"
+        wasOpen = no
+      }
     }
   }
   fields  {
@@ -1479,11 +1477,11 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "451.079559326172 -722.915161132813 222.825164794922"
-    camOrientation = "0.988741040229797 0.118874505162239 0.0908845290541649 1.49628782272339"
+    camPosition = "343.316650390625 -714.248046875 375.967437744141"
+    camOrientation = "0.996998965740204 0.0493768490850925 0.0596228651702404 1.33564984798431"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1304.7771
-    camNear = 689.51831
+    camFar = 1297.2496
+    camNear = 697.03052
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -1581,7 +1579,7 @@ module segmentation {
 module Bypass {
   internal  {
     frame = "127 -359 104 56"
-    moduleGroupName = "Substraction Images"
+    moduleGroupName = "Subtraction Images"
     showNetworkPanel = true
   }
   fields  {
@@ -1598,6 +1596,11 @@ module ImageSave {
       window _default {
         geometry = "900 174 611 492"
         sizeHint = "420 492"
+        wasOpen = no
+      }
+      window _automatic {
+        geometry = "532 133 1101 862"
+        sizeHint = "262 217"
         wasOpen = no
       }
     }
@@ -1704,6 +1707,11 @@ module LocalImage {
         sizeHint = "536 179"
         wasOpen = no
       }
+      window _automatic {
+        geometry = "352 321 857 600"
+        sizeHint = "262 217"
+        wasOpen = no
+      }
     }
   }
   fields  {
@@ -1714,7 +1722,7 @@ module LocalImage {
 }
 module Bypass {
   internal  {
-    frame = "1482 370 112 56"
+    frame = "1631 324 112 56"
     moduleGroupName = "Diameter Trachea"
     showNetworkPanel = true
     windows  {
@@ -1732,7 +1740,7 @@ module Bypass {
 }
 module View2D {
   internal  {
-    frame = "1130 53 120 56"
+    frame = "1279 7 120 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -1777,7 +1785,7 @@ module View2D {
     sliceOrigin = "0 0"
     useShaders = TRUE
     useManagedInteraction = FALSE
-    lutCenter = 0.5
+    lutCenter = 1
     lutWidth = 1
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
@@ -1798,7 +1806,7 @@ module View2D {
 }
 module SoView2DMarkerEditor {
   internal  {
-    frame = "1202 189 152 56"
+    frame = "1351 143 152 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -1908,7 +1916,7 @@ module SoView2DMarkerEditor {
 }
 module XMarkerListSort {
   internal  {
-    frame = "1418 165 120 56"
+    frame = "1567 119 120 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -1931,7 +1939,7 @@ module XMarkerListSort {
 }
 module CurvedMPR {
   internal  {
-    frame = "1314 69 104 56"
+    frame = "1463 23 104 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2362,7 +2370,7 @@ module View3D {
     colorFactor = "1 1 1"
     camType = TRUE
     camPosition = "257.392791748047 62.6912498474121 144.09587097168"
-    camOrientation = "0.998682677745819 0.0496837794780731 -0.0128194382414222 1.76541721820831"
+    camOrientation = "0.998682677745819 0.0496837794780731 -0.0128194391727448 1.76541721820831"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
     camFar = 464.89459
     camNear = 0.46396574
@@ -2445,7 +2453,7 @@ module View3D {
 }
 module View2D {
   internal  {
-    frame = "1194 -83 120 72"
+    frame = "1343 -129 120 72"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2506,7 +2514,7 @@ module View2D {
 }
 module OrthoView2D {
   internal  {
-    frame = "1378 -75 120 56"
+    frame = "1527 -121 120 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2547,7 +2555,7 @@ module OrthoView2D {
 }
 module DistanceFromXMarkerList {
   internal  {
-    frame = "1538 -75 168 56"
+    frame = "1687 -121 168 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2569,7 +2577,7 @@ module DistanceFromXMarkerList {
 }
 module XMarkerListContainer {
   internal  {
-    frame = "1638 29 144 56"
+    frame = "1787 -17 144 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2607,7 +2615,7 @@ module XMarkerListContainer {
 }
 module SoView2DMarkerEditor {
   internal  {
-    frame = "1566 173 160 56"
+    frame = "1715 127 160 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2717,7 +2725,7 @@ module SoView2DMarkerEditor {
 }
 module PathToKeyFrame {
   internal  {
-    frame = "1822 -51 128 56"
+    frame = "1971 -97 128 56"
     moduleGroupName = "Diameter Trachea"
     windows  {
       window _default {
@@ -2873,6 +2881,16 @@ module ROISelect {
     annotHorizontalRuler = FALSE
   }
 }
+module SubtractionImage {
+  internal  {
+    frame = "209 -427 128 56"
+    moduleGroupName = "Subtraction Images"
+    localMacro = 1
+  }
+  fields  {
+    instanceName = SubtractionImage
+  }
+}
 connections  {
   ApplyDicomPixelModifiers.input0 = ImportModule.output0
   DownSampling.input0 = Switch.output0
@@ -2893,7 +2911,6 @@ connections  {
   CalculateVolume.input0 = LungsSwitch.output0
   CalculateVolume.userTimepoint = TimepointCounter.currentValue
   CurveInspector.inCurve = ConcatenateCurves.outCurveList
-  SubstractionImage.input0 = Bypass.output0
   substraction_images.inImage = Convolution.output0
   substraction_images.currentTimePoint = TimepointCounter.currentValue
   Modify_Volume_Curve.inCurves = CalculateVolume.outTimeCurve
@@ -2901,7 +2918,7 @@ connections  {
   Modify_Timepoint_Curve.inCurves = Timepoint_Curve.outCurveList
   ConcatenateCurves.inCurve1 = Modify_Volume_Curve.outCurves
   ConcatenateCurves.inCurve2 = Modify_Timepoint_Curve.outCurves
-  Convolution.input0 = SubstractionImage.output0
+  Convolution.input0 = SubtractionImage.output0
   substraction_overlayed.inImage = Bypass.output0
   substraction_overlayed.inInvPreLUT = substraction_images.self
   substraction_overlayed.currentTimePoint = TimepointCounter.currentValue
@@ -2946,6 +2963,7 @@ connections  {
   ROIIn.endVoxelX = ROIEx.endVoxelX
   ROIIn.endVoxelY = ROIEx.endVoxelY
   ROIIn.endVoxelZ = ROIEx.endVoxelZ
+  SubtractionImage.input0 = Bypass.output0
 }
 networkModel  {
   parentItems  {
@@ -3076,7 +3094,7 @@ The ConcatenateCurves-module concatenates the two curves together so they can be
       }
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 125
-        objectName = "Substraction Images"
+        objectName = "Subtraction Images"
         parentUniqueId = 0
         color  {
           r = 140
@@ -3124,7 +3142,7 @@ This LUT is then covered over the regular lung segmentation, so movement through
 
   </body>
 </html>*"
-        titleText = "Substraction Images"
+        titleText = "Subtraction Images"
         isCollapsed = False
         drawAsComment = False
         titleFrame = "-197 -744 322 22"

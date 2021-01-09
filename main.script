@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// All MeVisLab modules are essentially defined using MDL. It consists of the Interface, Commands and Window components.
+// This file contains the definition of the custom GUI
 //
 // \file    main.py
 // \author  MedVis group 4
@@ -9,11 +9,9 @@
 
 
 // The Interface part is mostly used to declare extra fields.
-// Imagine if your interface calculated the volume of a tumor and you wanted to store this value.
-// You would need to create a Field, as shown below.
 Interface {
   Parameters {
-    /* Start of Import parameters */
+    /* Start of import data parameters */
     Field segmentationOption {
       type   = Enum
       value  = New
@@ -37,12 +35,12 @@ Interface {
     }
     
     Field TracheaPathFileName {
-      type = String
+      type  = String
       value = ProcessedTrachea.name
     }
     
     Field LungPathFileName {
-      type = String
+      type  = String
       value = ProcessedLungs.name
     }
 
@@ -66,7 +64,7 @@ Interface {
       min   = 1
       value = 1
     }
-    /* End of Import parameters */
+    /* End of import data parameters */
     
     
     Field timePointVolume {
@@ -74,12 +72,14 @@ Interface {
       value = CalculateVolume.userTimepointVolume
     }
     
+    
+    
     Field validVolume {
       type  = Bool
       value = CalculateVolume.resultsValid
     }
     
-    // Define an integer field on [0, 9], starting on 5.
+    // This is the current counter field in the MeVisLab network that is linked to modules that work with timepoints
     Field TimepointCurrent {
       type  = Int
       value = 0
@@ -88,17 +88,12 @@ Interface {
     }
     
     
-    Field MyLineTextField {
-      type  = string
-      value = "This is MyLineTextField. Any LineEdit bound to this Field stays in sync"
-    }
   }
 }
 
 ///////////////////////////////////////
 
-// Secondly, there is the Commands section. It is used to declare and import Python scripts and assign functions.
-// For instance, a Button may require a certain function to trigger, but MeVisLab will need to know where the source definitions are located.
+// Commands section is used to declare and import Python scripts and assign functions.
 Commands {
 
   // Indicate the source Python file
@@ -210,7 +205,7 @@ Window MyViewer {
             }
               
             Box "Resampling Controls" {
-              Horizontal { // it's easier to align a bundle of controls by wrapping them in a Horizontal
+              Horizontal { // it's easier to align a bundle of controls by wrapping them in an extra Horizontal
                 Horizontal {
                   alignX = Left
                   Label {title = "resampling mode: " labelAlignGroup = segmentationlabel}
@@ -251,45 +246,45 @@ Window MyViewer {
                 Label { title = "Output Folder: " labelAlignGroup = segmentationlabel }
                 Field SegmentationPath { title = "" expandX = Yes }
                 Button {
-                  title          = "Browse..."
-                  command        = "py: Browse(\"SaveTrachea.sourceName\")"
+                  title       = "Browse..."
+                  command     = "py: Browse(\"SaveTrachea.sourceName\")"
                   alignGroupX = segmentationbuttonsnew
-                  alignX         = Right
+                  alignX      = Right
                 }
               }
               Horizontal {
                 visibleOn = "* segmentationOption == /^(New)$/ *"
                 Button {
-                  title   = "Store Results"
-                  command = "py: saveSegmentation()"
+                  title       = "Store Results"
+                  command     = "py: saveSegmentation()"
                   alignGroupX = segmentationbuttonsnew
-                  alignX  = Right
+                  alignX      = Right
                 }
               }
                   
                 
-                Horizontal {
-                  visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
-                  Label {title = "Trachea segmentation: " labelAlignGroup = segmentationlabel}
-                  Field TracheaPathFileName { title = "" }
-                  Button {
-                    title          = "Load File"
-                    preferredWidth = 50
-                    alignX         = Right
-                    command        = "py: BrowseFile(\"ProcessedTrachea\")"
-                  }
+              Horizontal {
+                visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
+                Label {title = "Trachea segmentation: " labelAlignGroup = segmentationlabel}
+                Field TracheaPathFileName { title = "" }
+                Button {
+                  title          = "Load File"
+                  preferredWidth = 50
+                  alignX         = Right
+                  command        = "py: BrowseFile(\"ProcessedTrachea\")"
                 }
-                Horizontal {
-                  visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
-                  Label {title = "Lungs segmentation: " labelAlignGroup = segmentationlabel}
-                  Field LungPathFileName { title = "" alignGroupX = segmentationPath}
-                  Button {
-                    title          = "Load File"
-                    preferredWidth = 50
-                    alignX         = Right
-                    command        = "py: BrowseFile(\"ProcessedLungs\")"
-                  }
-                }    
+              }
+              Horizontal {
+                visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
+                Label {title = "Lungs segmentation: " labelAlignGroup = segmentationlabel}
+                Field LungPathFileName { title = "" alignGroupX = segmentationPath}
+                Button {
+                  title          = "Load File"
+                  preferredWidth = 50
+                  alignX         = Right
+                  command        = "py: BrowseFile(\"ProcessedLungs\")"
+                }
+              }    
             } // close segmentation control box
           } // close control panel box
         }
@@ -345,11 +340,24 @@ Window MyViewer {
       }
     }
     
-    /* Diagnoses related to lungs */
+    
+    ////////////////////////////// Diagnoses related to lungs //////////////////////////////
     TabViewItem "Lung" {
       Splitter {
         direction = vertical
         Splitter {
+          Box "Control Panel" {
+            minimumHeight = 350
+            minimumWidth  = 350
+            Box "Timepoint Control" {
+              Slider TimepointCurrent {
+                pageStep  = 1  // Step-size when user clicks left or right
+                snap      = 1    // Snap to multiples of 1
+                direction = Horizontal
+              }
+            }
+          }
+          
           Panel {
             module        = CurveInspector
             minimumHeight = 350
@@ -358,12 +366,10 @@ Window MyViewer {
             expandY       = MinimumExpanding
           }
         } // splitter row 1
-        Splitter {} // splitter row 2
-      }
-    }
-
+        Splitter {
+          Viewer substraction_overlayed.self {}
+        } // splitter row 2
+      } // close vertical splitter
+    } // close Lung tabview
   } // close tabviewer
 } // close MyViewer window
-
-
-

@@ -1,36 +1,25 @@
 # -----------------------------------------------------------------------------
-## This file implements segmentation from lungs and trachea from DICOM Torax files
+# This file implements segmentation from lungs and trachea from DICOM Torax files
 #
 # \file    LungSegmentation.py
 # \author  J.C. de Haan
 # \date    12/2020
 #
 # -----------------------------------------------------------------------------
-
-
-
-# import mevis
-#import cv2
 import numpy as np
 from skimage import measure
 from scipy import ndimage as ndi
 import math
 
 # ----------- Helper functions ----------- #
-# Helper function for debugging numpy arrays
-def show_array(y):
-  #print('array: \n', y)
-  print('array.ndim: ', y.ndim)
-  print('array.shape: ', y.shape)
-
 def reverse(tuples): 
-    """ Helper function for reversing the order of dimensions from MevisLab to numpy format. """
+    """ Reverses the order of dimensions from MevisLab to numpy format and vice versa. """
     new_tup = tuples[::-1]
     return new_tup 
 
 
 def largest_label_volume(im, bg=-1):
-    """ Helper function for segment_lung_and_trachea_mask() that returns the label with the maximum volume"""
+    """ Helper function for segment_lung_and_trachea_mask() that returns the label with the maximum volume. """
     vals, counts = np.unique(im, return_counts=True)
 
     counts = counts[vals != bg]
@@ -41,10 +30,19 @@ def largest_label_volume(im, bg=-1):
     else:
         return None
 
-# Segment lung (-500) / air (-1000) between many other organic tissues
-# Filling lung structures removes body tissues that still need to be removed.
-# Credits to Guido Zuidhof : https://www.kaggle.com/gzuidhof/full-preprocessing-tutorial#Lung-segmentation
+
+# Inspired by Guido Zuidhof: https://www.kaggle.com/gzuidhof/full-preprocessing-tutorial#Lung-segmentation
 def segment_lung_and_trachea_mask(img, fill_lung_structures=True):
+    """
+      Segment lung (-500) / air (-1000) between many other organic tissues
+      
+      Parameters:
+        img: 6D DICOM image
+        fill_lung_structures: Set to True if you want to include lung structures that fell outside the treshold (default: True)
+        
+      Returns:
+        binary_image: mask of segmented lungs, bronchi and trachea
+    """
   
     # not actually binary, but 1 and 2. 
     # 0 is treated as background, which we do not want
@@ -84,74 +82,93 @@ def segment_lung_and_trachea_mask(img, fill_lung_structures=True):
         
     return binary_image
 
-def make6D(img, timepoint):
+def make6D(img, timepoint=0):
+    """ Converts a 3D image to 6D
+    
+        Parameters:
+          img: 3D image
+          timepoint: time-dimension for this image (default 0)
+          
+        Returns:
+          img: 6D image with given timepoint 
+    """
     img = img[np.newaxis, np.newaxis, np.newaxis, ...] # add back the 3 missing dimensions
     img[..., 2] = 0 # u-dimension
     img[..., 1] = timepoint # time
     img[..., 0] = 0 # c-dimension
     return img
   
-# Helper method that calculates the euclidian distance of a (filtered) image to the given coordinates.
-# Returns the coordinates closest by the target coordinates
+
 def find_nearest_air_coordinates(img, coordinates):
+    """
+      Helper method that calculates the euclidian distance of a (filtered) image to the given coordinates.
+      
+      Parameters:
+        img:       2D image
+      
+      Returns:
+        (x, y): coordinates closest by the target coordinates
+    """
     filtered = np.argwhere(img < -900)
     distances = np.sqrt((filtered[:,0] - coordinates[0]) ** 2 + (filtered[:,1] - coordinates[1]) ** 2)
     nearest_index = np.argmin(distances)
     return filtered[nearest_index]
   
 def grow_trachea(interface, img):
-  """
-      Calculate a seed point at 75% on the the z-axis (trachea is close to midpoint)
-      Apply regionGrowing module starting from calculated seed point
-      
-      Parameters:
-        interface: Interface of the regionGrowing module
-        img:       input image (at least 3D)
-      
-      Returns:
-        img: segmented image of the trachea
-  """
-  # at around 75% on the z-axis, the trachea is located a little left and above of the midpoint
-  # we will search for the first pixel with a HU-value of -900 from the midpoint of the image and update the coordinates accordingly
-  extent = img.imageExtent()
-  regiongrowing_input = img.getTile((0,0,0,0,0,0),(extent))
-  interface.setImage(regiongrowing_input) # output image to interface, so RegionGrowing-module can use it
-  x_coordinate, y_coordinate, z_coordinate = int(extent[0]/2), int(extent[1]/2), int(round(0.75 * extent[2], 0))
-  #print(f"x: {x_coordinate}, y: {y_coordinate}, z: {z_coordinate} for slice that trachea uses")
-  tile2D = img.getTile((0,0,z_coordinate,0,0,0), (extent[0], extent[1])) # missing dimensions will be filled with 1
-
-  coordinates = (y_coordinate,x_coordinate)
-  coordinates = find_nearest_air_coordinates(tile2D, (x_coordinate, y_coordinate))
-  coordinates = np.flip(np.concatenate(([z_coordinate], coordinates))) # add z to the vector and flip to mevislab dimension order
-  seed_vector = [coordinates[0], coordinates[1], coordinates[2], 0, 0, 0] # RegionGrowing module expects a vector of 6 elements
+    """
+        Calculate a seed point at 75% on the the z-axis (trachea is close to midpoint)
+        Apply regionGrowing module starting from calculated seed point until the volume explodes
+        
+        Parameters:
+          interface: Interface of the regionGrowing module
+          img:       6D input image
+        
+        Returns:
+          img: Segmented image of the trachea
+    """
+    # at around 75% on the z-axis, the trachea is located a little left and above of the midpoint
+    # we will search for the first pixel with a HU-value of -900 from the midpoint of the image and update the coordinates accordingly
+    extent = img.imageExtent()
+    regiongrowing_input = img.getTile((0,0,0,0,0,0),(extent))
+    interface.setImage(regiongrowing_input) # output image to interface, so RegionGrowing-module can use it
+    x_coordinate, y_coordinate, z_coordinate = int(extent[0]/2), int(extent[1]/2), int(round(0.75 * extent[2], 0))
+    #print(f"x: {x_coordinate}, y: {y_coordinate}, z: {z_coordinate} for slice that trachea uses")
+    tile2D = img.getTile((0,0,z_coordinate,0,0,0), (extent[0], extent[1])) # missing dimensions will be filled with 1
   
-  trachea_treshold = -900
-  trachea_treshold_step = -64
-  ctx.field("RegionGrowing.useAdditionalSeed").value = True
-  ctx.field("RegionGrowing.basicNeighborhoodType").value = "BNBH_4D_8_XYZT"
-  ctx.field("RegionGrowing.additionalSeed").setVectorValue(seed_vector)
-  ctx.field("RegionGrowing.lowerThreshold").value = -2000
-  ctx.field("RegionGrowing.upperThreshold").value = trachea_treshold
-  ctx.field("RegionGrowing.update").touch() # press update button
-  trachea_volume = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
-  trachea_volume_new = trachea_volume
-  print(f"{trachea_volume} ml volume calculated")
-
-  while trachea_treshold_step < 0:
-    if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea
-      trachea_treshold = trachea_treshold + trachea_treshold_step # restore old treshold value
-      trachea_treshold_step = math.ceil(trachea_treshold_step / 2) # halve the treshold step, if step becomes 0 we are done
-      
-    trachea_treshold = trachea_treshold - trachea_treshold_step
+    coordinates = (y_coordinate,x_coordinate)
+    coordinates = find_nearest_air_coordinates(tile2D, (x_coordinate, y_coordinate))
+    coordinates = np.flip(np.concatenate(([z_coordinate], coordinates))) # add z to the vector and flip to mevislab dimension order
+    seed_vector = [coordinates[0], coordinates[1], coordinates[2], 0, 0, 0] # RegionGrowing module expects a vector of 6 elements
+    
+    # set default parameters for RegionGrowing Module
+    trachea_treshold = -900
+    trachea_treshold_step = -64
+    ctx.field("RegionGrowing.useAdditionalSeed").value = True
+    ctx.field("RegionGrowing.basicNeighborhoodType").value = "BNBH_4D_8_XYZT"
+    ctx.field("RegionGrowing.additionalSeed").setVectorValue(seed_vector)
+    ctx.field("RegionGrowing.lowerThreshold").value = -2000
     ctx.field("RegionGrowing.upperThreshold").value = trachea_treshold
     ctx.field("RegionGrowing.update").touch() # press update button
-    trachea_volume_new = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
-    # edge case: final check to break out of loop; region is not twice as large and step is -1
-    if ((trachea_treshold_step == -1)  and not (trachea_volume_new > 2 * trachea_volume)):
-      break
-
-  print(f'{round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)} ml volume final')
-  return ctx.field("RegionGrowing.output0").image()
+    
+    trachea_volume = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
+    trachea_volume_new = trachea_volume
+    print(f"{trachea_volume} ml volume initially calculated")
+  
+    # update treshold to increase volume in a controlled way
+    while trachea_treshold_step < 0:
+        if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea
+            trachea_treshold = trachea_treshold + trachea_treshold_step # restore old treshold value
+            trachea_treshold_step = math.ceil(trachea_treshold_step / 2) # halve the treshold step, if step becomes 0 we are done
+            
+        trachea_treshold = trachea_treshold - trachea_treshold_step
+        ctx.field("RegionGrowing.upperThreshold").value = trachea_treshold
+        ctx.field("RegionGrowing.update").touch() # press update button
+        trachea_volume_new = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
+        # edge case: final check to break out of loop; region is not twice as large and step is -1
+        if ((trachea_treshold_step == -1)  and not (trachea_volume_new > 2 * trachea_volume)):
+            break
+    print(f'{round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)} ml volume after RegionGrowing')
+    return ctx.field("RegionGrowing.output0").image()
 
 
 
@@ -214,7 +231,7 @@ if image:
   interface3.setImage(lungs)
   
   
-  ## calculate inspiration and expiration timepoints so we can mass correcy inspiration images
+  ## calculate inspiration and expiration timepoints so we can mass correct inspiration images
   #min_tp = ctx.field("CalculateVolume.minTimepoint").value
   #max_tp = ctx.field("CalculateVolume.maxTimepoint").value
   #expiration_volume = []

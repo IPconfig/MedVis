@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-## This file contain all functions related to the GUI
+## This file contain all functions related to the custom GUI
 #
 # \file    main.py
 # \author  MedVis group 4
@@ -44,10 +44,15 @@ def toggleImportSwitches():
         ctx.field("LungsSwitch.currentInput").value = 0
         # check if result is valid when you switch inputs. Field used for conditional GUI
         updateField('validVolume', 'CalculateVolume.resultsValid')
+        # If the result is valid, calculate subtraction image
+        if ctx.field("validVolume").value:
+          ReloadModule("SubtractionImage")  
     else:
         ctx.field("TracheaSwitch.currentInput").value = 1
         ctx.field("LungsSwitch.currentInput").value = 1
         updateField('validVolume', 'CalculateVolume.resultsValid')
+        if ctx.field("validVolume").value:
+          ReloadModule("SubtractionImage")
         
         
 def toggleSampling():
@@ -68,14 +73,12 @@ def updateResample(name):
 
 def touchField(Field):
     """ Touching a field will cause a notification and the field listener will call the given command. """
-    print(f"Touched field: {Field}")
     Field.touch()
     
     
 def ReloadModule(module):
     """ Reload a MeVisLab module with a given name. """
     ctx.module(f"{module}").reload()
-    print(f"reloaded module")
 
 
 def updateField(target, source):

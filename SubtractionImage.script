@@ -10,5 +10,5 @@ Interface  {
 
 
 Commands {
-  source = $(LOCAL)/SubstractionImage.py
+  source = $(LOCAL)/SubtractionImage.py
 }
