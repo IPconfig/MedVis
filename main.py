@@ -30,18 +30,12 @@ def BrowseFile(module):
     ctx.field(f"{module}.load").touch()
     # check if result is valid when you switch inputs. Field used for conditional GUI
     updateField('validVolume', 'CalculateVolume.resultsValid')
-    # If the result is valid, calculate subtraction image
-    if ctx.field("validVolume").value:
-      ReloadModule("SubtractionImage")
 
 
 def StartSegmentation(module):
     """ A new segmentation will need to execute a few actions """
     ReloadModule(module)
     updateField('validVolume', 'CalculateVolume.resultsValid')
-    # If the result is valid, calculate subtraction image
-    if ctx.field("validVolume").value:
-      ReloadModule("SubtractionImage") 
 
 
 def saveSegmentation():
@@ -57,15 +51,10 @@ def toggleImportSwitches():
         ctx.field("LungsSwitch.currentInput").value = 0
         # check if result is valid when you switch inputs. Field used for conditional GUI
         updateField('validVolume', 'CalculateVolume.resultsValid')
-        # If the result is valid, calculate subtraction image
-        if ctx.field("validVolume").value:
-          ReloadModule("SubtractionImage")  
     else:
         ctx.field("TracheaSwitch.currentInput").value = 1
         ctx.field("LungsSwitch.currentInput").value = 1
         updateField('validVolume', 'CalculateVolume.resultsValid')
-        if ctx.field("validVolume").value:
-          ReloadModule("SubtractionImage")
         
         
 def toggleSampling():
@@ -111,6 +100,20 @@ def updateSliderField(changedField):
     """ If MevisLab Counter changes, push the change to the slider in the GUI. """
     ctx.field("timepointCurrent").value = changedField.value
 
+
+
+## CPR 
+# Delete All Markers in View2D
+def Delete(target):
+  ctx.field(f"{target}").touch()
+ 
+# Print diameter between selected markers
+def printstr(SomeString):
+  print(f"{SomeString} ")
+  image = round(ctx.field("PathToKeyFrame1.pathLength").value,1)
+  print(f"{image} mm")
+  
+  
 
 def initialize():
     """

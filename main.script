@@ -66,6 +66,9 @@ Interface {
     }
     /* End of import data parameters */
     
+    /* Start of trachea parameters */
+    Field CPRNumMarkers { type = Int }
+    /* End of trachea parameters */
     
     Field validVolume {
       type  = Bool
@@ -185,6 +188,12 @@ Commands {
     listenField = zResample
   }
   
+  
+  // Update CPRNumMarkers Field
+  FieldListener {
+    command     = "py: updateField('CPRNumMarkers', 'SoView2DMarkerEditor.numItems')"
+    listenField = SoView2DMarkerEditor.numItems
+  }
   
   
   
@@ -422,7 +431,7 @@ Window "MedVis Group4" {
     
     
     ////////////////////////////// Diagnosis related to trachea //////////////////////////////
-    TabViewItem "Trachea Diameter" {
+    TabViewItem "Trachea new" {
       Splitter {
         direction = vertical
         Splitter {
@@ -433,36 +442,161 @@ Window "MedVis Group4" {
     }
     
     
+    TabViewItem "Trachea" {
+          
+      Vertical {     
+        // CPR and Diameter calculation
+        Horizontal{
+          Box "Control Panel"{
+            preferredHeight = 450
+            preferredWidth  = 400
+                
+            Vertical{
+              Box "Settings Diameter" {
+                Label {
+                  Title = "Delete All Markers:"
+                }
+                Button { title = "Delete"    command = "py: Delete('SoView2DMarkerEditor.deleteAll') " }
+                Label{
+                  Title = "Calculate diameter" }
+                Button { 
+                  title = "Diameter"    command = "py: printstr('Distance between points: ') "        }
+              }
+              Box "Settings Volume" { 
+                Vertical{ expandx = No
+                  // Settings volume difference trachea
+                  Label {
+                    title = "Determine two timepoints" 
+                  }
+                  //Maximal inspiration 
+                  Label {
+                    Title = "Maximal Inspiration"
+                  }
+                  NumberEdit Tin { step = 1 }
+                      
+                  Horizontal{
+                    Button { title = "Delete Seeding Points Inspiration"    command = "py: Delete('RGIn.removeAll') " }
+                    Button { title = "Update Region Growing Inspiration"    command = "py: RegionGrowing('RGIn.update') "}  
+                  }
+                      
+                  //Maximal Expiration
+                  Label { 
+                    Title = "Maximal Expiration"
+                  } 
+                  NumberEdit Tex { step = 1 }}
+
+                Horizontal {
+                  Button { title = "Delete Seeding Points Expiration"    command = "py: Delete('RGEx.removeAll') " }
+                  Button { title = "Update Region Growing Expiration"    command = "py: RegionGrowing('RGEx.update') "}
+                }
+              }
+            }
+          }
+          Box "Diameter Trachea" {
+            preferredHeight = 450
+            preferredWidth  = 800
+                
+            Horizontal{
+              Box "View 2D MPR" {
+                Viewer View2D2.self {
+                  name            = "ViewerMPR"    
+                  viewing         = No
+                  clone           = NO
+                  preferredWidth  = 350
+                  preferredHeight = 350
+                }
+              }
+             
+              Box "View CPR" {
+                Label {title = "<p style=\"color:red\"> Please pick at least 2 markers to create a path</p>"
+                  visibleOn = "* CPRNumMarkers == /^(0|1)$/ *" textAlignment = Center }
+                
+                Viewer Curved.self {
+                  visibleOn       = "* CPRNumMarkers != /^(0|1)$/ *"
+                  name            = "Viewer2DMPR"    
+                  clone           = NO
+                  preferredWidth  = 350
+                  preferredHeight = 350
+                }
+              }
+            }
+          }
+        }
+        // Volume Difference between max inspiration and max expiration
+        Box "Volume Trachea" {
+          preferredHeight = 450
+          preferredWidth  = 1500
+              
+          Horizontal{
+            Box "Max Inspiration" {
+              Viewer RGIn.viewerSelf {
+                name            = "RegionGrowingIn"  
+                viewing         = No
+                clone           = NO
+                preferredWidth  = 350
+                preferredHeight = 350   
+              }
+                
+            }
+            Box "Max expiration" {
+              Viewer RGEx.viewerSelf {
+                name            = "RegionGrowingEx"  
+                viewing         = No
+                clone           = NO
+                preferredWidth  = 350
+                preferredHeight = 350   
+              }
+            }
+            // Output Trachea Inspiration volume + expiration volume            
+            Box "View 3D MPR" {
+              Viewer VolumeDiff.self {
+                name            = "Viewer3DMPR"    
+                clone           = NO
+                preferredWidth  = 350
+                preferredHeight = 350    
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    
     ////////////////////////////// Diagnoses related to lungs //////////////////////////////
     TabViewItem "Lung" {
+      tabSelectedCommand = "py: ReloadModule('SubtractionImage')"
       Splitter {
         direction = vertical
         Splitter {
           Box "Control Panel" {
             alignY = Top
      //       minimumHeight = 350
-            minimumWidth  = 350
+     //       minimumWidth  = 350
             
             Box " Lung Volume" {
               Horizontal {
-              Label { title = "Min. Timepoint: " }
+                alignX = Left
+                Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
               Label {titleField = timepointMin }
-              Label {titleField = timepointVolumeMin alignX = Right}
-              Label {title = ml alignX = Right}
+                Label {title = "Volume:" expandX = Yes}
+              Label {titleField = timepointVolumeMin }
+                Label {title = ml }
               }
               
               Horizontal {
-                Label { title = "Max. Timepoint: " }
-                Label {titleField = timepointMax }
-                Label {titleField = timepointVolumeMax maximumWidth = 40 alignX = Right}
-                Label {title = ml maximumWidth = 20 alignX = Right}
+                Label { title = "Max. Timepoint: " labelAlignGroup = lungVolumeTime}
+                Label {titleField = timepointMax alignX = Left }
+                Label {title = "Volume:"  expandX = Yes alignX = Right}
+                Label {titleField = timepointVolumeMax maximumWidth = 40 alignX = Left}
+                Label {title = ml maximumWidth = 20 alignX = Left}
               }
               
               Horizontal {
-                Label { title = "User Timepoint: " }
+                Label { title = "User Timepoint: " labelAlignGroup = lungVolumeTime}
                 Label {titleField = timepointCurrent }
-                Label {titleField = timepointVolumeCurrent alignX = Right}
-                Label {title = ml alignX = Right}
+                Label {title = "Volume:"}
+                Label {titleField = timepointVolumeCurrent }
+                Label {title = ml }
               }
               
               
@@ -470,6 +604,7 @@ Window "MedVis Group4" {
             }
             
             Box "Timepoint Control" {
+              alignX = Left
              Horizontal {
               Slider timepointCurrent {
                 pageStep  = 1  // Step-size when user clicks left or right
@@ -480,12 +615,16 @@ Window "MedVis Group4" {
 
              }
               Horizontal {
+                
                 CheckBox timepointAutoStep {title = "Auto-update every"}
                 Field timepointAutoStepInterval {title = "" step = 0.1} 
                 Label {title = seconds}
               }
-              Label {title = "Step Direction: " alignX = Right }
-              Field timepointStepDirection {title = "" alignX = Right }
+              Horizontal {              
+                Label {title = "Step Direction: "}
+                Field timepointStepDirection {title = ""}
+              }
+
             }
           }
           
@@ -498,7 +637,7 @@ Window "MedVis Group4" {
           }
         } // splitter row 1
         Splitter {
-          Viewer substraction_overlayed.self {}
+          Viewer substraction_overlayed.self { type = SoCustomExaminerViewer}
         } // splitter row 2
       } // close vertical splitter
     } // close Lung tabview

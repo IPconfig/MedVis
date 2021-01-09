@@ -797,14 +797,14 @@ module Counter {
   }
   fields  {
     instanceName = TimepointCounter
-    currentValue = 6
+    currentValue = 4
     minValue = 0
     maxValue = 9
     startValue = 0
     stepValue = 1
     loop = TRUE
     checkConsistency = TRUE
-    autoStepInterval_s = 0.15
+    autoStepInterval_s = 0.25
     stepDirection = Up
   }
 }
@@ -837,7 +837,7 @@ module View3D {
     inventorOutputOn = FALSE
     lutType = Ramp
     rendererType = Slicer
-    currentTimePoint = 0
+    currentTimePoint = 4
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -964,7 +964,7 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 6
+    userTimepoint = 4
     curveType = Line
     curveStyle = 0
   }
@@ -1033,7 +1033,7 @@ module View3D {
     inventorOutputOn = TRUE
     lutType = Editor
     rendererType = Slicer
-    currentTimePoint = 0
+    currentTimePoint = 4
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -1046,8 +1046,8 @@ module View3D {
     orientationLocation = LOWER_RIGHT
     orientationOn = TRUE
     orientationModel = TORSO
-    greyCenter = 0.439999997615814
-    greyWidth = 0.174999907612801
+    greyCenter = 0.48499995470047
+    greyWidth = 0.189999893307686
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
@@ -1178,7 +1178,7 @@ module CurveCursor {
   }
   fields  {
     instanceName = Timepoint_Curve
-    posX = 6
+    posX = 4
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -1288,7 +1288,7 @@ module View3D {
     inventorOutputOn = FALSE
     lutType = Editor
     rendererType = Slicer
-    currentTimePoint = 0
+    currentTimePoint = 4
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -1301,16 +1301,16 @@ module View3D {
     orientationLocation = LOWER_RIGHT
     orientationOn = TRUE
     orientationModel = TORSO
-    greyCenter = 0.439999997615814
-    greyWidth = 0.174999907612801
+    greyCenter = 0.48499995470047
+    greyWidth = 0.189999893307686
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "235.607116699219 -737.710144042969 274.841400146484"
-    camOrientation = "0.999436497688293 -0.0291328057646751 0.0166743882000446 1.43636703491211"
+    camPosition = "279.69921875 -739.424438476563 258.68310546875"
+    camOrientation = "0.999603271484375 0.0280829947441816 0.00216279085725546 1.45246827602386"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1268.9297
-    camNear = 725.29413
+    camFar = 1270.9152
+    camNear = 723.31256
     camFocal = 996.841
     camHeight = 0.78539801
     decoration = FALSE
@@ -1464,7 +1464,7 @@ module View3D {
     inventorOutputOn = FALSE
     lutType = Ramp
     rendererType = Slicer
-    currentTimePoint = 0
+    currentTimePoint = 4
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -1765,7 +1765,7 @@ module View2D {
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
     view2DExtensionsOn = TRUE
-    startSlice = 141
+    startSlice = 175
     numSlices = 1
     numXSlices = 1
     sliceStep = 1
@@ -1896,7 +1896,7 @@ module SoView2DMarkerEditor {
     cursorShapeDragMove = MOVE_ALL_CURSOR
     cursorShapeDelete = CROSS_MINUS_CURSOR
     listString = ""
-    index = 0
+    index = 1
     persistent = FALSE
     listStringEnable = FALSE
     applySelect = FALSE
@@ -1905,7 +1905,7 @@ module SoView2DMarkerEditor {
     overflowMode = None
     maxSize = 0
     useInsertTemplate = FALSE
-    posXYZ = "0 0 0"
+    posXYZ = "-20.98828125 74.01171875 6"
     posC = 0
     posT = 0
     posU = 0
@@ -2374,12 +2374,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "257.392791748047 62.6912498474121 144.09587097168"
-    camOrientation = "0.998682677745819 0.0496837794780731 -0.0128194391727448 1.76541721820831"
+    camPosition = "332.765625 -9.72833919525146 129.641723632813"
+    camOrientation = "0.980633735656738 0.151026234030724 0.124694101512432 1.77630615234375"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 464.89459
-    camNear = 0.46396574
-    camFocal = 191.01645
+    camFar = 604.25903
+    camNear = 0.60305172
+    camFocal = 277.09586
     camHeight = 0.78539801
     decoration = FALSE
     annotations = TRUE
@@ -2480,7 +2480,7 @@ module View2D {
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 0
+    maxTimePoint = 9
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_ZT
@@ -2498,8 +2498,8 @@ module View2D {
     sliceOrigin = "0 0"
     useShaders = TRUE
     useManagedInteraction = FALSE
-    lutCenter = 1
-    lutWidth = 1
+    lutCenter = 4.86373901367188e-05
+    lutWidth = 400
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -2546,8 +2546,8 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 1
-    grayCenter = 1
+    grayWidth = 400
+    grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
     annotationFontSize = ANNO_SIZE_AUTO
