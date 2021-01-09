@@ -37,30 +37,27 @@ def saveSegmentation():
     ctx.field("SaveLungs.save").touch()
   
 
-def Import():
-    """ The import button loads the file into memory. In case a resampling option is picked, the resampling get executed. """
-    ctx.field("ImportModule.dplImport").touch()
-    if ctx.field("SamplingDICOM").value == "Upsampling":
-        ctx.field("UpSampling.updateButton").touch()
-    elif ctx.field("SamplingDICOM").value == "Downsampling":
-        ctx.field("DownSampling.updateButton").touch()
-
-
 def toggleImportSwitches():
     """ Modify switch input of the Trachea and Lungs modules to match the choosen option in the GUI. """
-    if ctx.field("importOption").value == "DICOM":
+    if ctx.field("segmentationOption").value == "New":
         ctx.field("TracheaSwitch.currentInput").value = 0
         ctx.field("LungsSwitch.currentInput").value = 0
+        # check if result is valid when you switch inputs. Field used for conditional GUI
+        updateField('validVolume', 'CalculateVolume.resultsValid')
     else:
         ctx.field("TracheaSwitch.currentInput").value = 1
         ctx.field("LungsSwitch.currentInput").value = 1
+        updateField('validVolume', 'CalculateVolume.resultsValid')
+        
         
 def toggleSampling():
     """ Modify switch input of the SampleToggle module to match the choosen resampling option in the GUI. """
-    if ctx.field("SamplingDICOM").value == "Downsampling":
+    if ctx.field("SamplingDICOM").value == "Downsampling" :
         ctx.field("SampleToggle.currentInput").value = 0
+    elif ctx.field("SamplingDICOM").value == "Upsampling":
+        ctx.field("SampleToggle.currentInput").value = 2
     else:
-        ctx.field("SampleToggle.currentInput").value = 1
+      ctx.field("SampleToggle.currentInput").value = 1
 
 
 def updateResample(name):
@@ -74,8 +71,9 @@ def touchField(Field):
     print(f"Touched field: {Field}")
     Field.touch()
     
+    
 def ReloadModule(module):
-    """ Reload a module with a given name. """
+    """ Reload a MeVisLab module with a given name. """
     ctx.module(f"{module}").reload()
     print(f"reloaded module")
 
@@ -83,17 +81,17 @@ def ReloadModule(module):
 def updateField(target, source):
     """ Updates a target field with the value of the source field. """
     ctx.field(f"{target}").value = ctx.field(f"{source}").value
- #   print(f"Updated {target} to value of {source}")
+    #print(f"Updated {target} to value of {source}")
 
 
-# If the Slider backing field changes, push the change to the Counter.
 def updateCounter(changedField):
+  ''' If the slider in the GUI changes, push the change to the counter in Mevislab. '''
   ctx.field("TimepointCounter.currentValue").value = changedField.value
 
-# If the Counter's value changes, push the change to the Slider.
-def updateSliderField(changedField):
-  ctx.field("MySliderField").value = changedField.value
 
+def updateSliderField(changedField):
+  ''' If MevisLab Counter changes, push the change to the slider in the GUI. '''
+  ctx.field("TimepointCurrent").value = changedField.value
 
 
 def initialize():
@@ -101,7 +99,16 @@ def initialize():
       Initialize all field values used in the control panels. This fills up our parameter fields with the values from the network
     """
     updateField('dataPath', 'ImportModule.fullPath')
-    updateField('SegmentationPath', 'SaveTrachea.sourceName')    
+    updateField('SegmentationPath', 'SaveTrachea.sourceName')
+    updateField('TracheaPathFileName', 'ProcessedTrachea.name') 
+    updateField('LungPathFileName', 'ProcessedLungs.name') 
     updateField('xResample', 'DownSampling.xResample')
     updateField('yResample', 'DownSampling.yResample')
     updateField('zResample', 'DownSampling.zResample')
+    updateField('zResample', 'DownSampling.zResample')
+    updateField('timePointVolume', 'CalculateVolume.userTimepointVolume')
+    updateField('validVolume', 'CalculateVolume.resultsValid')
+    
+    
+    # Reset switches to default settings on initialization
+    toggleImportSwitches()

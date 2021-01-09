@@ -14,10 +14,10 @@
 Interface {
   Parameters {
     /* Start of Import parameters */
-    Field importOption {
-      type = Enum
-      value = DICOM
-      values = DICOM,Preprocessed
+    Field segmentationOption {
+      type   = Enum
+      value  = New
+      values = New,Preprocessed
     }
     
     Field dataPath {
@@ -25,16 +25,27 @@ Interface {
       value = ImportModule.fullPath
     }
     
+    // SegmentationPath is the path to trachea segmentation folder. It also updates the lungPath in Python
     Field SegmentationPath {
-      type = String
+      type  = String
       value = SaveTrachea.sourceName
     }
     
     Field LungPath {
-      type = String
+      type  = String
       value = SaveLungs.sourceName
     }
     
+    Field TracheaPathFileName {
+      type = String
+      value = ProcessedTrachea.name
+    }
+    
+    Field LungPathFileName {
+      type = String
+      value = ProcessedLungs.name
+    }
+
     Field SamplingDICOM {
       type   = Enum
       value  = None
@@ -55,17 +66,17 @@ Interface {
       min   = 1
       value = 1
     }
-    
     /* End of Import parameters */
     
     
+    Field timePointVolume {
+      type  = Int
+      value = CalculateVolume.userTimepointVolume
+    }
     
-    // Define a float value on [-100, 100], starting on 33.
-    Field SomeFloatValue {
-      type  = Float
-      value = 33
-      min   = -100
-      max   = 100
+    Field validVolume {
+      type  = Bool
+      value = CalculateVolume.resultsValid
     }
     
     // Define an integer field on [0, 9], starting on 5.
@@ -76,13 +87,6 @@ Interface {
       max   = 9
     }
     
-    // Define a float field on [0, 1] for the ProgressBar
-    Field MyProgressBar {
-      type  = Float
-      value = 0
-      min   = 0
-      max   = 1
-    }
     
     Field MyLineTextField {
       type  = string
@@ -119,13 +123,23 @@ Commands {
   }
   
   FieldListener {
+    command     = "py: updateField('TracheaPathFileName', 'ProcessedTrachea.name')"
+    listenField = ProcessedTrachea.name
+  }
+  
+  FieldListener {
+    command     = "py: updateField('LungPathFileName', 'ProcessedLungs.name')"
+    listenField = ProcessedLungs.name
+  }
+  
+  FieldListener {
     command     = toggleSampling
     listenField = SamplingDICOM
   }
   
   FieldListener {
     command     = toggleImportSwitches
-    listenField = importOption
+    listenField = segmentationOption
   }
   
   FieldListener {
@@ -141,14 +155,18 @@ Commands {
     listenField = zResample
   }
   
-
+  FieldListener  {
+    command     = "py: updateField('timePointVolume', 'CalculateVolume.userTimepointVolume')"
+    listenField = CalculateVolume.userTimepointVolume
+  }
   
+  FieldListener  {
+    command     = "py: updateField('validVolume', 'CalculateVolume.resultsValid')"
+    listenField = CalculateVolume.resultsValid
+  }
   
-  
-  // Sometimes you also want a function to trigger when a Field changes a value, for instance if the user changes some slider or a types in a number. This is where FieldListener's come in.
   
   // This FieldListener triggers the function `updateCounter` in `Assignment-2-3.py` when the currentValue field from TimepointCurrent changes.
-  
   FieldListener {
     command     = updateSliderField
     listenField = TimepointCounter.currentValue
@@ -175,174 +193,153 @@ Window MyViewer {
         direction = vertical
         Splitter{
           direction = horizontal
-            Box "Control Panel" {              
+          Box "Control Panel" {              
+            expandX = MinimumExpanding
+            expandY = MinimumExpanding
+            alignY  = Top
+            Label Instruction {
+              title    = "Import DICOM data and segment trachea and lungs or import preprocessed images"
+              textWrap = WordBreak
+            }
+              
+            Panel {
               minimumHeight = 350
               minimumWidth  = 350
-              expandX       = MinimumExpanding
-              expandY       = MinimumExpanding
-              alignY = Top
-              Label Instruction {
-                title    = "Load DICOM files for segmentation or load preprocessed files"
-                textWrap = WordBreak
-              }
-              Horizontal { // put label and field on same line
-                Label {title = "import mode: "}
-                Field importOption {title = ""}
-              }
+              style{colors{fg=white}}
+              module = ImportModule
+            }
               
-              Box {
-                alignY = Top
-                stretchY = 350
-                Box "Load preprocessed files" {
-                  visibleOn = "* importOption == /^(Preprocessed)$/ *"
-                  Label { title    = "Select the preprocessed segmentation iamges of trachea and lungs" textWrap = WordBreak }
-                  Horizontal {
-                    Label {title = "Trachea segmentation: "}
-                    Button {
-                      title          = "Load File"
-                      preferredWidth = 50
-                      alignX         = Right
-                      command        = "py: BrowseFile(\"ProcessedTrachea\")"
-                    }
-                  }
-                  Horizontal {
-                    Label {title = "Lungs segmentation: "}
-                    Button {
-                      title          = "Load File"
-                      preferredWidth = 50
-                      alignX         = Right
-                      command        = "py: BrowseFile(\"ProcessedLungs\")"
-                    }
-                  }
-                  
-                }
-                Box "Directory Settings" {
-                  visibleOn = "* importOption == /^(DICOM)$/ *"
-                  Label Instruction { title = "Make sure to set the output path different to the DICOM path" textWrap = WordBreak }
-                  Horizontal {
-                    Label label { title = "DICOM Path: "}
-                    Label {
-                      titleField = dataPath
-                      textWrap   = WordBreak
-                    }
-                    Button {
-                      title          = "Browse..."
-                      preferredWidth = 50
-                      alignX = Right
-                      command        = "py: Browse(\"ImportModule.source\")"
-                    }
-                  }
-                  Horizontal {
-                    Label { title = "Output Path: " }
-                    Label { titleField = SegmentationPath textWrap = WordBreak}
-                    Button {
-                      title          = "Browse..."
-                      preferredWidth = 50
-                      alignX = Right
-                      command        = "py: Browse(\"SaveTrachea.sourceName\")"
-                    }
-                  }
-                }
-                Box "Resampling options" {
-                  visibleOn = "* importOption == /^(DICOM)$/ *"
-                  Horizontal { // put label and field on same line
-                    Label {title = "resampling mode: "}
-                    Field SamplingDICOM {title = ""}
-                  }
-            
-                  Label label {
-                    title = "Resampling Factor:"
-                  }
-                  Horizontal {
-                    Label x {title = "x:"}
-                    NumberEdit xResample {
-                      step  = 1
-                    }
-                  }
-                  Horizontal {
-                    Label y {title = "y:"}
-                    NumberEdit yResample {
-                      step     = 1
-                    }
-                  }
-                  Horizontal {
-                    Label z {title = "z:"}
-                    NumberEdit zResample {
-                      step     = 1
-                    }
-                  }
-                }                
+            Box "Resampling Controls" {
+              Horizontal { // it's easier to align a bundle of controls by wrapping them in a Horizontal
                 Horizontal {
-                  visibleOn = "* importOption == /^(DICOM)$/ *"
-                  Button  {
-                    title          = "Load DICOM Files"
-                    command        = "py: Import()"
-                    alignX         = Left
-                  }
-                  Button  {
-                    title          = "Start Segmentation"
-                    command        = "py: ReloadModule(\"segmentation\")"
-                    alignX         = Center
-                  }
-                  Button {
-                    title          = "Save Segmentation"
-                    command        = "py: saveSegmentation()"
-                    alignX         = Right
-                  }
-                } // close horizontal of buttons
-              } // close box
-            } // close control panel box
-            Box "DICOM Preview" {
-              minimumHeight = 350
-              minimumWidth  = 350
-              expandX       = MinimumExpanding
-              expandY       = MinimumExpanding
-              
-              Label {title = "<p style=\"color:tomato\"> DICOM preview is disabled</p>"
-                visibleOn = "* importOption == /^(Preprocessed)$/ *" textAlignment = Center }
-              
-              
-              Viewer DataPreview.self {
-                visibleOn = "* importOption == /^(DICOM)$/ *"
-                type = SoRenderArea
+                  alignX = Left
+                  Label {title = "resampling mode: " labelAlignGroup = segmentationlabel}
+                  Field SamplingDICOM {title = "" alignGroupX = segmentationbutton}
+                }
+                Horizontal {
+                  alignX         = Right
+                  preferredWidth = 10
+                  Label label { title = "Resampling Factor:" }
+                  Label x {title = "x"}
+                  NumberEdit xResample { step = 1 }
+                  Label y {title = "y"}
+                  NumberEdit yResample { step = 1 }
+                  Label z {title = "z"}
+                  NumberEdit zResample { step = 1 }
+                }
               }
             }
+              
+            Box "Segmentation controls" {
+              minimumHeight = 120
+              Horizontal {
+                Horizontal {
+                  alignX = Left
+                  Label {title = "Segmentation mode: " labelAlignGroup = segmentationlabel }
+                  Field segmentationOption {title = "" alignGroupX = segmentationbutton }
+                }  
+                Button  {
+                  title     = "Start Segmentation"
+                  command   = "py: ReloadModule(\"segmentation\")"
+                  visibleOn = "* segmentationOption == /^(New)$/ *"
+                  //alignGroupX = segmentationbuttonsnew
+                  alignX    = right
+                } 
+              }
+              Horizontal {
+                visibleOn = "* segmentationOption == /^(New)$/ *"
+                Label { title = "Output Folder: " labelAlignGroup = segmentationlabel }
+                Field SegmentationPath { title = "" expandX = Yes }
+                Button {
+                  title          = "Browse..."
+                  command        = "py: Browse(\"SaveTrachea.sourceName\")"
+                  alignGroupX = segmentationbuttonsnew
+                  alignX         = Right
+                }
+              }
+              Horizontal {
+                visibleOn = "* segmentationOption == /^(New)$/ *"
+                Button {
+                  title   = "Store Results"
+                  command = "py: saveSegmentation()"
+                  alignGroupX = segmentationbuttonsnew
+                  alignX  = Right
+                }
+              }
+                  
+                
+                Horizontal {
+                  visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
+                  Label {title = "Trachea segmentation: " labelAlignGroup = segmentationlabel}
+                  Field TracheaPathFileName { title = "" }
+                  Button {
+                    title          = "Load File"
+                    preferredWidth = 50
+                    alignX         = Right
+                    command        = "py: BrowseFile(\"ProcessedTrachea\")"
+                  }
+                }
+                Horizontal {
+                  visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
+                  Label {title = "Lungs segmentation: " labelAlignGroup = segmentationlabel}
+                  Field LungPathFileName { title = "" alignGroupX = segmentationPath}
+                  Button {
+                    title          = "Load File"
+                    preferredWidth = 50
+                    alignX         = Right
+                    command        = "py: BrowseFile(\"ProcessedLungs\")"
+                  }
+                }    
+            } // close segmentation control box
+          } // close control panel box
         }
+        // Start of 2nd row on import data tab
         Splitter {
-          Box "Trachea Segmentation" {
+          Box "DICOM Preview" {
+            minimumHeight = 250
+            minimumWidth  = 250
+            expandX       = MinimumExpanding
+            expandY       = MinimumExpanding
+            Viewer DataPreview.self { type = SoRenderArea }
+          }
+          
+          Box "Trachea Segmentation Preview" {
+            minimumHeight = 250
+            minimumWidth  = 250
+            expandX       = MinimumExpanding
+            expandY       = MinimumExpanding
             Viewer trachea.self {
-              name          = "Trachea"
-              minimumHeight = 350
-              minimumWidth  = 350
-              expandX       = MinimumExpanding
-              expandY       = MinimumExpanding
+              visibleOn = validVolume
+              name      = "Trachea"
             }
+            Label {title = "<p style=\"color:tomato\"> Start a new segmentation or load preprocessed image</p>"
+              visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
           } // close Trachea segmentation box
           
-          Box "Lungs Segmentation" {
+          Box "Lungs Segmentation Preview" {
+            minimumHeight = 250
+            minimumWidth  = 250
+            expandX       = MinimumExpanding
+            expandY       = MinimumExpanding
+            
             Viewer lungs.self {
-              name          = "Lungs"
-              minimumHeight = 350
-              minimumWidth  = 350
-              expandX       = MinimumExpanding
-              expandY       = MinimumExpanding
+              visibleOn = validVolume
+              name      = "Lungs"
             }
+            Label {title = "<p style=\"color:tomato\"> Start a new segmentation or load preprocessed image</p>"
+              visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
           } // close Trachea segmentation box
         } // close splitter (2nd row)
       } // close outer splitter
     } // Close TabView of Import
-    /* Diagnosis related to trachea */
+    
+    
+    ////////////////////////////// Diagnosis related to trachea //////////////////////////////
     TabViewItem "Trachea Diameter" {
       Splitter {
         direction = vertical
         Splitter {
-          panel {
-            module = ImportModule
-            minimumHeight = 350
-            minimumWidth  = 350
-            expandX       = MinimumExpanding
-            expandY       = MinimumExpanding
-          }
+          
         } // splitter row 1
         Splitter {} // splitter row 2
       }
