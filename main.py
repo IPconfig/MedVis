@@ -55,8 +55,8 @@ def toggleImportSwitches():
         ctx.field("TracheaSwitch.currentInput").value = 1
         ctx.field("LungsSwitch.currentInput").value = 1
         updateField('validVolume', 'CalculateVolume.resultsValid')
-        
-        
+
+
 def toggleSampling():
     """ Modify switch input of the SampleToggle module to match the choosen resampling option in the GUI. """
     if ctx.field("SamplingDICOM").value == "Downsampling" :
@@ -106,7 +106,14 @@ def updateSliderField(changedField):
 # Delete All Markers in View2D
 def Delete(target):
   ctx.field(f"{target}").touch()
- 
+  
+
+def calculateDiameter():
+    """ Calculates the diameter between two x-marker points """
+    if ctx.field("XMarkerListContainer.numItems").value == 2:
+      ctx.field("tracheaDiameter").value = round(ctx.field("PathToKeyFrame1.pathLength").value, 2)
+
+
 # Print diameter between selected markers
 def printstr(SomeString):
   print(f"{SomeString} ")
@@ -126,6 +133,9 @@ def initialize():
     updateField('zResample', 'DownSampling.zResample')
     updateField('zResample', 'DownSampling.zResample')
     
+    updateField('CPRNumMarkers' , 'SoView2DMarkerEditor.numItems')
+    updateField('tracheaDiameter', 'PathToKeyFrame1.pathLength')
+    
     updateField('validVolume', 'CalculateVolume.resultsValid')
     updateField('timepointVolumeCurrent', 'CalculateVolume.userTimepointVolume')
     updateField('timepointVolumeMin', 'CalculateVolume.minTimepointVolume')
@@ -137,6 +147,8 @@ def initialize():
     updateField('timepointAutoStep', 'TimepointCounter.autoStep')
     updateField('timepointAutoStepInterval', 'TimepointCounter.autoStepInterval_s')
     updateField('timepointStepDirection', 'TimepointCounter.stepDirection')
+    
+    
     
     
     # Reset switches to default settings on initialization

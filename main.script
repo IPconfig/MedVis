@@ -68,6 +68,11 @@ Interface {
     
     /* Start of trachea parameters */
     Field CPRNumMarkers { type = Int }
+    
+    Field tracheaDiameter { 
+      type  = Double 
+      Value = PathToKeyFrame1.pathLength 
+    }
     /* End of trachea parameters */
     
     Field validVolume {
@@ -112,18 +117,18 @@ Interface {
     }
     
     Field timepointAutoStep {
-      type = Bool
+      type  = Bool
       value = TimepointCounter.autoStep
     }
     
     Field timepointAutoStepInterval {
-      type = Double
+      type  = Double
       value = TimepointCounter.autoStepInterval_s
     }
     
     Field timepointStepDirection {
-      type = Enum
-      value = Up
+      type   = Enum
+      value  = Up
       values = Up,Down
     }
   }
@@ -193,6 +198,11 @@ Commands {
   FieldListener {
     command     = "py: updateField('CPRNumMarkers', 'SoView2DMarkerEditor.numItems')"
     listenField = SoView2DMarkerEditor.numItems
+  }
+  
+  FieldListener {
+    command     = "py: calculateDiameter()"
+    listenField = PathToKeyFrame1.pathLength
   }
   
   
@@ -442,8 +452,7 @@ Window "MedVis Group4" {
     }
     
     
-    TabViewItem "Trachea" {
-          
+    TabViewItem "Trachea" {  
       Vertical {     
         // CPR and Diameter calculation
         Horizontal{
@@ -457,10 +466,11 @@ Window "MedVis Group4" {
                   Title = "Delete All Markers:"
                 }
                 Button { title = "Delete"    command = "py: Delete('SoView2DMarkerEditor.deleteAll') " }
-                Label{
-                  Title = "Calculate diameter" }
-                Button { 
-                  title = "Diameter"    command = "py: printstr('Distance between points: ') "        }
+                Horizontal {
+                  Label { Title = "Calculated diameter: " }
+                  Label { titleField = tracheaDiameter} 
+                  Label { title = mm }
+                }
               }
               Box "Settings Volume" { 
                 Vertical{ expandx = No
@@ -570,16 +580,16 @@ Window "MedVis Group4" {
         Splitter {
           Box "Control Panel" {
             alignY = Top
-     //       minimumHeight = 350
-     //       minimumWidth  = 350
+            //       minimumHeight = 350
+            //       minimumWidth  = 350
             
             Box " Lung Volume" {
               Horizontal {
                 alignX = Left
                 Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
-              Label {titleField = timepointMin }
+                Label {titleField = timepointMin }
                 Label {title = "Volume:" expandX = Yes}
-              Label {titleField = timepointVolumeMin }
+                Label {titleField = timepointVolumeMin }
                 Label {title = ml }
               }
               
@@ -605,15 +615,15 @@ Window "MedVis Group4" {
             
             Box "Timepoint Control" {
               alignX = Left
-             Horizontal {
-              Slider timepointCurrent {
-                pageStep  = 1  // Step-size when user clicks left or right
-                snap      = 1    // Snap to multiples of 1
-                direction = Horizontal
-              }
-               Label {titleField = timepointCurrent}
+              Horizontal {
+                Slider timepointCurrent {
+                  pageStep  = 1  // Step-size when user clicks left or right
+                  snap      = 1    // Snap to multiples of 1
+                  direction = Horizontal
+                }
+                Label {titleField = timepointCurrent}
 
-             }
+              }
               Horizontal {
                 
                 CheckBox timepointAutoStep {title = "Auto-update every"}
