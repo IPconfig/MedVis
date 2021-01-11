@@ -3,7 +3,7 @@ Interface  {
     Field input0 { type = image }
   }
   Outputs {
-    Field lungs_with_trachea { internalName = lungs_and_trachea.output0 }
+    // Field thorax { internalName = lungs_and_trachea.output0 }
     Field trachea { internalName = PythonImage.output0 }
     Field lungs { internalName = PythonImage1.output0 }
     

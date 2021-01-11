@@ -153,8 +153,8 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 1
-    grayCenter = 0
+    grayWidth = 0.100000001490116
+    grayCenter = 0.256000012159348
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
     annotationFontSize = ANNO_SIZE_AUTO
@@ -235,6 +235,11 @@ module DirectDicomImport {
       window _scriptingconsole {
         geometry = "1148 314 600 500"
         sizeHint = "256 192"
+        wasOpen = no
+      }
+      window _automatic {
+        geometry = "230 187 840 795"
+        sizeHint = "262 217"
         wasOpen = no
       }
     }
@@ -602,7 +607,7 @@ validImage hasIssues fileType voxelType imgExt numVoxels numSlices numTimePoints
     dplWorkaroundValueForImageOrientationPatientTag = ""
     composeOtherFilesMode = Single
     silentTrialFileTypes = ".dat .raw .txt"
-    source = $(NETWORK)/data/4DCT-Dicom
+    source = $(NETWORK)/__pycache__
     guiCachePath = ""
   }
 }
@@ -637,135 +642,6 @@ module Resample3D {
     useReferenceImage = FALSE
   }
 }
-module View3D {
-  internal  {
-    frame = "65 -51 144 72"
-    moduleGroupName = "Lung and Trachea Segmentation"
-    windows  {
-      window _default {
-        geometry = "996 245 905 640"
-        sizeHint = "1026 640"
-        wasOpen = no
-      }
-      window LutEditor {
-        geometry = "684 247 542 749"
-        sizeHint = "542 749"
-        wasOpen = no
-      }
-      window _automatic {
-        geometry = "709 321 500 600"
-        sizeHint = "262 217"
-        wasOpen = no
-      }
-    }
-  }
-  fields  {
-    instanceName = lungs_and_trachea
-    autoViewAll = TRUE
-    inventorInputOn = TRUE
-    inventorOutputOn = FALSE
-    lutType = Ramp
-    rendererType = Slicer
-    currentTimePoint = 0
-    staticSamplingRate = 1
-    quality = 1
-    filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ -2976 0.256000012159348 0.256000012159348 0.256000012159348, -1889.0009765625 0.256000012159348 0.256000012159348 0.256000012159348, -1476.47570800781 0.256000012159348 0.256000012159348 0.256000012159348, -1034.99145507812 0.256000012159348 0.256000012159348 0.256000012159348, -555.448120117188 0.256000012159348 0.256000012159348 0.256000012159348, 0 0.256000012159348 0.256000012159348 0.256000012159348, 0.00400000018998981 0.257129430770874 0.253371149301529 0.253852963447571, 555.874389648438 0.257129430770874 0.253371149301529 0.253852963447571, 769.004760742188 0.257129430770874 0.253371149301529 0.253852963447571, 1024 0.257129430770874 0.253371149301529 0.253852963447571 ]"
-    lutEditorAlphaPoints = "[ -2976 0, -1889.0009765625 0, -1476.47570800781 0.527851462364197, -1034.99145507812 0.618037164211273, -555.448120117188 0, 0 0, 0.00400000018998981 0.00917431153357029, 555.874389648438 0.143730893731117, 769.004760742188 0.388379216194153, 1024 0.00671367393806577 ]"
-    lutEditorRelativeLut = FALSE
-    lutEditorColorInterpolation = InterpolateRGB
-    lutEditorAlphaFactor = 1
-    orientationProjectionType = PERSPECTIVE
-    orientationLocation = LOWER_RIGHT
-    orientationOn = TRUE
-    orientationModel = TORSO
-    greyCenter = 0.439999997615814
-    greyWidth = 0.174999907612801
-    alphaFactor = 1
-    colorFactor = "1 1 1"
-    camType = TRUE
-    camPosition = "289.616119384766 -398.211212158203 219.942337036133"
-    camOrientation = "0.999190747737885 0.0331602282822132 0.0227676667273045 1.34691786766052"
-    initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 951.22485
-    camNear = 393.14056
-    camFocal = 671.90424
-    camHeight = 0.78539801
-    decoration = FALSE
-    annotations = FALSE
-    background = TRUE
-    mode = VolumeRendering
-    interactiveQuality = Medium
-  }
-  internalFields  {
-    renderer.gradientQuality = GradientQualityAutomatic
-    renderer.enhancementAlphaMix = 0.25
-    renderer.boundaryEnhancement = FALSE
-    renderer.boundaryEnhancementFactor = 1
-    renderer.boundaryEnhancementExponent = 1
-    renderer.boundaryEnhancementGradientBias = 0
-    renderer.silhouetteEnhancement = FALSE
-    renderer.silhouetteEnhancementExponent = 1
-    renderer.silhouetteEnhancementFactor = 1
-    renderer.toneShading = FALSE
-    renderer.toneShadingWarmColor = "0.67451000213623 0.533333003520966 0.141176000237465"
-    renderer.toneShadingColdColor = "0 0 0.400000005960464"
-    renderer.toneShadingWarmDiffuse = 0.60000002
-    renderer.toneShadingColdDiffuse = 0.2
-    renderer.toneShadingAngle = 45
-    renderer.materialAmbient = 0.60000002
-    renderer.materialDiffuse = 1
-    renderer.materialSpecular = 1
-    renderer.materialSpecularity = 32
-    renderer.light1Enabled = TRUE
-    renderer.light1DiffuseIntensity = 1
-    renderer.light1SpecularIntensity = 1
-    renderer.light1Color = "1 1 1"
-    renderer.light1PolarPhi = 45
-    renderer.light1PolarRho = 0
-    renderer.light2Enabled = FALSE
-    renderer.light2DiffuseIntensity = 1
-    renderer.light2SpecularIntensity = 1
-    renderer.light2Color = "1 1 1"
-    renderer.light2PolarPhi = 0
-    renderer.light2PolarRho = 0
-    renderer.light3Enabled = FALSE
-    renderer.light3DiffuseIntensity = 1
-    renderer.light3SpecularIntensity = 1
-    renderer.light3Color = "1 1 1"
-    renderer.light3PolarPhi = -45
-    renderer.light3PolarRho = 0
-    renderer.sizeOutputX = 500
-    renderer.sizeOutputY = 500
-    renderer.sizeOutputZ = 282
-    renderer.subVolumeStartX = 0
-    renderer.subVolumeStartY = 0
-    renderer.subVolumeStartZ = 0
-    renderer.subVolumeEndX = 500
-    renderer.subVolumeEndY = 500
-    renderer.subVolumeEndZ = 282
-    clip.hideGeometry = FALSE
-    clip.on = FALSE
-    clip.left = FALSE
-    clip.right = FALSE
-    clip.top = FALSE
-    clip.bottom = FALSE
-    clip.rear = FALSE
-    clip.front = FALSE
-    clip.translation0 = "1 0 0"
-    clip.translation1 = "-1 0 0"
-    clip.translation2 = "0 1 0"
-    clip.translation3 = "0 -1 0"
-    clip.translation4 = "0 0 1"
-    clip.translation5 = "0 0 -1"
-    clip.rotation0 = "0 0 0.999999940395355 1.57079994678497"
-    clip.rotation1 = "0 0 -0.999999940395355 1.57079994678497"
-    clip.rotation2 = "0 0 -1 3.1415901184082"
-    clip.rotation3 = "0 0 1 0"
-    clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
-    clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
-  }
-}
 module Bypass {
   internal  {
     frame = "488 916 112 56"
@@ -797,7 +673,7 @@ module Counter {
   }
   fields  {
     instanceName = TimepointCounter
-    currentValue = 6
+    currentValue = 7
     minValue = 0
     maxValue = 9
     startValue = 0
@@ -964,7 +840,7 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 6
+    userTimepoint = 7
     curveType = Line
     curveStyle = 0
   }
@@ -1193,7 +1069,7 @@ module CurveCursor {
   }
   fields  {
     instanceName = Timepoint_Curve
-    posX = 6
+    posX = 7
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -1661,7 +1537,7 @@ module ImageSave {
 }
 module LocalImage {
   internal  {
-    frame = "-39 531 160 88"
+    frame = "-38 529 160 88"
     moduleGroupName = "Import Preprocessed data"
     showNetworkPanel = true
     windows  {
@@ -1718,7 +1594,7 @@ module Switch {
 }
 module LocalImage {
   internal  {
-    frame = "130 535 152 88"
+    frame = "131 533 152 88"
     moduleGroupName = "Import Preprocessed data"
     showNetworkPanel = true
     windows  {
@@ -1884,8 +1760,8 @@ module Arithmetic2 {
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "737 523 824 164"
-        sizeHint = "446 109"
+        geometry = "859 616 748 160"
+        sizeHint = "370 105"
         wasOpen = no
       }
     }
@@ -1904,13 +1780,13 @@ module View3D {
     moduleGroupName = "Volume Trachea"
     windows  {
       window _default {
-        geometry = "834 45 1079 640"
+        geometry = "356 140 1079 640"
         sizeHint = "1156 640"
         wasOpen = no
       }
       window LutEditor {
-        geometry = "667 173 590 809"
-        sizeHint = "590 809"
+        geometry = "279 180 542 749"
+        sizeHint = "542 749"
         wasOpen = no
       }
     }
@@ -1926,29 +1802,29 @@ module View3D {
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
-    lutEditorColorPoints = "[ -4000 0 0 0, -2340.94995117188 0.296739995479584 0.260771989822388 0.260771989822388, -1883.2900390625 0.51764702796936 0.454901993274689 0.454901993274689, -1253.98999023438 0.931940019130707 0.121188998222351 0.121188998222351, -967.950988769531 0.97647100687027 0.133332997560501 0.133332997560501, -395.865997314453 0.0360749997198582 0.0360749997198582 0.0360749997198582, 236.195999145508 0 0 0, 359.438629150391 1 0 0, 1006.42242431641 1 0 0, 1006.43054199219 0.600000023841858 0.600000023841858 0.600000023841858, 4095 0.409500002861023 0.409500002861023 0.409500002861023 ]"
-    lutEditorAlphaPoints = "[ -4000 0, -2340.94995117188 0, -1883.2900390625 0.384615004062653, -1253.98999023438 0, -967.950988769531 0.352941006422043, -395.865997314453 0, 236.195999145508 0, 359.438629150391 0.177718833088875, 1006.42242431641 0.283819615840912, 1006.43054199219 1, 4095 0 ]"
+    lutEditorColorPoints = "[ 0 0.972549021244049 0.0274509806185961 0.0274509806185961, 950.9267578125 1 0 0, 950.928771972656 0.600000023841858 0.600000023841858 0.600000023841858, 1024 0.595721065998077 0.595721065998077 0.595721065998077, 2048 0.595721065998077 0.595721065998077 0.595721065998077 ]"
+    lutEditorAlphaPoints = "[ 0 0.00286696897819638, 950.9267578125 0.229357793927193, 950.928771972656 0.671087503433228, 1024 0.670533239841461, 2048 0.670533239841461 ]"
     lutEditorRelativeLut = FALSE
     lutEditorColorInterpolation = InterpolateRGB
     lutEditorAlphaFactor = 1
     orientationProjectionType = PERSPECTIVE
     orientationLocation = LOWER_RIGHT
     orientationOn = TRUE
-    orientationModel = CUBE
+    orientationModel = TORSO
     greyCenter = 0.817499697208405
     greyWidth = 0.307500243186951
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "0.58124566078186 -2.49790811538696 0.501037538051605"
-    camOrientation = "0.984568893909454 0.130850657820702 0.116199374198914 1.38912260532379"
+    camPosition = "0.491333425045013 -2.55170226097107 -0.275386989116669"
+    camOrientation = "0.991155207157135 0.114061996340752 0.0678326040506363 1.68151795864105"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
     camFar = 3.6131265
     camNear = 1.6131265
     camFocal = 2.6131265
     camHeight = 0.78539801
     decoration = FALSE
-    annotations = TRUE
+    annotations = FALSE
     background = TRUE
     mode = VolumeRendering
     interactiveQuality = Medium
@@ -2095,8 +1971,8 @@ module ROISelect {
         wasOpen = no
       }
       window _automatic {
-        geometry = "43 91 899 735"
-        sizeHint = "260 228"
+        geometry = "864 176 901 724"
+        sizeHint = "262 217"
         wasOpen = no
       }
     }
@@ -2690,8 +2566,8 @@ module View2D {
     sliceOrigin = "0 0"
     useShaders = TRUE
     useManagedInteraction = FALSE
-    lutCenter = 0
-    lutWidth = 1
+    lutCenter = 0.256000012159348
+    lutWidth = 0.100000001490116
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -2732,7 +2608,7 @@ module SoView2DMarkerEditor {
     drawingOn = TRUE
     editingOn = TRUE
     fixZOn = TRUE
-    color = "1 1 1"
+    color = "1 0 0.894117653369904"
     selectionTolerance = 4
     needsValidVoxel = TRUE
     button1 = PRESSED
@@ -2754,7 +2630,7 @@ module SoView2DMarkerEditor {
     snapToVoxel = TRUE
     snapToSlice = TRUE
     currentType = 0
-    deleteOnClick = FALSE
+    deleteOnClick = TRUE
     addOnClick = TRUE
     alphaFactor = 1
     minimumAlpha = 0.1
@@ -2837,7 +2713,7 @@ module XMarkerListSort {
     referencePoint = "0 0 0 0 0 0"
     referenceVector = "1 0 0"
     cellExtend = "1 1 1 1 1 1"
-    ascending = TRUE
+    ascending = FALSE
     autoApply = TRUE
     autoUpdate = TRUE
   }
@@ -2911,7 +2787,7 @@ module View2D {
     sliceOrigin = "0 0"
     useShaders = TRUE
     useManagedInteraction = FALSE
-    lutCenter = 0
+    lutCenter = 4.86373901367188e-05
     lutWidth = 1
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
@@ -2992,7 +2868,7 @@ module XMarkerListContainer {
     applySelect = FALSE
     name = ""
     newName = ""
-    overflowMode = RemoveFirst
+    overflowMode = RemoveLast
     maxSize = 2
     useInsertTemplate = FALSE
     posXYZ = "0 0 0"
@@ -3096,7 +2972,7 @@ module SoView2DMarkerEditor {
     cursorShapeDragMove = MOVE_ALL_CURSOR
     cursorShapeDelete = CROSS_MINUS_CURSOR
     listString = ""
-    index = -1
+    index = 0
     persistent = FALSE
     listStringEnable = FALSE
     applySelect = FALSE
@@ -3129,12 +3005,17 @@ module PathToKeyFrame {
         sizeHint = "332 575"
         wasOpen = no
       }
+      window _automatic {
+        geometry = "354 171 500 600"
+        sizeHint = "262 217"
+        wasOpen = no
+      }
     }
   }
   fields  {
-    instanceName = PathToKeyFrame1
-    numSmoothes = 3
-    outputResolution = 0
+    instanceName = PathToKeyFrame
+    numSmoothes = 2
+    outputResolution = 0.700000047683716
     autoPathDir = FALSE
     allowReverseView = FALSE
     pathShift = "0 0 0"
@@ -3184,6 +3065,36 @@ module Counter {
     stepDirection = Up
   }
 }
+module PythonPip {
+  internal  {
+    frame = "1030 581 88 56"
+    moduleGroupName = "Install Required Dependencies"
+    windows  {
+      window _default {
+        geometry = "171 309 542 643"
+        sizeHint = "542 643"
+        wasOpen = no
+      }
+      window _automatic {
+        geometry = "32 281 500 600"
+        sizeHint = "256 192"
+        wasOpen = no
+      }
+      window _scriptingconsole {
+        geometry = "77 66 600 500"
+        sizeHint = "256 192"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = PythonPip
+    package = scikit-image
+    upgrade = FALSE
+    forceReinstall = FALSE
+    command = "install scikit-image --user"
+  }
+}
 connections  {
   ApplyDicomPixelModifiers.input0 = ImportModule.output0
   DownSampling.input0 = Switch.output0
@@ -3196,8 +3107,6 @@ connections  {
   SampleToggle.input2 = UpSampling.output0
   UpSampling.input0 = Switch.output0
   Resample3D.input0 = SampleToggle.output0
-  lungs_and_trachea.inImage = segmentation.lungs_with_trachea
-  lungs_and_trachea.currentTimePoint = TimepointCounter.currentValue
   Bypass2.input0 = Switch.output0
   trachea.inImage = TracheaSwitch.output0
   trachea.currentTimePoint = TimepointCounter.currentValue
@@ -3256,7 +3165,7 @@ connections  {
   OrthoView2D.image = CurvedMPR.CurvedMPRImage
   XMarkerListContainer.inXMarkerList = SoView2DMarkerEditor1.outXMarkerList
   SoView2DMarkerEditor1.newCurrentTimePoint = SoView2DMarkerEditor.newCurrentTimePoint
-  PathToKeyFrame1.inputKeys = XMarkerListContainer.outXMarkerList
+  PathToKeyFrame.inputKeys = XMarkerListContainer.outXMarkerList
   Counter.currentValue = Curved.timePoint
 }
 networkModel  {
@@ -3498,6 +3407,41 @@ This LUT is then covered over the regular lung segmentation, so movement through
           a = 40
         }
       }
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 183
+        objectName = ""
+        parentUniqueId = 146
+        frame = "-25 640 200 200"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "The GUI allows for the option to load (and save) segmented images of the trachea and lungs. These modules are used for loading preprocessed images, so you don't have to create a segmentation every time you restart the GUI"
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>The GUI allows for the option to load (and save) segmented images of the trachea and lungs. These modules are used for loading preprocessed images, so you don't have to create a segmentation every time you restart the GUI</p>
+
+
+  </body>
+</html>*"
+        titleText = ""
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "-20 645 190 22"
+      }
       MLABNetworkModelItem MLABNetworkModelItemGroup {
         uniqueId = 184
         objectName = "Diameter Trachea"
@@ -3596,6 +3540,54 @@ In the View2D (Curved) two points can be selected at the edges to determine the 
         isCollapsed = False
         drawAsComment = False
         titleFrame = "1907 -878 190 22"
+      }
+      MLABNetworkModelItem MLABNetworkModelItemGroup {
+        uniqueId = 180
+        objectName = "Install Required Dependencies"
+        parentUniqueId = 0
+        color  {
+          r = 149
+          g = 0
+          b = 146
+          a = 40
+        }
+      }
+      MLABNetworkModelItem MLABNoteItem {
+        uniqueId = 179
+        objectName = ""
+        parentUniqueId = 180
+        frame = "1157 582 307 202"
+        backgroundColor  {
+          r = 247
+          g = 221
+          b = 91
+          a = 255
+        }
+        text = "The segmentation module requires the python libraries 'scipy' and 'scikit-image'. These modules can be installed to the embedded python with the PythonPip module.
+We also created the option to install these modules by a touch of a button using our custom GUI. The option to install won't be visible in the GUI if it is detected that the libraries are already installed."
+        richText = "*<html>
+  <head>
+    <style type="text/css">
+      a.headerlink {
+        visibility: hidden;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+
+  <p>The segmentation module requires the python libraries 'scipy' and 'scikit-image'. These modules can be installed to the embedded python with the PythonPip module.
+We also created the option to install these modules by a touch of a button using our custom GUI. The option to install won't be visible in the GUI if it is detected that the libraries are already installed.</p>
+
+
+  </body>
+</html>*"
+        titleText = "Install Pip Modules"
+        isCollapsed = False
+        drawAsComment = False
+        titleFrame = "1162 587 297 22"
       }
     }
   }

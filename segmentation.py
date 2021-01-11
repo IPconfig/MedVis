@@ -7,9 +7,16 @@
 #
 # -----------------------------------------------------------------------------
 import numpy as np
-from skimage import measure
-from scipy import ndimage as ndi
 import math
+
+# if modules are not installed, we show an option in the GUI to install dependencies. 
+# For a better user experience, we don't want to log these errors
+try: 
+    from skimage import measure
+    from scipy import ndimage as ndi
+except:
+    print("Please install 'scikit-image' and 'scipy' using the PythonPip module or via the GUI before using the segmentation module.")
+
 
 # ----------- Helper functions ----------- #
 def reverse(tuples): 
@@ -19,7 +26,7 @@ def reverse(tuples):
 
 
 def largest_label_volume(im, bg=-1):
-    """ Helper function for segment_lung_and_trachea_mask() that returns the label with the maximum volume. """
+    """ Helper function for segment_thorax() that returns the label with the maximum volume. """
     vals, counts = np.unique(im, return_counts=True)
 
     counts = counts[vals != bg]
@@ -32,7 +39,7 @@ def largest_label_volume(im, bg=-1):
 
 
 # Inspired by Guido Zuidhof: https://www.kaggle.com/gzuidhof/full-preprocessing-tutorial#Lung-segmentation
-def segment_lung_and_trachea_mask(img, fill_lung_structures=True):
+def segment_thorax(img, fill_lung_structures=True):
     """
       Segment lung (-500) / air (-1000) between many other organic tissues
       
@@ -174,7 +181,7 @@ def grow_trachea(interface, img):
 
 
 ### -------------- Main ----------- ###
-interface = ctx.module("lungs_and_trachea").call("getInterface")
+# interface = ctx.module("lungs_and_trachea").call("getInterface")
 interface1 = ctx.module("RegionGrowingInput").call("getInterface")
 interface2 = ctx.module("PythonImage").call("getInterface")
 interface3 = ctx.module("PythonImage1").call("getInterface")
@@ -209,7 +216,7 @@ if image:
     tile3D = tile6D[0, 0, 0, :, :, :]
     trachea_mask = trachea6D_mask[0, 0, 0, :, :, :]
     
-    segmented_mask = segment_lung_and_trachea_mask(tile3D, True) 
+    segmented_mask = segment_thorax(tile3D, True) 
     segmented_tile = segmented_mask * tile3D * -1 # multiply mask by tile3D to convert binary image to gray-values / HU. Invert hounsfield values
     selem = ndi.generate_binary_structure(3,2) # structuring element of 3x3x3, creating a ball
     trachea_mask = ndi.binary_dilation(trachea_mask, selem) # include trachea wand
@@ -226,7 +233,7 @@ if image:
 
 
   # set images to interface
-  interface.setImage(lungs_with_trachea)
+  # interface.setImage(lungs_with_trachea)
   interface2.setImage(trachea)
   interface3.setImage(lungs)
   

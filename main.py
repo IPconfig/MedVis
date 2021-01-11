@@ -8,6 +8,13 @@
 # -----------------------------------------------------------------------------
 from mevis import *
 
+# if modules are not installed, we show an option in the GUI to install dependencies
+try:
+    import scipy
+    import skimage
+except:
+    pass
+
 def Browse(module):
     """ Browse button opens a file dialog. """
     exp = ctx.expandFilename(ctx.field(f"{module}").stringValue())
@@ -31,6 +38,15 @@ def BrowseFile(module):
         ctx.field(f"{module}.load").touch()
         # check if result is valid when you switch inputs. Field used for conditional GUI
         updateField('validVolume', 'CalculateVolume.resultsValid')
+
+
+def dicomLoaded():
+    """ Returns true if dicom files are loaded. Bool used in GUI for conditional shows """
+    value = ctx.field("ImportModule.numVolumes").value
+    if value > 0:
+        ctx.field('dicomLoaded').value = True
+    else:
+        ctx.field('dicomLoaded').value = False
 
 
 def StartSegmentation(module):
@@ -74,9 +90,9 @@ def updateResample(name):
     updateField(f"UpSampling.{name}Resample", f"{name}Resample")
 
 
-def touchField(Field):
+def touchButton(module):
     """ Touching a field will cause a notification and the field listener will call the given command. """
-    Field.touch()
+    ctx.field(f"{module}").touch()
     
     
 def ReloadModule(module):
@@ -101,33 +117,42 @@ def updateSliderField(changedField):
     """ If MevisLab Counter changes, push the change to the slider in the GUI. """
     ctx.field("timepointCurrent").value = changedField.value
 
-def moduledownload(package1, package2):
-      ctx.field('PythonPip.package').value = package1
-      ctx.field('PythonPip.install').touch()
-  
-  #for i in range(1,2):
-  #  ctx.field('PythonPip.package').value = moduledownload(i)
-  #  ctx.field('PythonPip.install').touch()
-
-## CPR 
-# Delete All Markers in View2D
-def Delete(target):
-  ctx.field(f"{target}").touch()
-  
 
 def calculateDiameter():
     """ Calculates the diameter between two x-marker points """
     if ctx.field("XMarkerListContainer.numItems").value == 2:
-      ctx.field("tracheaDiameter").value = round(ctx.field("PathToKeyFrame1.pathLength").value, 2)
+        roundedMM = round(ctx.field("PathToKeyFrame.pathLength").value, 2)
+        ctx.field("tracheaDiameter").value = roundedMM
 
 
-# Print diameter between selected markers
-def printstr(SomeString):
-  print(f"{SomeString} ")
-  image = round(ctx.field("PathToKeyFrame1.pathLength").value,1)
-  print(f"{image} mm")
+def downloadDependencies():
+    """ Wrapper to install all dependencies in one click"""
+    downloadPipPackage("scipy")
+    downloadPipPackage("scikit-image")
+    testDependencies()
+
+
+def downloadPipPackage(package):
+    """ Installs a python package using the PythonPip module """
+    args = 'install' + ' ' + f'{package}'
+    if MLAB.isMacOS():
+        args = args + ' ' + '--user'
+    ctx.field('PythonPip.command').value = args
+    ctx.field('PythonPip.runCommand').touch()
   
-  
+
+def testDependencies():
+    """ test if the required libraries are installed in MeVisLab python 
+     Show button to install them in GUI if test fails """
+    try:
+        scipy.__version__
+        skimage.__version__
+        # dependencies are installed
+        ctx.field("dependencyPass").value = True
+    except:
+        # one or more dependencies are missing
+        ctx.field("dependencyPass").value = False
+
 
 def initialize():
     """
@@ -137,20 +162,27 @@ def initialize():
     updateField('SegmentationPath', 'SaveTrachea.sourceName')
     updateField('TracheaPathFileName', 'ProcessedTrachea.name')
     updateField('LungPathFileName', 'ProcessedLungs.name')
-    
     updateField('xResample', 'DownSampling.xResample')
     updateField('yResample', 'DownSampling.yResample')
     updateField('zResample', 'DownSampling.zResample')
     updateField('zResample', 'DownSampling.zResample')
     
+    # fields from the Trachea diagnoses tab
     updateField('CPRNumMarkers' , 'SoView2DMarkerEditor.numItems')
-    updateField('tracheaDiameter', 'PathToKeyFrame1.pathLength')
+    updateField('tracheaDiameter', 'PathToKeyFrame.pathLength')
     
-    updateField('validVolume', 'CalculateVolume.resultsValid')
+    updateField('CPRMarkerColor', 'SoView2DMarkerEditor.color')
+    updateField('XMarkerListSort.sortMode', 'CPRMarkerSort')
+    updateField('XMarkerListSort.ascending', 'CPRSortAscending')
+    updateField('CPRPathLength', 'PathToKeyFrame.pathLength')
+    updateField('CPROutputKeys', 'PathToKeyFrame.numOutputKeys')
+    updateField('CRPSmoothingField', 'PathToKeyFrame.numSmoothes')
+    updateField('CRPResolutionField', 'PathToKeyFrame.outputResolution')
+    
+    # fields from Lung diagnoses tab
     updateField('timepointVolumeCurrent', 'CalculateVolume.userTimepointVolume')
     updateField('timepointVolumeMin', 'CalculateVolume.minTimepointVolume')
     updateField('timepointVolumeMax', 'CalculateVolume.maxTimepointVolume')
-    
     updateField('timepointCurrent', 'TimepointCounter.currentValue')
     updateField('timepointMin', 'CalculateVolume.minTimepoint')
     updateField('timepointMax', 'CalculateVolume.maxTimepoint')
@@ -158,9 +190,18 @@ def initialize():
     updateField('timepointAutoStepInterval', 'TimepointCounter.autoStepInterval_s')
     updateField('timepointStepDirection', 'TimepointCounter.stepDirection')
     
+    # Fields used to control GUI conditionals
+    updateField('validVolume', 'CalculateVolume.resultsValid')
     
-    
+    # check if dicom files are loaded
+    dicomLoaded()
     
     # Reset switches to default settings on initialization
     toggleImportSwitches()
+    
+    # round diameter value if it is set already, so rounded value is available in GUI
+    calculateDiameter()
+    
+    # test if python libraries are installed. show warning + install button in GUI if it isn't
+    testDependencies()
     
