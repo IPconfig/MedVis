@@ -22,15 +22,15 @@ def Browse(module):
             
 def BrowseFile(module):
     """ Browse dialog used to open a file. It also checks if the file is valid for GUI purposes"""
-  exp = ctx.expandFilename(ctx.field(f"{module}.name").stringValue())
-  if len(exp) == 0:
-      exp = ctx.localPath()
-  target = MLABFileDialog.getOpenFileName(exp, "Segmented files (*.dcm)", "Open file")
-  if target:
-    ctx.field(f"{module}.name").value = target
-    ctx.field(f"{module}.load").touch()
-    # check if result is valid when you switch inputs. Field used for conditional GUI
-    updateField('validVolume', 'CalculateVolume.resultsValid')
+    exp = ctx.expandFilename(ctx.field(f"{module}.name").stringValue())
+    if len(exp) == 0:
+        exp = ctx.localPath()
+    target = MLABFileDialog.getOpenFileName(exp, "Segmented files (*.dcm)", "Open file")
+    if target:
+        ctx.field(f"{module}.name").value = target
+        ctx.field(f"{module}.load").touch()
+        # check if result is valid when you switch inputs. Field used for conditional GUI
+        updateField('validVolume', 'CalculateVolume.resultsValid')
 
 
 def StartSegmentation(module):
