@@ -21,6 +21,7 @@ def Browse(module):
             
             
 def BrowseFile(module):
+    """ Browse dialog used to open a file. It also checks if the file is valid for GUI purposes"""
   exp = ctx.expandFilename(ctx.field(f"{module}.name").stringValue())
   if len(exp) == 0:
       exp = ctx.localPath()
@@ -128,6 +129,9 @@ def initialize():
     """
     updateField('dataPath', 'ImportModule.fullPath')
     updateField('SegmentationPath', 'SaveTrachea.sourceName')
+    updateField('TracheaPathFileName', 'ProcessedTrachea.name')
+    updateField('LungPathFileName', 'ProcessedLungs.name')
+    
     updateField('xResample', 'DownSampling.xResample')
     updateField('yResample', 'DownSampling.yResample')
     updateField('zResample', 'DownSampling.zResample')

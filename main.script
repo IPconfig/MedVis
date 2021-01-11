@@ -321,6 +321,11 @@ Window "MedVis Group4" {
                   alignX = Left
                   Label {title = "resampling mode: " labelAlignGroup = segmentationlabel}
                   Field SamplingDICOM {title = "" alignGroupX = segmentationbutton}
+                  
+                  Label {
+                    title     = "<p style=\"color:tomato\"> Downsampling may lead to incorrect segmentations</p>"
+                    visibleOn = "* SamplingDICOM == /^(Downsampling)$/ *"
+                  }
                 }
                 Horizontal {
                   alignX         = Right
@@ -581,40 +586,35 @@ Window "MedVis Group4" {
           Box "Control Panel" {
             alignY = Top
             //       minimumHeight = 350
-            //       minimumWidth  = 350
-            
+           maximumWidth = 350
+
             Box " Lung Volume" {
+              expandX = Minimum
               Horizontal {
-                alignX = Left
                 Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
-                Label {titleField = timepointMin }
-                Label {title = "Volume:" expandX = Yes}
+                Label {titleField = timepointMin expandX = Yes}
+                Label {title = "Volume:" labelAlignGroup = lungVolume }
                 Label {titleField = timepointVolumeMin }
                 Label {title = ml }
               }
-              
               Horizontal {
                 Label { title = "Max. Timepoint: " labelAlignGroup = lungVolumeTime}
-                Label {titleField = timepointMax alignX = Left }
-                Label {title = "Volume:"  expandX = Yes alignX = Right}
-                Label {titleField = timepointVolumeMax maximumWidth = 40 alignX = Left}
-                Label {title = ml maximumWidth = 20 alignX = Left}
+                Label {titleField = timepointMax expandX = Yes}
+                Label {title = "Volume:" labelAlignGroup = lungVolume }
+                Label {titleField = timepointVolumeMax }
+                Label {title = ml }
               }
-              
               Horizontal {
                 Label { title = "User Timepoint: " labelAlignGroup = lungVolumeTime}
-                Label {titleField = timepointCurrent }
-                Label {title = "Volume:"}
+                Label {titleField = timepointCurrent expandX = Yes }
+                Label {title = "Volume:" labelAlignGroup = lungVolume }
                 Label {titleField = timepointVolumeCurrent }
                 Label {title = ml }
               }
-              
-              
-              
             }
             
             Box "Timepoint Control" {
-              alignX = Left
+              expandX = Minimum
               Horizontal {
                 Slider timepointCurrent {
                   pageStep  = 1  // Step-size when user clicks left or right
@@ -622,10 +622,9 @@ Window "MedVis Group4" {
                   direction = Horizontal
                 }
                 Label {titleField = timepointCurrent}
-
               }
+              
               Horizontal {
-                
                 CheckBox timepointAutoStep {title = "Auto-update every"}
                 Field timepointAutoStepInterval {title = "" step = 0.1} 
                 Label {title = seconds}
@@ -634,12 +633,13 @@ Window "MedVis Group4" {
                 Label {title = "Step Direction: "}
                 Field timepointStepDirection {title = ""}
               }
-
             }
           }
           
           Panel {
             module        = CurveInspector
+            maximumWidth = 500
+            maximumHeight = 500
             //minimumHeight = 350
             //minimumWidth  = 350
             //expandX       = MinimumExpanding
@@ -647,6 +647,7 @@ Window "MedVis Group4" {
           }
         } // splitter row 1
         Splitter {
+          Panel {module = substraction_images window = LutEditor}
           Viewer substraction_overlayed.self { type = SoCustomExaminerViewer}
         } // splitter row 2
       } // close vertical splitter

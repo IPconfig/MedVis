@@ -153,7 +153,7 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 400
+    grayWidth = 1
     grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -797,7 +797,7 @@ module Counter {
   }
   fields  {
     instanceName = TimepointCounter
-    currentValue = 8
+    currentValue = 6
     minValue = 0
     maxValue = 9
     startValue = 0
@@ -837,7 +837,7 @@ module View3D {
     inventorOutputOn = FALSE
     lutType = Ramp
     rendererType = Slicer
-    currentTimePoint = 8
+    currentTimePoint = 0
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -855,8 +855,8 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "0.238985657691956 -2.53455448150635 0.589364051818848"
-    camOrientation = "0.996757090091705 0.0368776023387909 0.0715214237570763 1.34738457202911"
+    camPosition = "0.238985702395439 -2.53455471992493 0.589363753795624"
+    camOrientation = "0.99675714969635 0.0368776023387909 0.0715214237570763 1.34738457202911"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
     camFar = 3.6131265
     camNear = 1.6131265
@@ -964,7 +964,7 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 8
+    userTimepoint = 6
     curveType = Line
     curveStyle = 0
   }
@@ -1024,6 +1024,21 @@ module View3D {
         sizeHint = "262 217"
         wasOpen = no
       }
+      window View3D {
+        geometry = "381 301 1156 640"
+        sizeHint = "1156 640"
+        wasOpen = no
+      }
+      window Viewer {
+        geometry = "859 521 200 200"
+        sizeHint = "200 200"
+        wasOpen = no
+      }
+      window Settings {
+        geometry = "681 301 570 640"
+        sizeHint = "556 640"
+        wasOpen = no
+      }
     }
   }
   fields  {
@@ -1051,12 +1066,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "312.678405761719 -440.505554199219 152.332168579102"
+    camPosition = "0.236195728182793 -2.60207962989807 0.0427027381956577"
     camOrientation = "0.996170520782471 0.00415372708812356 0.0873330309987068 1.56201457977295"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 968.80048
-    camNear = 418.62241
-    camFocal = 693.43695
+    camFar = 3.6131265
+    camNear = 1.6131265
+    camFocal = 2.6131265
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1178,7 +1193,7 @@ module CurveCursor {
   }
   fields  {
     instanceName = Timepoint_Curve
-    posX = 8
+    posX = 6
     posY = 0
     maxSeriesIndex = -1
     seriesIndex = 0
@@ -1288,7 +1303,7 @@ module View3D {
     inventorOutputOn = FALSE
     lutType = Editor
     rendererType = Slicer
-    currentTimePoint = 8
+    currentTimePoint = 0
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -1306,12 +1321,12 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "279.69921875 -739.424438476563 258.68310546875"
+    camPosition = "0.0778537467122078 -2.59368419647217 0.308495879173279"
     camOrientation = "0.999603271484375 0.0280829947441816 0.00216279085725546 1.45246827602386"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
-    camFar = 1270.9152
-    camNear = 723.31256
-    camFocal = 996.841
+    camFar = 3.6131265
+    camNear = 1.6131265
+    camFocal = 2.6131265
     camHeight = 0.78539801
     decoration = FALSE
     annotations = FALSE
@@ -1464,7 +1479,7 @@ module View3D {
     inventorOutputOn = FALSE
     lutType = Ramp
     rendererType = Slicer
-    currentTimePoint = 8
+    currentTimePoint = 0
     staticSamplingRate = 1
     quality = 1
     filterVolumeData = FilterLinear
@@ -1765,14 +1780,14 @@ module View2D {
     inventorInputOn = TRUE
     inventorOutputOn = FALSE
     view2DExtensionsOn = TRUE
-    startSlice = 236
+    startSlice = 0
     numSlices = 1
     numXSlices = 1
     sliceStep = 1
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 9
+    maxTimePoint = 0
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_ZT
@@ -1791,7 +1806,7 @@ module View2D {
     useShaders = TRUE
     useManagedInteraction = FALSE
     lutCenter = 0
-    lutWidth = 400
+    lutWidth = 1
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -1896,7 +1911,7 @@ module SoView2DMarkerEditor {
     cursorShapeDragMove = MOVE_ALL_CURSOR
     cursorShapeDelete = CROSS_MINUS_CURSOR
     listString = ""
-    index = 3
+    index = 0
     persistent = FALSE
     listStringEnable = FALSE
     applySelect = FALSE
@@ -1905,7 +1920,7 @@ module SoView2DMarkerEditor {
     overflowMode = None
     maxSize = 0
     useInsertTemplate = FALSE
-    posXYZ = "-3.98828125 55.01171875 71"
+    posXYZ = "0 0 0"
     posC = 0
     posT = 0
     posU = 0
@@ -2146,8 +2161,8 @@ module View3D {
     alphaFactor = 1
     colorFactor = "1 1 1"
     camType = TRUE
-    camPosition = "0.581245720386505 -2.49790859222412 0.501037061214447"
-    camOrientation = "0.984568893909454 0.130850657820702 0.116199381649494 1.38912260532379"
+    camPosition = "0.58124566078186 -2.49790811538696 0.501037538051605"
+    camOrientation = "0.984568893909454 0.130850657820702 0.116199374198914 1.38912260532379"
     initialCameraOrientation = CAMERA_KEEP_AS_IS
     camFar = 3.6131265
     camNear = 1.6131265
@@ -2252,7 +2267,7 @@ module View2D {
     slab = 1
     blendMode = BLEND_REPLACE
     timePoint = 0
-    maxTimePoint = 9
+    maxTimePoint = 0
     filterMode = FILTER_LINEAR
     standardKeys = TRUE
     cineMode = CINE_ZT
@@ -2271,7 +2286,7 @@ module View2D {
     useShaders = TRUE
     useManagedInteraction = FALSE
     lutCenter = 4.86373901367188e-05
-    lutWidth = 400
+    lutWidth = 1
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -2318,7 +2333,7 @@ module OrthoView2D {
     enableSlicing = TRUE
     borderOn = TRUE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
-    grayWidth = 400
+    grayWidth = 1
     grayCenter = 0
     annotationOn = TRUE
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -2354,7 +2369,7 @@ module XMarkerListContainer {
     overflowMode = RemoveFirst
     maxSize = 2
     useInsertTemplate = FALSE
-    posXYZ = "-7.27606391906738 55.9913482666016 88.4423675537109"
+    posXYZ = "0 0 0"
     posC = 0
     posT = 0
     posU = 0
@@ -2768,6 +2783,369 @@ module View3D {
     clip.rotation3 = "0 0 1 0"
     clip.rotation4 = "-0.999999940395355 0 0 1.57079994678497"
     clip.rotation5 = "0.999999940395355 0 0 1.57079994678497"
+  }
+}
+module SoLUTEditor2D {
+  internal  {
+    frame = "441 -723 112 56"
+    moduleGroupName = ""
+    windows  {
+      window _default {
+        geometry = "512 296 895 651"
+        sizeHint = "895 651"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = SoLUTEditor2D
+    currentColor = "0 0 0"
+    currentOpacity = 0
+    currentPosition = 0
+    currentIndex = 0
+    rangeMin = 0
+    rangeMax = 4095
+    viewMin = 0
+    viewMax = 4095
+    window = 1
+    level = 0.5
+    allowNewPoints = TRUE
+    updateLutWhileDragging = TRUE
+    relativeLut = FALSE
+    colorInterpolation = InterpolateRGB
+    colorPoints = "[ 0 0 0 0, 4095 1 1 1 ]"
+    alphaPoints = "[ 0 0, 4095 1 ]"
+    alphaFactor = 1
+    newRangeMin = 0
+    newRangeMax = 4095
+    newRangeMode = ClipFormerLUT
+    colorEditorHeight = 24
+    showColorEditor = TRUE
+    showAlphaEditor = TRUE
+    markerRadius = 4
+    selectedMarkerRadius = 6
+    snapMarkerRadius = 10
+    alphaLineWidth = 2
+    backgroundColor = "0.800000011920929 0.800000011920929 0.800000011920929"
+    borderColor = "0 0 0"
+    alphaLineColor = "0 0 0"
+    histogramColor = "0.400000005960464 0.400000005960464 0.400000005960464"
+    drawColoredMarkers = TRUE
+    markerColor = "1 1 1"
+    selectedMarkerColor = "1 0.5 0.5"
+    selectedTriangleSize = 8
+    triangleSize = 6
+    useAntiAliasing = TRUE
+    tagColor = "0 0 0"
+    tagIntensity = 1
+    tagAlpha = 1
+    newLutName = Untitled
+    lutData = "<Untitled=false,1,[0 0 0 0 0, 4095 1 1 1 1]>"
+    tagData = "<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>
+<,1,1,(1 1 1)>"
+  }
+}
+module SoLUTEditor {
+  internal  {
+    frame = "441 -651 96 56"
+    moduleGroupName = ""
+    windows  {
+      window _default {
+        geometry = "686 396 546 451"
+        sizeHint = "546 451"
+        wasOpen = no
+      }
+    }
+  }
+  fields  {
+    instanceName = SoLUTEditor
+    rangeMin = 0
+    rangeMax = 4095
+    viewMin = 0
+    viewMax = 4095
+    window = 1
+    level = 0.5
+    allowNewPoints = TRUE
+    updateLutWhileDragging = TRUE
+    relativeLut = FALSE
+    colorInterpolation = InterpolateRGB
+    colorPoints = "[ 0 0 0 0, 4095 1 1 1 ]"
+    alphaPoints = "[ 0 0, 4095 1 ]"
+    alphaFactor = 1
+    newRangeMin = 0
+    newRangeMax = 4095
+    newRangeMode = ClipFormerLUT
+    colorEditorHeight = 24
+    showColorEditor = TRUE
+    showAlphaEditor = TRUE
+    markerRadius = 4
+    selectedMarkerRadius = 6
+    snapMarkerRadius = 10
+    alphaLineWidth = 2
+    backgroundColor = "0.800000011920929 0.800000011920929 0.800000011920929"
+    borderColor = "0 0 0"
+    alphaLineColor = "0 0 0"
+    histogramColor = "0.400000005960464 0.400000005960464 0.400000005960464"
+    drawColoredMarkers = TRUE
+    markerColor = "1 1 1"
+    selectedMarkerColor = "1 0.5 0.5"
+    selectedTriangleSize = 8
+    triangleSize = 6
+    useAntiAliasing = TRUE
   }
 }
 connections  {
