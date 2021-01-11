@@ -73,6 +73,28 @@ Interface {
       type  = Double 
       Value = PathToKeyFrame1.pathLength 
     }
+    Field timepointCurrentTrachea {
+      type  = Int
+      value = 0
+      min   = 0
+      max   = 9
+    }
+    
+    Field timepointAutoStepTrachea {
+      type  = Bool
+      value = Counter.autoStep
+    }
+    
+    Field timepointAutoStepIntervalTrachea {
+      type  = Double
+      value = Counter.autoStepInterval_s
+    }
+    
+    Field timepointStepDirectionTrachea {
+      type   = Enum
+      value  = Up
+      values = Up,Down
+    }
     /* End of trachea parameters */
     
     Field validVolume {
@@ -263,7 +285,39 @@ Commands {
     command     = "py: updateField('TimepointCounter.stepDirection', 'timepointStepDirection')"
     listenField = timepointStepDirection
   }
-  
+  // Timepoint update Trachea
+  FieldListener {
+    command = "py: updateField('Counter.currentValue','timepointCurrentTrachea')"
+    listenField = timepointCurrentTrachea
+  }
+  FieldListener {
+    command     = "py: updateField('timepointCurrentTrachea','Curved.timePoint')"
+    listenField = Curved.timePoint
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointAutoStepTrachea', 'Counter.autoStep')"
+    listenField = Counter.autoStep
+  }
+  FieldListener  {
+    command     = "py: updateField('Counter.autoStep', 'timepointAutoStepTrachea')"
+    listenField = timepointAutoStepTrachea
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointAutoStepIntervalTrachea', 'Counter.autoStepInterval_s')"
+    listenField = Counter.autoStepInterval_s
+  }
+  FieldListener  {
+    command     = "py: updateField('Counter.autoStepInterval_s', 'timepointAutoStepIntervalTrachea')"
+    listenField = timepointAutoStepIntervalTrachea
+  }
+  FieldListener  {
+    command     = "py: updateField('timepointStepDirectionTrachea', 'Counter.stepDirection')"
+    listenField = Counter.stepDirection
+  }
+  FieldListener  {
+    command     = "py: updateField('Counter.stepDirection', 'timepointStepDirectionTrachea')"
+    listenField = timepointStepDirectionTrachea
+  }
   
   
   
@@ -314,7 +368,17 @@ Window "MedVis Group4" {
               style{colors{fg=white}}
               module = ImportModule
             }
-              
+            Box "Download Modules" {
+              Horizontal {
+                Label {title = "Modules necessary for the segmentation: scikit-image and scipy"}
+                Button  {
+                  title   = "Download"
+                  command = "py: moduledownload('scipy','scikit-image')"
+                  alignGroupX = segmentationbuttonsnew
+                  alignX  = Right
+                }
+              }
+            }    
             Box "Resampling Controls" {
               Horizontal { // it's easier to align a bundle of controls by wrapping them in an extra Horizontal
                 Horizontal {
@@ -462,54 +526,67 @@ Window "MedVis Group4" {
         // CPR and Diameter calculation
         Horizontal{
           Box "Control Panel"{
-            preferredHeight = 450
-            preferredWidth  = 400
-                
+            expandX = MinimumExpanding
+            expandY = MinimumExpanding
+            alignY  = Top
+            
             Vertical{
               Box "Settings Diameter" {
-                Label {
-                  Title = "Delete All Markers:"
-                }
-                Button { title = "Delete"    command = "py: Delete('SoView2DMarkerEditor.deleteAll') " }
+                alignX = Left
                 Horizontal {
-                  Label { Title = "Calculated diameter: " }
+                  Label {
+                    Title = "Delete All Markers:" labelAlignGroup = trachealabel
+                  }
+                  Button { title = "Delete"    command = "py: Delete('SoView2DMarkerEditor.deleteAll') " }
+                }
+                Horizontal {
+                  Label { Title = "Calculated diameter: " labelAlignGroup = trachealabel }
                   Label { titleField = tracheaDiameter} 
-                  Label { title = mm }
+                  Label { title = mm } 
                 }
               }
-              Box "Settings Volume" { 
-                Vertical{ expandx = No
-                  // Settings volume difference trachea
-                  Label {
-                    title = "Determine two timepoints" 
-                  }
-                  //Maximal inspiration 
-                  Label {
-                    Title = "Maximal Inspiration"
-                  }
-                  NumberEdit Tin { step = 1 }
-                      
-                  Horizontal{
-                    Button { title = "Delete Seeding Points Inspiration"    command = "py: Delete('RGIn.removeAll') " }
-                    Button { title = "Update Region Growing Inspiration"    command = "py: RegionGrowing('RGIn.update') "}  
-                  }
-                      
-                  //Maximal Expiration
-                  Label { 
-                    Title = "Maximal Expiration"
-                  } 
-                  NumberEdit Tex { step = 1 }}
-
+              Box "Timepoint Control CPR" {
+                alignX = Left
                 Horizontal {
-                  Button { title = "Delete Seeding Points Expiration"    command = "py: Delete('RGEx.removeAll') " }
-                  Button { title = "Update Region Growing Expiration"    command = "py: RegionGrowing('RGEx.update') "}
+                  Slider timepointCurrentTrachea {
+                    pageStep  = 1  // Step-size when user clicks left or right
+                    snap      = 1    // Snap to multiples of 1
+                    direction = Horizontal
+                  }
+                  Label {titleField = timepointCurrentTrachea}
+                }
+                Horizontal {
+                
+                  CheckBox timepointAutoStepTrachea {title = "Auto-update every" alignGroupX = timeTrachea}
+                  Field timepointAutoStepIntervalTrachea {title = "" step = 0.1 alignGroupX = timepointTrachea} 
+                  Label {title = seconds}
+                }
+                Horizontal {              
+                  Label {title = "Step Direction: " alignGroupX =  timeTrachea}
+                  Field timepointStepDirectionTrachea {title = "" alignGroupX = timepointTrachea}
+                }
+              }
+            }
+          }
+            // Volume Difference between max inspiration and max expiration
+            Box "Volume Trachea" {
+              preferredWidth  = 400
+              preferredHeight = 400
+              
+              // Output Trachea Inspiration volume + expiration volume            
+              Box "View 3D MPR" {
+                Viewer VolumeDiff.self {
+                  name            = "Viewer3DMPR"    
+                  clone           = NO
+                  preferredWidth  = 400
+                  preferredHeight = 400    
                 }
               }
             }
           }
           Box "Diameter Trachea" {
-            preferredHeight = 450
-            preferredWidth  = 800
+           // preferredHeight = 450
+           // preferredWidth  = 800
                 
             Horizontal{
               Box "View 2D MPR" {
@@ -537,44 +614,7 @@ Window "MedVis Group4" {
             }
           }
         }
-        // Volume Difference between max inspiration and max expiration
-        Box "Volume Trachea" {
-          preferredHeight = 450
-          preferredWidth  = 1500
-              
-          Horizontal{
-            Box "Max Inspiration" {
-              Viewer RGIn.viewerSelf {
-                name            = "RegionGrowingIn"  
-                viewing         = No
-                clone           = NO
-                preferredWidth  = 350
-                preferredHeight = 350   
-              }
-                
-            }
-            Box "Max expiration" {
-              Viewer RGEx.viewerSelf {
-                name            = "RegionGrowingEx"  
-                viewing         = No
-                clone           = NO
-                preferredWidth  = 350
-                preferredHeight = 350   
-              }
-            }
-            // Output Trachea Inspiration volume + expiration volume            
-            Box "View 3D MPR" {
-              Viewer VolumeDiff.self {
-                name            = "Viewer3DMPR"    
-                clone           = NO
-                preferredWidth  = 350
-                preferredHeight = 350    
-              }
-            }
-          }
-        }
       }
-    }
     
     
     ////////////////////////////// Diagnoses related to lungs //////////////////////////////

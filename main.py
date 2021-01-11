@@ -101,7 +101,13 @@ def updateSliderField(changedField):
     """ If MevisLab Counter changes, push the change to the slider in the GUI. """
     ctx.field("timepointCurrent").value = changedField.value
 
-
+def moduledownload(package1, package2):
+      ctx.field('PythonPip.package').value = package1
+      ctx.field('PythonPip.install').touch()
+  
+  #for i in range(1,2):
+  #  ctx.field('PythonPip.package').value = moduledownload(i)
+  #  ctx.field('PythonPip.install').touch()
 
 ## CPR 
 # Delete All Markers in View2D
