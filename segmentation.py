@@ -116,14 +116,14 @@ def find_nearest_air_coordinates(img, coordinates):
       Returns:
         (x, y): coordinates closest by the target coordinates
     """
-    filtered = np.argwhere(img < -900)
+    filtered = np.argwhere(img < -930)
     distances = np.sqrt((filtered[:,0] - coordinates[0]) ** 2 + (filtered[:,1] - coordinates[1]) ** 2)
     nearest_index = np.argmin(distances)
     return filtered[nearest_index]
   
 def grow_trachea(interface, img):
     """
-        Calculate a seed point at 75% on the the z-axis (trachea is close to midpoint)
+        Calculate a seed point at 95% on the the z-axis
         Apply regionGrowing module starting from calculated seed point until the volume explodes
         
         Parameters:
@@ -133,22 +133,23 @@ def grow_trachea(interface, img):
         Returns:
           img: Segmented image of the trachea
     """
-    # at around 75% on the z-axis, the trachea is located a little left and above of the midpoint
+    # To prevent some slices not containing trachea, we start the seed-point from 95% along the z-axis
     # we will search for the first pixel with a HU-value of -900 from the midpoint of the image and update the coordinates accordingly
     extent = img.imageExtent()
     regiongrowing_input = img.getTile((0,0,0,0,0,0),(extent))
     interface.setImage(regiongrowing_input) # output image to interface, so RegionGrowing-module can use it
-    x_coordinate, y_coordinate, z_coordinate = int(extent[0]/2), int(extent[1]/2), int(round(0.75 * extent[2], 0))
-    #print(f"x: {x_coordinate}, y: {y_coordinate}, z: {z_coordinate} for slice that trachea uses")
+    x_coordinate, y_coordinate, z_coordinate = int(extent[0]/2), int(0.45 * extent[1]), int(round(0.75 * extent[2], 0))
+    print(f"x: {x_coordinate}, y: {y_coordinate}, z: {z_coordinate} for is start point")
     tile2D = img.getTile((0,0,z_coordinate,0,0,0), (extent[0], extent[1])) # missing dimensions will be filled with 1
   
-    coordinates = (y_coordinate,x_coordinate)
-    coordinates = find_nearest_air_coordinates(tile2D, (x_coordinate, y_coordinate))
+      
+    coordinates = find_nearest_air_coordinates(tile2D, (y_coordinate, x_coordinate))
     coordinates = np.flip(np.concatenate(([z_coordinate], coordinates))) # add z to the vector and flip to mevislab dimension order
+    print(f"seed point is {coordinates}")
     seed_vector = [coordinates[0], coordinates[1], coordinates[2], 0, 0, 0] # RegionGrowing module expects a vector of 6 elements
     
     # set default parameters for RegionGrowing Module
-    trachea_treshold = -900
+    trachea_treshold = -930
     trachea_treshold_step = -64
     ctx.field("RegionGrowing.useAdditionalSeed").value = True
     ctx.field("RegionGrowing.basicNeighborhoodType").value = "BNBH_4D_8_XYZT"
@@ -164,15 +165,24 @@ def grow_trachea(interface, img):
     # update treshold to increase volume in a controlled way
     while trachea_treshold_step < 0:
         if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea
+            print("lung exploded")
             trachea_treshold = trachea_treshold + trachea_treshold_step # restore old treshold value
             trachea_treshold_step = math.ceil(trachea_treshold_step / 2) # halve the treshold step, if step becomes 0 we are done
             
         trachea_treshold = trachea_treshold - trachea_treshold_step
+        
+        # if treshold reaches this value, we can assume that the intital RegionGrowing starting from seeding poitnt has failed
+        if trachea_treshold > -580: 
+            break
+        
+        
+        print(f"new trachea stephold: {trachea_treshold} using a step size of: {trachea_treshold_step} ")
         ctx.field("RegionGrowing.upperThreshold").value = trachea_treshold
         ctx.field("RegionGrowing.update").touch() # press update button
         trachea_volume_new = round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)
         # edge case: final check to break out of loop; region is not twice as large and step is -1
         if ((trachea_treshold_step == -1)  and not (trachea_volume_new > 2 * trachea_volume)):
+            print("we're in the edge case")
             break
     print(f'{round(ctx.field("RegionGrowing.segmentedVolume_ml").value, 2)} ml volume after RegionGrowing')
     return ctx.field("RegionGrowing.output0").image()
@@ -267,4 +277,4 @@ if image:
   #print(f"expiration {sum(expiration_volume)} over {len(expiration_tp)} timepoints and inspiration {sum(inspiration_volume)} over {len(inspiration_tp)} timepoints")
   ##
   ##
-  #print("segmentation complete")
+  print("segmentation complete")
