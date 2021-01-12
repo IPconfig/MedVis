@@ -38,6 +38,7 @@ def BrowseFile(module):
         ctx.field(f"{module}.load").touch()
         # check if result is valid when you switch inputs. Field used for conditional GUI
         updateField('validVolume', 'CalculateVolume.resultsValid')
+        ReloadModule('SubtractionImage')
 
 
 def dicomLoaded():
@@ -53,6 +54,7 @@ def StartSegmentation(module):
     """ A new segmentation will need to execute a few actions """
     ReloadModule(module)
     updateField('validVolume', 'CalculateVolume.resultsValid')
+    ReloadModule('SubtractionImage')
 
 
 def saveSegmentation():
@@ -72,6 +74,7 @@ def toggleImportSwitches():
         ctx.field("TracheaSwitch.currentInput").value = 1
         ctx.field("LungsSwitch.currentInput").value = 1
         updateField('validVolume', 'CalculateVolume.resultsValid')
+    ReloadModule('SubtractionImage')
 
 
 def toggleSampling():

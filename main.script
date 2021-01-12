@@ -19,7 +19,7 @@ Interface {
     }
     
     Field dicomLoaded {
-      type = Bool
+      type  = Bool
       value = False
     }
     
@@ -79,7 +79,7 @@ Interface {
     /* End of import data parameters */
     
     /* Start of trachea parameters */
- //   Field CPRNumMarkers { type = Int }
+    //   Field CPRNumMarkers { type = Int }
     
     Field tracheaDiameter { 
       type  = Double 
@@ -207,7 +207,7 @@ Commands {
   initCommand = initialize
   
   FieldListener  {
-    command = "py: dicomLoaded()"
+    command     = "py: dicomLoaded()"
     listenField = ImportModule.numVolumes
   }
 
@@ -473,21 +473,23 @@ Window "MedVis Group4" {
   TabView {
     TabViewItem "Import data" {
       Splitter {
-        direction = vertical
+        direction = horizontal
         Splitter{
           direction = horizontal
-          Box "Control Panel" {              
-            expandX = MinimumExpanding
-            expandY = MinimumExpanding
-            alignY  = Top
-            Label Instruction {
-              title    = "Import DICOM data and segment trachea and lungs or import preprocessed images"
-              textWrap = WordBreak
+          Box "Control Panel" { 
+            preferredWidth = 800
+            expandX        = MinimumExpanding
+            expandY        = MinimumExpanding
+            alignY         = Top
+            Box Instruction {
+              Label Instruction {
+                title    = "Import DICOM data and segment trachea and lungs or import preprocessed images"
+                textWrap = WordBreak
+              }
             }
+            
               
             Panel {
-              minimumHeight = 350
-              minimumWidth  = 350
               style{colors{fg=white}}
               module = ImportModule
             }
@@ -502,7 +504,7 @@ Window "MedVis Group4" {
                   Label {
                     title     = "<p style=\"color:tomato\"> Downsampling may lead to incorrect segmentations</p>"
                     visibleOn = "* SamplingDICOM == /^(Downsampling)$/ *"
-                    textWrap = WordBreak
+                    textWrap  = WordBreak
                   }
                 }
                 Horizontal {
@@ -602,21 +604,22 @@ Window "MedVis Group4" {
         }
         // Start of 2nd row on import data tab
         Splitter {
+          direction = vertical
           Box "DICOM Preview" {
-            minimumHeight = 250
-            minimumWidth  = 250
-            expandX       = MinimumExpanding
-            expandY       = MinimumExpanding
+            preferredHeight = 300
+            preferredWidth  = 300
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
             Viewer DataPreview.self {visibleOn = dicomLoaded type = SoRenderArea }
             Label {visibleOn = !dicomLoaded title = "<p style=\"color:tomato\"> Please load a DICOM image to show this viewer</p>"
               textAlignment = Center textWrap = WordBreak }
           }
           
           Box "Trachea Segmentation Preview" {
-            minimumHeight = 250
-            minimumWidth  = 250
-            expandX       = MinimumExpanding
-            expandY       = MinimumExpanding
+            preferredHeight = 300
+            preferredWidth  = 300
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
             Viewer trachea.self {
               visibleOn = validVolume
               name      = "Trachea"
@@ -626,10 +629,10 @@ Window "MedVis Group4" {
           } // close Trachea segmentation box
           
           Box "Lungs Segmentation Preview" {
-            minimumHeight = 250
-            minimumWidth  = 250
-            expandX       = MinimumExpanding
-            expandY       = MinimumExpanding
+            preferredHeight = 300
+            preferredWidth  = 300
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
             
             Viewer lungs.self {
               visibleOn = validVolume
@@ -649,17 +652,22 @@ Window "MedVis Group4" {
         direction = vertical
         Splitter {
           Box "Control Panel"{
-            expandX = MinimumExpanding
+            alignY         = Top
+            preferredWidth = 400
+            expandX        = MinimumExpanding
             //expandY = MinimumExpanding
-            alignY  = Top
+            
+            
             
             Box "Description" {
+              alignY = Top
               Label {title = "Select a few markers in the Marker-Picker window to create a straightened CPR. Select 2 markers in the straightened CPR viewer to measure the diameter of the trachea. The viewer to the right shows the trachea at peak inspiration and peak expiration." textWrap = WordBreak}
             }
             
             Box "Marker Settings" {
-              expandY = No
+              alignY = Top
               Horizontal {
+                
                 Label LabelColorPicker { title = "Color: " }
                 Field CPRMarkerColor { title = "" }
               }
@@ -712,41 +720,42 @@ Window "MedVis Group4" {
             //  }
             //} // close Box Path Settings
             
-              Box "Timepoint Control CPR" {
-                Horizontal {
-                  Slider timepointCurrentTrachea {
-                    pageStep  = 1  // Step-size when user clicks left or right
-                    snap      = 1    // Snap to multiples of 1
-                    direction = Horizontal
-                  }
-                  Label {titleField = timepointCurrentTrachea}
+            Box "Timepoint Control CPR" {
+              alignY = Top
+              Horizontal {
+                Slider timepointCurrentTrachea {
+                  pageStep  = 1  // Step-size when user clicks left or right
+                  snap      = 1    // Snap to multiples of 1
+                  direction = Horizontal
                 }
-                Horizontal {
-                  CheckBox timepointAutoStepTrachea {title = "Auto-update every" expandX = 1 }
-                  Field timepointAutoStepIntervalTrachea {title = "" step = 0.1 alignX = Right} 
-                  Label {title = seconds}
-                }
-                Horizontal {              
-                  Label {title = "Step Direction: " }
-                  Field timepointStepDirectionTrachea {title = "" }
-                }
+                Label {titleField = timepointCurrentTrachea}
               }
+              Horizontal {
+                CheckBox timepointAutoStepTrachea {title = "Auto-update every" expandX = 1 }
+                Field timepointAutoStepIntervalTrachea {title = "" step = 0.1 alignX = Right} 
+                Label {title = seconds}
+              }
+              Horizontal {              
+                Label {title = "Step Direction: " }
+                Field timepointStepDirectionTrachea {title = "" }
+              }
+            }
           }
           
           // Volume Difference between max inspiration and max expiration
           Box "Inspiration - Expiraration Volume" {
             preferredWidth  = 400
             preferredHeight = 400
-            Label {title = "<p style=\"color:tomato\"> Please load segmented lungs and trachea to see this view</p>"
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
+            Label {title = "<p style=\"color:tomato\"> Please load an image of segmented lungs and trachea to see this view</p>"
               visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
             
             // Output Trachea Inspiration volume + expiration volume            
             Viewer VolumeDiff.self {
-              visibleOn       = validVolume
-              name            = "Viewer3DMPR"    
-              clone           = NO
-              preferredWidth  = 400
-              preferredHeight = 400    
+              visibleOn = validVolume
+              name      = "Viewer3DMPR"    
+              clone     = NO  
             }
             Label {title = "Difference between inspiration and expiration is indicated by red" 
               visibleOn = validVolume textWrap = WordBreak textAlignment = Center}
@@ -754,16 +763,16 @@ Window "MedVis Group4" {
         } // splitter row 1
         Splitter {
           Box "Marker-Picker" {
-            preferredWidth  = 350
-            preferredHeight = 350
-            expandX = MinimumExpanding
-            expandY = MinimumExpanding
+            preferredWidth  = 400
+            preferredHeight = 400
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
             
             Viewer View2D2.self {
               visibleOn = dicomLoaded
-              name            = "ViewerMPR"    
-              viewing         = No
-              clone           = No
+              name      = "ViewerMPR"    
+              viewing   = No
+              clone     = No
             }
             Label { title = "Scrollwheel Up/Down: Move Up/Down Through The Slices" visibleOn = dicomLoaded}
             Label { title = "Mouseclick On Empty Area: Add Marker" visibleOn = dicomLoaded}
@@ -773,26 +782,26 @@ Window "MedVis Group4" {
           }
          
           Box "Straightened CPR" {
-            preferredWidth  = 350
-            preferredHeight = 350
-            expandX = MinimumExpanding
-            expandY = MinimumExpanding
+            preferredWidth  = 400
+            preferredHeight = 400
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
             
             Label {title = "<p style=\"color:tomato\"> Please pick at least 2 markers to create a straightened CPR</p>"
-              visibleOn = "* CPRNumMarkers == /^(0|1)$/ *" textAlignment = Center }
+              visibleOn = "* CPRNumMarkers == /^(0|1)$/ *" textAlignment = Center textWrap = WordBreak}
             
             Viewer Curved.self {
-              visibleOn       = "* CPRNumMarkers != /^(0|1)$/ *"
-              name            = "Viewer2DMPR"   
-              viewing         = No
-              Clone           = No
+              visibleOn = "* CPRNumMarkers != /^(0|1)$/ *"
+              name      = "Viewer2DMPR"   
+              viewing   = No
+              Clone     = No
             }
             Label { title = "Scrollwheel Up/Down: Move Up/Down Through The Slices" visibleOn = "* CPRNumMarkers != /^(0|1)$/ *"}
             Label { title = "Mouseclick On Empty Area: Add Marker" visibleOn = "* CPRNumMarkers != /^(0|1)$/ *"}
             Label { title = "" } // spacer
             Horizontal {
-              alignX = Left
-              visibleOn       = "* CPRNumMarkers != /^(0|1)$/ *"
+              alignX    = Left
+              visibleOn = "* CPRNumMarkers != /^(0|1)$/ *"
               Label { Title = "Calculated diameter: " labelAlignGroup = trachealabel }
               Label { titleField = tracheaDiameter  style {colors {fg = black bg = white}}} 
               Label { title = mm } 
@@ -805,71 +814,83 @@ Window "MedVis Group4" {
     
     
     ////////////////////////////// Diagnoses related to lungs //////////////////////////////
-    TabViewItem "Lung" {
-      tabSelectedCommand = "py: ReloadModule('SubtractionImage')"
+    TabViewItem "Lung Diagnoses" {
       Splitter {
-        direction = vertical
-        Splitter {
-          Box "Control Panel" {
-            alignY = Top
-
-            Box " Lung Volume" {
-              expandX = Minimum
-              Horizontal {
-                Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
-                Label {titleField = timepointMin expandX = Yes}
-                Label {title = "Volume:" labelAlignGroup = lungVolume }
-                Label {titleField = timepointVolumeMin }
-                Label {title = ml }
-              }
-              Horizontal {
-                Label { title = "Max. Timepoint: " labelAlignGroup = lungVolumeTime}
-                Label {titleField = timepointMax expandX = Yes}
-                Label {title = "Volume:" labelAlignGroup = lungVolume }
-                Label {titleField = timepointVolumeMax }
-                Label {title = ml }
-              }
-              Horizontal {
-                Label { title = "User Timepoint: " labelAlignGroup = lungVolumeTime}
-                Label {titleField = timepointCurrent expandX = Yes }
-                Label {title = "Volume:" labelAlignGroup = lungVolume }
-                Label {titleField = timepointVolumeCurrent }
-                Label {title = ml }
-              }
-            }
-            
-            Box "Timepoint Control" {
-              expandX = Minimum
-              Horizontal {
-                Slider timepointCurrent {
-                  pageStep  = 1  // Step-size when user clicks left or right
-                  snap      = 1    // Snap to multiples of 1
-                  direction = Horizontal
-                }
-                Label {titleField = timepointCurrent}
-              }
-              
-              Horizontal {
-                CheckBox timepointAutoStep {title = "Auto-update every" expandX = Yes}
-                Field timepointAutoStepInterval {title = "" step = 0.1} 
-                Label {title = seconds}
-              }
-              Horizontal {              
-                Label {title = "Step Direction: "}
-                Field timepointStepDirection {title = ""}
-              }
-            }
-          }
+        direction = horizontal
           
-          Panel {
-            module        = CurveInspector
-            minimumWidth = 400
-            minimumHeight = 400
+        Box "Control Panel" {
+          preferredWidth = 400
+
+          Box " Lung Volume" {
+            Horizontal {
+              Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
+              Label {titleField = timepointMin expandX = Yes}
+              Label {title = "Volume:" }
+              Label {titleField = timepointVolumeMin labelAlignGroup = lungVolume}
+              Label {title = ml }
+            }
+            Horizontal {
+              Label { title = "Max. Timepoint: " labelAlignGroup = lungVolumeTime}
+              Label {titleField = timepointMax expandX = Yes}
+              Label {title = "Volume:" }
+              Label {titleField = timepointVolumeMax labelAlignGroup = lungVolume}
+              Label {title = ml }
+            }
+            Horizontal {
+              Label { title = "User Timepoint: " labelAlignGroup = lungVolumeTime}
+              Label {titleField = timepointCurrent expandX = Yes }
+              Label {title = "Volume:"  }
+              Label {titleField = timepointVolumeCurrent labelAlignGroup = lungVolume}
+              Label {title = ml }
+            }
           }
-        } // splitter row 1
+            
+          Box "Timepoint Control" {
+            Horizontal {
+              Slider timepointCurrent {
+                pageStep  = 1  // Step-size when user clicks left or right
+                snap      = 1    // Snap to multiples of 1
+                direction = Horizontal
+              }
+              Label {titleField = timepointCurrent}
+            }
+              
+            Horizontal {
+              CheckBox timepointAutoStep {title = "Auto-update every" expandX = Yes}
+              Field timepointAutoStepInterval {title = "" step = 0.1} 
+              Label {title = seconds}
+            }
+            Horizontal {              
+              Label {title = "Step Direction: "}
+              Field timepointStepDirection {title = ""}
+            }
+          }
+            
+          Box "LUT Settings Respiratory Dynamics" {
+            Panel {module = substraction_images window = LutEditor}
+          }  
+        }
         Splitter {
-          Panel {module = substraction_images window = LutEditor}
-          Viewer substraction_overlayed.self { type = SoCustomExaminerViewer}
+          direction = vertical
+          Box "Lung Volume Graph" {
+            preferredWidth  = 400
+            preferredHeight = 400
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
+            Panel { module = CurveInspector visibleOn = validVolume}
+            Label {title = "<p style=\"color:tomato\"> Please load an image of segmented lungs to see this view</p>"
+              visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
+          }
+
+          Box "Respiratory Dynamics" {
+            preferredWidth  = 400
+            preferredHeight = 400
+            expandX         = MinimumExpanding
+            expandY         = MinimumExpanding
+            Viewer substraction_overlayed.self { visibleOn = validVolume popup= True}
+            Label {title = "<p style=\"color:tomato\"> Please load an image of segmented lungs to see this view</p>"
+              visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
+          }
         } // splitter row 2
       } // close vertical splitter
     } // close Lung tabview
