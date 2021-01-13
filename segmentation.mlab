@@ -16,6 +16,13 @@ module PythonImage {
   internal  {
     frame = "549 357 136 72"
     moduleGroupName = ""
+    windows  {
+      window _default {
+        geometry = "741 591 437 60"
+        sizeHint = "437 60"
+        wasOpen = no
+      }
+    }
   }
   fields  {
     instanceName = RegionGrowingInput
@@ -28,7 +35,7 @@ module RegionGrowing {
     showNetworkPanel = true
     windows  {
       window _default {
-        geometry = "154 241 705 595"
+        geometry = "793 224 705 595"
         sizeHint = "671 595"
         wasOpen = no
       }
@@ -43,17 +50,17 @@ module RegionGrowing {
     instanceName = RegionGrowing
     autoUpdateMode = AutoUpdate
     lowerThreshold = -2000
-    upperThreshold = -862
+    upperThreshold = -909
     enableAutoThresholdInterval = FALSE
     basicNeighborhoodType = BNBH_4D_8_XYZT
     extendedNeighborhoodType = ENBH_2D_4_XY
     useAdditionalSeed = TRUE
-    additionalSeed = "246 240 212 0 0 0"
+    additionalSeed = "237 219 254 0 0 0"
     additionalSeedType = 0
     additionalSeedCoordSystem = VoxelCoordinates
     initStackSizeTweak = 0.100000001490116
     prohibitInputScalingTweak = FALSE
-    incrementalUpdateMode = Smart
+    incrementalUpdateMode = Disable
     useExtendedNBH = FALSE
     calcBoundaryOverlap = FALSE
     unitType = UnitTypeGrayValue
@@ -117,6 +124,51 @@ module CalculateVolume {
     userTimepoint = 0
     curveType = Line
     curveStyle = 0
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1097 309 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage2
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1065 237 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage3
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1113 109 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage4
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1113 5 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage5
+  }
+}
+module PythonImage {
+  internal  {
+    frame = "1097 -83 112 56"
+    moduleGroupName = ""
+  }
+  fields  {
+    instanceName = PythonImage6
   }
 }
 connections  {

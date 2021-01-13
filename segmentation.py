@@ -141,7 +141,7 @@ def grow_trachea(interface, img):
     x_coordinate, y_coordinate, z_coordinate = int(extent[0]/2), int(0.45 * extent[1]), int(round(0.75 * extent[2], 0))
     print(f"x: {x_coordinate}, y: {y_coordinate}, z: {z_coordinate} for is start point")
     tile2D = img.getTile((0,0,z_coordinate,0,0,0), (extent[0], extent[1])) # missing dimensions will be filled with 1
-  
+    print(tile2D)
       
     coordinates = find_nearest_air_coordinates(tile2D, (y_coordinate, x_coordinate))
     coordinates = np.flip(np.concatenate(([z_coordinate], coordinates))) # add z to the vector and flip to mevislab dimension order
@@ -164,7 +164,7 @@ def grow_trachea(interface, img):
   
     # update treshold to increase volume in a controlled way
     while trachea_treshold_step < 0:
-        if trachea_volume_new > 2 * trachea_volume: # check if lung is connected to trachea
+        if trachea_volume_new > 4 * trachea_volume: # check if lung is connected to trachea
             print("lung exploded")
             trachea_treshold = trachea_treshold + trachea_treshold_step # restore old treshold value
             trachea_treshold_step = math.ceil(trachea_treshold_step / 2) # halve the treshold step, if step becomes 0 we are done
@@ -191,10 +191,16 @@ def grow_trachea(interface, img):
 
 
 ### -------------- Main ----------- ###
-# interface = ctx.module("lungs_and_trachea").call("getInterface")
+interface = ctx.module("lungs_and_trachea").call("getInterface")
 interface1 = ctx.module("RegionGrowingInput").call("getInterface")
 interface2 = ctx.module("PythonImage").call("getInterface")
 interface3 = ctx.module("PythonImage1").call("getInterface")
+interface4 = ctx.module("PythonImage2").call("getInterface")
+interface5 = ctx.module("PythonImage3").call("getInterface")
+interface6 = ctx.module("PythonImage4").call("getInterface")
+interface7 = ctx.module("PythonImage5").call("getInterface")
+interface8 = ctx.module("PythonImage6").call("getInterface")
+
 
 # get the input image field's direct access to the image (which is a MLPagedImageWrapper, see MeVisLab Scripting Reference)
 image = ctx.field("input0").image()
@@ -207,9 +213,14 @@ if image:
   lungs_with_trachea = np.empty(reverse(extent), np.int16)
   trachea = np.empty(reverse(extent), np.int16)
   lungs = np.empty(reverse(extent), np.int16)
+  img_segmented_mask = np.empty(reverse(extent), np.int16)
+  img_trachea_mask = np.empty(reverse(extent), np.int16)
+  img_lungs_mask = np.empty(reverse(extent), np.int16)
+  trachew_new2 = np.empty(reverse(extent), np.int16)
+  lungs_new2 = np.empty(reverse(extent), np.int16)
 
-  print("Start trachea segmentation")
-  trachea_image = grow_trachea(interface1, image)
+  #print("Start trachea segmentation")
+  #trachea_image = grow_trachea(interface1, image)
 
   # skimage.measure is needed, but it only supports up to 3 dimensions. Dimension 4 and 6 are 0 in DICOM Data. Dimension 5 are timepoints
   # Loop through each timepoint, selecting tile for that timepoint, shrink and calculate lung segmentation over 3 dimensions. 
@@ -220,33 +231,53 @@ if image:
     
     # Get tiles for timepoint t
     tile6D = image.getTile((0,0,0,0,t,0), size) 
-    trachea6D_mask = trachea_image.getTile((0,0,0,0,t,0), size)
+    #trachea6D_mask = trachea_image.getTile((0,0,0,0,t,0), size)
     
     # Make images 3D
     tile3D = tile6D[0, 0, 0, :, :, :]
-    trachea_mask = trachea6D_mask[0, 0, 0, :, :, :]
+    #trachea_mask = trachea6D_mask[0, 0, 0, :, :, :]
     
     segmented_mask = segment_thorax(tile3D, True) 
-    segmented_tile = segmented_mask * tile3D * -1 # multiply mask by tile3D to convert binary image to gray-values / HU. Invert hounsfield values
-    selem = ndi.generate_binary_structure(3,2) # structuring element of 3x3x3, creating a ball
-    trachea_mask = ndi.binary_dilation(trachea_mask, selem) # include trachea wand
-    trachea_mask = ndi.binary_closing(trachea_mask, selem) # fill in holes
-    lungs_mask =  segmented_mask - trachea_mask # substract trachea from lungs_trachea to create a mask of lungs only
-    lungs_mask = ndi.binary_opening(lungs_mask, selem) # remove some noise created by the substraction
-    trachea_hu = trachea_mask * segmented_tile # apply trachea mask to segmentation of lungs and trachea
-    lungs_hu = lungs_mask * segmented_tile # apply lungs mask to segmentation of lungs and trachea
+    segmented_tile = segmented_mask * tile3D # * -1 # multiply mask by tile3D to convert binary image to gray-values / HU. Invert hounsfield values
+    #selem = ndi.generate_binary_structure(3,2) # structuring element of 3x3x3, creating a ball
+    #trachea_mask = ndi.binary_dilation(trachea_mask, selem) # include trachea wand
+    #trachea_mask = ndi.binary_closing(trachea_mask, selem) # fill in holes
+    #lungs_mask =  segmented_mask - trachea_mask # substract trachea from lungs_trachea to create a mask of lungs only
+    #lungs_mask = ndi.binary_opening(lungs_mask, selem) # remove some noise created by the substraction
+    #trachea_hu = trachea_mask * segmented_tile # apply trachea mask to segmentation of lungs and trachea
+    #lungs_hu = lungs_mask * segmented_tile # apply lungs mask to segmentation of lungs and trachea
     
     # fill in segmented tile into our clean array
     lungs_with_trachea[:, t, :, :, :, :] = make6D(segmented_tile, t) 
-    trachea[:, t, :, :, :, :] = make6D(trachea_hu, t)
-    lungs[:, t, :, :, :, :] = make6D(lungs_hu, t)
+    #trachea[:, t, :, :, :, :] = make6D(trachea_hu, t)
+    #lungs[:, t, :, :, :, :] = make6D(lungs_hu, t)
+    #
+    img_segmented_mask[:, t, :, :, :, :] = make6D(segmented_mask, t)
+    #img_trachea_mask[:, t, :, :, :, :] = make6D(trachea_mask, t)
+    #img_lungs_mask[:, t, :, :, :, :] = make6D(lungs_mask, t)
 
 
   # set images to interface
-  # interface.setImage(lungs_with_trachea)
-  interface2.setImage(trachea)
-  interface3.setImage(lungs)
+  interface.setImage(lungs_with_trachea)
+#  interface1.setImage(lungs_with_trachea) # interface for region growing
+  #interface2.setImage(trachea)
+  #interface3.setImage(lungs)
+  interface4.setImage(img_segmented_mask)
+  #interface5.setImage(img_trachea_mask)
+  #interface6.setImage(img_lungs_mask)
   
+  
+#interface = ctx.module("lungs_and_trachea").call("getInterface") # image of segmented thoraqx in HU
+#interface1 = ctx.module("RegionGrowingInput").call("getInterface")
+#interface2 = ctx.module("PythonImage").call("getInterface")
+#interface3 = ctx.module("PythonImage1").call("getInterface")
+#interface4 = ctx.module("PythonImage2").call("getInterface")
+#interface5 = ctx.module("PythonImage3").call("getInterface")
+#interface6 = ctx.module("PythonImage4").call("getInterface")
+#interface7 = ctx.module("PythonImage5").call("getInterface")
+#interface8 = ctx.module("PythonImage6").call("getInterface")
+
+
   
   ## calculate inspiration and expiration timepoints so we can mass correct inspiration images
   #min_tp = ctx.field("CalculateVolume.minTimepoint").value
@@ -277,4 +308,70 @@ if image:
   #print(f"expiration {sum(expiration_volume)} over {len(expiration_tp)} timepoints and inspiration {sum(inspiration_volume)} over {len(inspiration_tp)} timepoints")
   ##
   ##
-  print("segmentation complete")
+  
+  
+print("Start trachea segmentation from segmented thorax")
+image_new = ctx.field("thorax").image()
+thorax_mask = ctx.field("img_segmented_mask").image()
+
+# if we have a valid image, continue
+if image_new:
+    extent_new = image_new.imageExtent()
+    print(f"extent new: {extent_new}")
+    trachea_image_new = grow_trachea(interface1, image_new)
+#    trachea_image_new = reverse(trachea_image_new)
+    
+    for t in range(0, extent_new[4]):
+        print(t)
+        size   = (extent_new[0], extent_new[1], extent_new[2], extent_new[3], 1, extent_new[5])
+
+        # Get tiles for timepoint t of trachea
+        trachea6DD = trachea_image_new.getTile((0,0,0,0,t,0), size)
+        trachea_mask2 = trachea6DD[0, 0, 0, :, :, :]
+        
+        # get tiles of segmented thorax
+        thorax6D_mask = thorax_mask.getTile((0,0,0,0,t,0), size)
+        thorax3D_mask = thorax6D_mask[0, 0, 0, :, :, :]
+        
+        thorax6D_HU = image_new.getTile((0,0,0,0,t,0), size)
+        thorax3D_HU = thorax6D_HU[0, 0, 0, :, :, :]
+        
+        
+        # perform morphological operations on trachea
+        selem = ndi.generate_binary_structure(3,2) # structuring element of 3x3x3, creating a ball
+        trachea_mask2 = ndi.binary_dilation(trachea_mask2, selem) # include trachea wand
+        trachea_mask2 = ndi.binary_closing(trachea_mask2, selem) # fill in holes
+        trachea_mask2 = ndi.binary_dilation(trachea_mask2, selem) # include trachea wand thicker
+
+
+        
+        
+        lungs_mask_new =  thorax3D_mask - trachea_mask2 # substract trachea from lungs_trachea to create a mask of lungs only
+        
+        lungs_mask_new = lungs_mask_new > 0 # the subtraction can lead to values of -1, as trachea is removed         from some background. Filter these
+        
+ #       lungs_mask_new = np.array(lungs_mask_new < -1, dtype=np.int8)
+ #       lungs_mask_new = ndi.binary_closing(lungs_mask_new, selem) # remove -1 values because trachea_mask is a bit larger than thorax mask in some places
+        lungs_mask_new = ndi.binary_opening(lungs_mask_new, selem) # remove some noise created by the substraction
+  #      lungs_mask_new = ndi.binary_opening(lungs_mask_new, selem) # remove some noise created by the substraction
+  
+        trachea_hu = -1 * trachea_mask2 * thorax3D_HU # apply trachea mask to segmentation of lungs and trachea  
+        lungs_hu = -1 * lungs_mask_new * thorax3D_HU # apply lungs mask to segmentation of lungs and trachea
+
+        trachew_new2[:, t, :, :, :, :] = make6D(trachea_mask2, t)
+        lungs_new2[:, t, :, :, :, :] = make6D(lungs_mask_new, t)
+        trachea[:, t, :, :, :, :] = make6D(trachea_hu, t)
+        lungs[:, t, :, :, :, :] = make6D(lungs_hu, t)
+#        lungs_mask_new = ndi.binary_opening(lungs_mask_new, selem) # remove some noise created by the substraction
+ #   trachea_hu = trachea_mask * segmented_tile # apply trachea mask to segmentation of lungs and trachea
+#    lungs_hu = lungs_mask_new * segmented_tile # apply lungs mask to segmentation of lungs and trachea
+        
+        
+    interface2.setImage(trachea)
+    interface3.setImage(lungs)    
+    
+    interface7.setImage(trachew_new2)
+    interface8.setImage(lungs_new2)
+  
+  
+    print("segmentation complete")
