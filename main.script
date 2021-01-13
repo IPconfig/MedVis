@@ -25,7 +25,6 @@ Interface {
     
     Field segmentationOption {
       type   = Enum
-      value  = New
       values = New,Preprocessed
     }
     
@@ -284,6 +283,12 @@ Commands {
     listenField = CPRMarkerColor
   }
   
+  // Also update other trachea diameter Marker Color
+  FieldListener {
+    command     = "py: updateField('SoView2DMarkerEditor1.color', 'CPRMarkerColor')"
+    listenField = CPRMarkerColor
+  }
+  
   
   // update CPRMarkerSort Field
   FieldListener {
@@ -291,7 +296,7 @@ Commands {
     listenField = XMarkerListSort.sortMode
   }
   
-  // Bi-Direcetional Update CPRMarkerSort Field
+  // Bi-Directional Update CPRMarkerSort Field
   FieldListener {
     command     = "py: updateField('XMarkerListSort.sortMode', 'CPRMarkerSort')"
     listenField = CPRMarkerSort
@@ -369,6 +374,16 @@ Commands {
     listenField = CalculateVolume.maxTimepointVolume
   }
   
+  FieldListener {
+    command     = "py: changeROItimepoint('ROIEx.timepoint')"
+    listenField = ROIEx.timepoint
+  }
+  
+  FieldListener {
+    command     = "py: changeROItimepoint('ROIIn.timepoint')"
+    listenField = ROIIn.timepoint
+  }
+  
   
   
   
@@ -408,6 +423,7 @@ Commands {
     command     = "py: updateField('TimepointCounter.stepDirection', 'timepointStepDirection')"
     listenField = timepointStepDirection
   }
+  
   // Timepoint update Trachea
   FieldListener {
     command     = "py: updateField('Counter.currentValue','timepointCurrentTrachea')"
@@ -502,9 +518,9 @@ Window "MedVis Group4" {
                   Field SamplingDICOM {title = "" alignGroupX = segmentationbutton}
                   
                   Label {
-                    title     = "<p style=\"color:tomato\"> Downsampling may lead to incorrect segmentations</p>"
+                    title     = "<p style=\"color:tomato\">May lead to wrong segmentations</p>"
                     visibleOn = "* SamplingDICOM == /^(Downsampling)$/ *"
-                    textWrap  = WordBreak
+                    textWrap = SingleLine // wordBreak does not work well on Windows in this specific case
                   }
                 }
                 Horizontal {
@@ -575,7 +591,19 @@ Window "MedVis Group4" {
                   alignX      = Right
                 }
               }
-                  
+               
+              
+              Horizontal {
+                visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
+                Label {title = "Lungs segmentation: " labelAlignGroup = segmentationlabel}
+                Field LungPathFileName { title = "" alignGroupX = segmentationPath}
+                Button {
+                  title          = "Load File"
+                  preferredWidth = 50
+                  alignX         = Right
+                  command        = "py: BrowseFile(\"ProcessedLungs\")"
+                }
+              } 
                 
               Horizontal {
                 visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
@@ -588,17 +616,7 @@ Window "MedVis Group4" {
                   command        = "py: BrowseFile(\"ProcessedTrachea\")"
                 }
               }
-              Horizontal {
-                visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
-                Label {title = "Lungs segmentation: " labelAlignGroup = segmentationlabel}
-                Field LungPathFileName { title = "" alignGroupX = segmentationPath}
-                Button {
-                  title          = "Load File"
-                  preferredWidth = 50
-                  alignX         = Right
-                  command        = "py: BrowseFile(\"ProcessedLungs\")"
-                }
-              }    
+
             } // close segmentation control box
           } // close control panel box
         }
@@ -648,6 +666,7 @@ Window "MedVis Group4" {
     
     ////////////////////////////// Diagnosis related to trachea //////////////////////////////
     TabViewItem "Trachea Diagnoses" {
+      tabSelectedCommand = "py: setCalculateVolumeParameters()"
       Splitter {
         direction = vertical
         Splitter {
@@ -817,59 +836,13 @@ Window "MedVis Group4" {
     TabViewItem "Lung Diagnoses" {
       Splitter {
         direction = horizontal
-          
-        Box "Control Panel" {
-          preferredWidth = 400
-
-          Box " Lung Volume" {
-            Horizontal {
-              Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
-              Label {titleField = timepointMin expandX = Yes}
-              Label {title = "Volume:" }
-              Label {titleField = timepointVolumeMin labelAlignGroup = lungVolume}
-              Label {title = ml }
-            }
-            Horizontal {
-              Label { title = "Max. Timepoint: " labelAlignGroup = lungVolumeTime}
-              Label {titleField = timepointMax expandX = Yes}
-              Label {title = "Volume:" }
-              Label {titleField = timepointVolumeMax labelAlignGroup = lungVolume}
-              Label {title = ml }
-            }
-            Horizontal {
-              Label { title = "User Timepoint: " labelAlignGroup = lungVolumeTime}
-              Label {titleField = timepointCurrent expandX = Yes }
-              Label {title = "Volume:"  }
-              Label {titleField = timepointVolumeCurrent labelAlignGroup = lungVolume}
-              Label {title = ml }
-            }
-          }
-            
-          Box "Timepoint Control" {
-            Horizontal {
-              Slider timepointCurrent {
-                pageStep  = 1  // Step-size when user clicks left or right
-                snap      = 1    // Snap to multiples of 1
-                direction = Horizontal
-              }
-              Label {titleField = timepointCurrent}
-            }
-              
-            Horizontal {
-              CheckBox timepointAutoStep {title = "Auto-update every" expandX = Yes}
-              Field timepointAutoStepInterval {title = "" step = 0.1} 
-              Label {title = seconds}
-            }
-            Horizontal {              
-              Label {title = "Step Direction: "}
-              Field timepointStepDirection {title = ""}
-            }
-          }
-            
-          Box "LUT Settings Respiratory Dynamics" {
-            Panel {module = substraction_images window = LutEditor}
-          }  
+                
+        Box "LUT Settings Respiratory Dynamics" {
+          preferredWidth = 400 
+          maximumHeight = 1080
+          Panel {module = substraction_images window = LutEditor}
         }
+        
         Splitter {
           direction = vertical
           Box "Lung Volume Graph" {
@@ -880,6 +853,30 @@ Window "MedVis Group4" {
             Panel { module = CurveInspector visibleOn = validVolume}
             Label {title = "<p style=\"color:tomato\"> Please load an image of segmented lungs to see this view</p>"
               visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
+            
+            Box " Lung Volume" {
+              Horizontal {
+                Label { title = "Min. Timepoint: " labelAlignGroup = lungVolumeTime}
+                Label {titleField = timepointMin expandX = Yes}
+                Label {title = "Volume:" }
+                Label {titleField = timepointVolumeMin labelAlignGroup = lungVolume}
+                Label {title = ml }
+              }
+              Horizontal {
+                Label { title = "Max. Timepoint: " labelAlignGroup = lungVolumeTime}
+                Label {titleField = timepointMax expandX = Yes}
+                Label {title = "Volume:" }
+                Label {titleField = timepointVolumeMax labelAlignGroup = lungVolume}
+                Label {title = ml }
+              }
+              Horizontal {
+                Label { title = "User Timepoint: " labelAlignGroup = lungVolumeTime}
+                Label {titleField = timepointCurrent expandX = Yes }
+                Label {title = "Volume:"  }
+                Label {titleField = timepointVolumeCurrent labelAlignGroup = lungVolume}
+                Label {title = ml }
+              }
+            }
           }
 
           Box "Respiratory Dynamics" {
@@ -890,6 +887,27 @@ Window "MedVis Group4" {
             Viewer substraction_overlayed.self { visibleOn = validVolume popup= True}
             Label {title = "<p style=\"color:tomato\"> Please load an image of segmented lungs to see this view</p>"
               visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
+            
+            Box "Timepoint Control" {
+              Horizontal {
+                Slider timepointCurrent {
+                  pageStep  = 1  // Step-size when user clicks left or right
+                  snap      = 1    // Snap to multiples of 1
+                  direction = Horizontal
+                }
+                Label {titleField = timepointCurrent}
+              }
+              
+              Horizontal {
+                CheckBox timepointAutoStep {title = "Auto-update every" expandX = Yes}
+                Field timepointAutoStepInterval {title = "" step = 0.1} 
+                Label {title = seconds}
+              }
+              Horizontal {              
+                Label {title = "Step Direction: "}
+                Field timepointStepDirection {title = ""}
+              }
+            }
           }
         } // splitter row 2
       } // close vertical splitter

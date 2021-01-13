@@ -15,7 +15,7 @@ try:
 except:
     pass
 
-def Browse(module):
+def Browse(module): # navigate to path to save segmented images
     """ Browse button opens a file dialog. """
     exp = ctx.expandFilename(ctx.field(f"{module}").stringValue())
     if len(exp) == 0:
@@ -37,7 +37,7 @@ def BrowseFile(module):
         ctx.field(f"{module}.name").value = target
         ctx.field(f"{module}.load").touch()
         # check if result is valid when you switch inputs. Field used for conditional GUI
-        updateField('validVolume', 'CalculateVolume.resultsValid')
+        setCalculateVolumeParameters()
         ReloadModule('SubtractionImage')
 
 
@@ -53,7 +53,7 @@ def dicomLoaded():
 def StartSegmentation(module):
     """ A new segmentation will need to execute a few actions """
     ReloadModule(module)
-    updateField('validVolume', 'CalculateVolume.resultsValid')
+    setCalculateVolumeParameters()
     ReloadModule('SubtractionImage')
 
 
@@ -68,12 +68,10 @@ def toggleImportSwitches():
     if ctx.field("segmentationOption").value == "New":
         ctx.field("TracheaSwitch.currentInput").value = 0
         ctx.field("LungsSwitch.currentInput").value = 0
-        # check if result is valid when you switch inputs. Field used for conditional GUI
-        updateField('validVolume', 'CalculateVolume.resultsValid')
     else:
         ctx.field("TracheaSwitch.currentInput").value = 1
         ctx.field("LungsSwitch.currentInput").value = 1
-        updateField('validVolume', 'CalculateVolume.resultsValid')
+    setCalculateVolumeParameters()
     ReloadModule('SubtractionImage')
 
 
@@ -155,6 +153,24 @@ def testDependencies():
     except:
         # one or more dependencies are missing
         ctx.field("dependencyPass").value = False
+  
+  
+def changeROItimepoint(field):
+    """ Force ROITimepoint to stay in sync """
+    if field == "ROIIn.timepoint":
+        timepoint = ctx.field("timepointMax").value
+    else:
+        timepoint = ctx.field("timepointMin").value
+        
+    if ctx.field(f"{field}").value != timepoint:
+        ctx.field(f"{field}").value = timepoint
+ 
+ 
+def setCalculateVolumeParameters():
+    """ Set parameters based on CalculateVolume output """
+    updateField('validVolume', 'CalculateVolume.resultsValid')
+    updateField('ROIIn.timepoint', 'timepointMax')
+    updateField('ROIEx.timepoint', 'timepointMin')
 
 
 def initialize():
@@ -194,7 +210,7 @@ def initialize():
     updateField('timepointStepDirection', 'TimepointCounter.stepDirection')
     
     # Fields used to control GUI conditionals
-    updateField('validVolume', 'CalculateVolume.resultsValid')
+    setCalculateVolumeParameters()
     
     # check if dicom files are loaded
     dicomLoaded()
