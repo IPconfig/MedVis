@@ -4,17 +4,14 @@ Interface  {
   }
   Outputs {
     Field thorax { internalName = lungs_and_trachea.output0 }
-    Field trachea { internalName = PythonImage.output0 } //interface 2
-    Field lungs { internalName = PythonImage1.output0 }
-    Field img_segmented_mask { internalName = PythonImage2.output0 }
-    Field img_trachea_mask { internalName = PythonImage3.output0 }
-    Field img_lungs_mask { internalName = PythonImage4.output0 }
-    Field trachea_new {internalName = PythonImage5.output0 } //interface 7
-    Field lungmasknew {internalName = PythonImage6.output0 }
+    Field thorax_mask { internalName = PythonImage.output0 }
     
-
+    Field trachea { internalName = PythonImage1.output0 }
+    Field trachea_mask { internalName = PythonImage2.output0 }
+    
+    Field lungs { internalName = PythonImage3.output0 }
+    Field lungs_mask { internalName = PythonImage4.output0 }
   }
-  
   
   Parameters {
   }
