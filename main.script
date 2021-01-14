@@ -54,7 +54,6 @@ Interface {
       value = ProcessedLungs.name
     }
     
-    
     Field SamplingDICOM {
       type   = Enum
       value  = None
@@ -77,9 +76,7 @@ Interface {
     }
     /* End of import data parameters */
     
-    /* Start of trachea parameters */
-    //   Field CPRNumMarkers { type = Int }
-    
+    /* Start of trachea parameters */    
     Field tracheaDiameter { 
       type  = Double 
       Value = PathToKeyFrame.pathLength 
@@ -106,9 +103,10 @@ Interface {
       value  = Up
       values = Up,Down
     }
+    /* End of trachea parameters */ 
     
     
-    ////// START OF FIELDS FOR CPR CONTROL //////
+    /* Start of CPR parameters */ 
     Field CPRNumMarkers { type = Int }
     Field CPRMarkerColor {
       type  = color
@@ -129,11 +127,8 @@ Interface {
       min   = 0.1 // can't be 0 or negative
       max   = 10
     }
+    /* End of CPR parameters */ 
     
-    ////// END OF FIELDS FOR CPR CONTROL //////
-    
-    
-    /* End of trachea parameters */
     
     Field validVolume {
       type  = Bool
@@ -154,8 +149,6 @@ Interface {
       type  = Int
       value = CalculateVolume.maxTimepointVolume
     }
-    
-    
     
     
     // This is the current counter field in the MeVisLab network that is linked to modules that work with timepoints
@@ -258,7 +251,6 @@ Commands {
     listenField = zResample
   }
   
-  
   // Update CPRNumMarkers Field
   FieldListener {
     command     = "py: updateField('CPRNumMarkers', 'SoView2DMarkerEditor.numItems')"
@@ -269,7 +261,6 @@ Commands {
     command     = "py: calculateDiameter()"
     listenField = PathToKeyFrame.pathLength
   }
-  
   
   // Update CPRMarkerColor Field
   FieldListener {
@@ -289,7 +280,6 @@ Commands {
     listenField = CPRMarkerColor
   }
   
-  
   // update CPRMarkerSort Field
   FieldListener {
     command     = "py: updateField('CPRMarkerSort', 'XMarkerListSort.sortMode')"
@@ -301,7 +291,6 @@ Commands {
     command     = "py: updateField('XMarkerListSort.sortMode', 'CPRMarkerSort')"
     listenField = CPRMarkerSort
   }
-  
   
   // Update CPRSortAscending Field
   FieldListener {
@@ -351,12 +340,7 @@ Commands {
     listenField = CRPResolutionField
   }
   
-  
-  
-  
-  
-  
-  
+  // CalculateVolume fields 
   FieldListener  {
     command     = "py: updateField('validVolume', 'CalculateVolume.resultsValid')"
     listenField = CalculateVolume.resultsValid
@@ -384,9 +368,7 @@ Commands {
     listenField = ROIIn.timepoint
   }
   
-  
-  
-  
+  // timepoint fields
   FieldListener  {
     command     = "py: updateField('timepointCurrent', 'TimepointCounter.currentValue')"
     listenField = TimepointCounter.currentValue
@@ -457,28 +439,17 @@ Commands {
     command     = "py: updateField('Counter.stepDirection', 'timepointStepDirectionTrachea')"
     listenField = timepointStepDirectionTrachea
   }
+
   
-  
-  
-  
-  
-  
-  
-  
-  // This FieldListener triggers the function `updateCounter` in `Assignment-2-3.py` when the currentValue field from TimepointCurrent changes.
   FieldListener {
     command     = updateSliderField
     listenField = TimepointCounter.currentValue
   }
   
-  // With just the above, if you change the slider's position, the Counter module's value will not change.
-  // If you want a bi-directional update, you need to add another FieldListener that updates the Counter's value using the updateCounter function.
   FieldListener {
     command     = updateCounter
     listenField = timepointCurrent
   }
-  
-
 }
 
 ///////////////////////////////////////
@@ -504,7 +475,6 @@ Window "MedVis Group4" {
               }
             }
             
-              
             Panel {
               style{colors{fg=white}}
               module = ImportModule
@@ -520,7 +490,7 @@ Window "MedVis Group4" {
                   Label {
                     title     = "<p style=\"color:tomato\">May lead to wrong segmentations</p>"
                     visibleOn = "* SamplingDICOM == /^(Downsampling)$/ *"
-                    textWrap = SingleLine // wordBreak does not work well on Windows in this specific case
+                    textWrap  = SingleLine // wordBreak does not work well on Windows in this specific case
                   }
                 }
                 Horizontal {
@@ -547,13 +517,11 @@ Window "MedVis Group4" {
                 }   
                 
                 Button  {
-                  //   visibleOn = dependencyPass
                   title     = "Start Segmentation"
                   command   = "py: StartSegmentation(\"segmentation\")"
                   visibleOn = "* segmentationOption == /^(New)$/ && dependencyPass *"
-                  //alignGroupX = segmentationbuttonsnew
                   alignX    = right
-                } 
+                }
               }
               
               Box "Download Modules" {
@@ -570,7 +538,6 @@ Window "MedVis Group4" {
                 Label {title = "<p style=\"color:tomato\"> Please restart MeVisLab after installing the libraries to load them. This message will disappear if installed succesfully.</p>"}
               }
               
-              
               Horizontal {
                 visibleOn = "* segmentationOption == /^(New)$/ && dependencyPass *"
                 Label { title = "Output Folder: " labelAlignGroup = segmentationlabel }
@@ -582,6 +549,7 @@ Window "MedVis Group4" {
                   alignX      = Right
                 }
               }
+              
               Horizontal {
                 visibleOn = "* segmentationOption == /^(New)$/ && dependencyPass *"
                 Button {
@@ -591,7 +559,6 @@ Window "MedVis Group4" {
                   alignX      = Right
                 }
               }
-               
               
               Horizontal {
                 visibleOn = "* segmentationOption == /^(Preprocessed)$/ *"
@@ -616,9 +583,8 @@ Window "MedVis Group4" {
                   command        = "py: BrowseFile(\"ProcessedTrachea\")"
                 }
               }
-
-            } // close segmentation control box
-          } // close control panel box
+            }
+          }
         }
         // Start of 2nd row on import data tab
         Splitter {
@@ -644,7 +610,7 @@ Window "MedVis Group4" {
             }
             Label {title = "<p style=\"color:tomato\"> Start a new segmentation or load preprocessed image to show this viewer</p>"
               visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
-          } // close Trachea segmentation box
+          }
           
           Box "Lungs Segmentation Preview" {
             preferredHeight = 300
@@ -658,7 +624,7 @@ Window "MedVis Group4" {
             }
             Label {title = "<p style=\"color:tomato\"> Start a new segmentation or load preprocessed image to show this viewer</p>"
               visibleOn = !validVolume textAlignment = Center textWrap = WordBreak }
-          } // close Trachea segmentation box
+          }
         } // close splitter (2nd row)
       } // close outer splitter
     } // Close TabView of Import
@@ -674,10 +640,7 @@ Window "MedVis Group4" {
             alignY         = Top
             preferredWidth = 400
             expandX        = MinimumExpanding
-            //expandY = MinimumExpanding
-            
-            
-            
+
             Box "Description" {
               alignY = Top
               Label {title = "Select a few markers in the Marker-Picker window to create a straightened CPR. Select 2 markers in the straightened CPR viewer to measure the diameter of the trachea. The viewer to the right shows the trachea at peak inspiration and peak expiration." textWrap = WordBreak}
@@ -690,54 +653,17 @@ Window "MedVis Group4" {
                 Label LabelColorPicker { title = "Color: " }
                 Field CPRMarkerColor { title = "" }
               }
-              //Horizontal {
-              //  Label LabelSortMode{ title = "Sort Mode: " labelAlignGroup = group1}
-              //  Field CPRMarkerSort {title = ""}
-              //  CheckBox CPRSortAscending{title = ""}
-              //  Label { title = " Sort ascending" }       
-              //}
+
               Horizontal {
                 Label LabelNumberOfMarkers{ title = "Selected Markers: " }
                 Field CPRNumMarkers {
                   title     = ""
                   edit      = No
                   editAlign = Right
-                  
-
                 }
                 Button { title = "Clear Markers" command = "py: touchButton('SoView2DMarkerEditor.deleteAll')" }
               }                      
             }
-            //Box "Path Settings" {
-            //  Horizontal {                        
-            //    Label LabelSmoothing { title = "Smoothing: " labelAlignGroup = group2 }
-            //    NumberEdit CRPSmoothingField { step     = 1 }
-            //  }
-            //  Horizontal {
-            //    Label LabelResolution { title = "Resolution: " labelAlignGroup = group2 }
-            //    NumberEdit CRPResolutionField {
-            //      step     = 0.1
-            //      stepstep = 1 // Not visible on MacOS, but it's a second incrementer taking bigger steps
-            //    }
-            //    Label "mm" {}
-            //  }
-            //  Horizontal {
-            //    Label { title = "Path Length: " labelAlignGroup = group2}
-            //    Field CPRPathLength {
-            //      title     = ""
-            //      edit      = No
-            //      editAlign = right
-            //      expandX   = yes
-            //    }
-            //    Label "mm" {}
-            //    Field CPROutputKeys {
-            //      title     = ""
-            //      edit      = No
-            //      editAlign = right
-            //    }
-            //    Label "keys" {}
-            //  }
-            //} // close Box Path Settings
             
             Box "Timepoint Control CPR" {
               alignY = Top
@@ -839,7 +765,7 @@ Window "MedVis Group4" {
                 
         Box "LUT Settings Respiratory Dynamics" {
           preferredWidth = 400 
-          maximumHeight = 1080
+          maximumHeight  = 1080
           Panel {module = substraction_images window = LutEditor}
         }
         
@@ -891,8 +817,8 @@ Window "MedVis Group4" {
             Box "Timepoint Control" {
               Horizontal {
                 Slider timepointCurrent {
-                  pageStep  = 1  // Step-size when user clicks left or right
-                  snap      = 1    // Snap to multiples of 1
+                  pageStep  = 1
+                  snap      = 1
                   direction = Horizontal
                 }
                 Label {titleField = timepointCurrent}
@@ -909,8 +835,8 @@ Window "MedVis Group4" {
               }
             }
           }
-        } // splitter row 2
-      } // close vertical splitter
-    } // close Lung tabview
+        }
+      }
+    }
   } // close tabviewer
 } // close MyViewer window

@@ -140,12 +140,10 @@ def grow_trachea(interface, img):
     regiongrowing_input = img.getTile((0,0,0,0,0,0),(extent))
     interface.setImage(regiongrowing_input) # output image to interface, so RegionGrowing-module can use it
     x_coordinate, y_coordinate, z_coordinate = int(0.5 * extent[0]), int(0.5 * extent[1]), int(0.95 * extent[2])
-    print(f"x: {x_coordinate}, y: {y_coordinate}, z: {z_coordinate} for is start point")
     tile2D = img.getTile((0,0,z_coordinate,0,0,0), (extent[0], extent[1])) # missing dimensions will be filled with 1
-      
+    
     coordinates = find_nearest_air_coordinates(tile2D, (y_coordinate, x_coordinate))
     coordinates = np.flip(np.concatenate(([z_coordinate], coordinates))) # add z to the coordinates and flip to mevislab dimension order
-    print(f"seed point is {coordinates}")
     seed_vector = [coordinates[0], coordinates[1], coordinates[2], 0, 0, 0] # RegionGrowing module expects a vector of 6 elements
     
     # set default parameters for RegionGrowing Module
@@ -170,10 +168,8 @@ def grow_trachea(interface, img):
             trachea_treshold_step = math.floor(trachea_treshold_step / 2) # halve the treshold step
             
         trachea_treshold = trachea_treshold - trachea_treshold_step
-        
-        # if treshold reaches this value, we can assume the seed marker is out of bounds
         if trachea_treshold < 600: 
-            break
+            break # if treshold reaches this value, we can assume the seed marker is out of bounds
 
         ctx.field("RegionGrowing.lowerThreshold").value = trachea_treshold
         ctx.field("RegionGrowing.update").touch() # press update button
@@ -184,16 +180,15 @@ def grow_trachea(interface, img):
 
 
 
+
+
 ### -------------- Main ----------- ###
 interfaceRegionGrowing = ctx.module("RegionGrowingInput").call("getInterface")
-interface1 = ctx.module("lungs_and_trachea").call("getInterface")
-interface2 = ctx.module("PythonImage").call("getInterface")
-interface3 = ctx.module("PythonImage1").call("getInterface")
-interface4 = ctx.module("PythonImage2").call("getInterface")
-interface5 = ctx.module("PythonImage3").call("getInterface")
-interface6 = ctx.module("PythonImage4").call("getInterface")
-interface7 = ctx.module("PythonImage5").call("getInterface")
-interface8 = ctx.module("PythonImage6").call("getInterface")
+interface1 = ctx.module("thorax").call("getInterface")
+interface2 = ctx.module("thorax_mask").call("getInterface")
+interface3 = ctx.module("trachea").call("getInterface")
+interface4 = ctx.module("lungs").call("getInterface")
+
 
 # get the input image field's direct access to the image (which is a MLPagedImageWrapper, see MeVisLab Scripting Reference)
 image = ctx.field("input0").image()
@@ -203,7 +198,7 @@ if image:
   
   # create output images that will be filled with data
   thorax = np.empty(reverse(extent), np.int16)
-  thorax_mask = np.empty(reverse(extent), np.int16)
+  thorax_mask = np.empty(reverse(extent), np.int8)
     
   # skimage.measure is needed to start segmentation, but it only supports up to 3 dimensions. 
   # Dimension 4 and 6 are 0 in DICOM Data. Dimension 5 are timepoints.
@@ -228,38 +223,6 @@ if image:
   interface2.setImage(thorax_mask)
 
 
-  
-  ## calculate inspiration and expiration timepoints so we can mass correct inspiration images
-  #min_tp = ctx.field("CalculateVolume.minTimepoint").value
-  #max_tp = ctx.field("CalculateVolume.maxTimepoint").value
-  #expiration_volume = []
-  #inspiration_volume = []
-  #expiration_tp = []
-  #inspiration_tp = []
-  #print(f"min volume on: {min_tp} and max on: {max_tp}")
-  #for t in range(0, extent[4]):
-  #  ctx.field("CalculateVolume.userTimepoint").value = t
-  #  volume = ctx.field("CalculateVolume.userTimepointVolume").value
-  #  print(f"{volume} ml on timepoint {t}")
-  # # if ((min_tp < max_tp and (t <= min_tp or t > max_tp)) or (min_tp > max_tp and (t <= min_tp and t > max_tp))):
-  #  if (t <= min_tp and t > max_tp):
-  #    # determine expiration timepoints. Minimal volume is counted as expiration, max volume is counted as expiration too, acoording to paper of Guerrero
-  #    expiration_volume.append(volume)
-  #    expiration_tp.append(t)
-  #  else:
-  #    inspiration_tp.append(t)
-  #    inspiration_volume.append(volume)
-  #
-  #print(f"inspiration on {inspiration_tp} and expiration on {expiration_tp}")
-  #
-  #discrepency  = (sum(expiration_volume) * len(expiration_tp)) / (sum(inspiration_volume) * len(inspiration_tp))
-  #discrepency2  = (sum(expiration_volume) ) / (sum(inspiration_volume))
-  #print(f"discrepency is: {discrepency} or {discrepency2}")
-  #print(f"expiration {sum(expiration_volume)} over {len(expiration_tp)} timepoints and inspiration {sum(inspiration_volume)} over {len(inspiration_tp)} timepoints")
-  ##
-  ##
-  
-  
 
 thorax_image = ctx.field("thorax").image()
 thorax_mask = ctx.field("thorax_mask").image()
@@ -271,8 +234,8 @@ if thorax_image:
     # create output images that will be filled with data
     trachea = np.empty(reverse(extent), np.int16)
     lungs = np.empty(reverse(extent), np.int16)
-    trachea_mask = np.empty(reverse(extent), np.int16)
-    lungs_mask = np.empty(reverse(extent), np.int16)
+    trachea_mask = np.empty(reverse(extent), np.int8)
+    lungs_mask = np.empty(reverse(extent), np.int8)
 
     # Segmentation of trachea in 4D, output a mask
     trachea_image = grow_trachea(interfaceRegionGrowing, thorax_image)
@@ -304,16 +267,12 @@ if thorax_image:
         lungs_hu = np.where(lungs3D_mask, thorax3D_HU, 0)
         
         # fill in segmented tile into our clean array
-        trachea_mask[:, t, :, :, :, :] = make6D(trachea3D_mask, t)
-        lungs_mask[:, t, :, :, :, :] = make6D(lungs3D_mask, t)
         trachea[:, t, :, :, :, :] = make6D(trachea_hu, t)
         lungs[:, t, :, :, :, :] = make6D(lungs_hu, t)
      
     # Set as MevisLab image  
-    interface3.setImage(trachea)
-    interface4.setImage(trachea_mask)    
-    interface5.setImage(lungs)
-    interface6.setImage(lungs_mask)
+    interface3.setImage(trachea)   
+    interface4.setImage(lungs)
   
   
     print("segmentation complete")

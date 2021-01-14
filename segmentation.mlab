@@ -9,7 +9,7 @@ module PythonImage {
     moduleGroupName = ""
   }
   fields  {
-    instanceName = lungs_and_trachea
+    instanceName = thorax
   }
 }
 module PythonImage {
@@ -49,13 +49,13 @@ module RegionGrowing {
   fields  {
     instanceName = RegionGrowing
     autoUpdateMode = AutoUpdate
-    lowerThreshold = -2000
-    upperThreshold = -909
+    lowerThreshold = 909
+    upperThreshold = 2000
     enableAutoThresholdInterval = FALSE
     basicNeighborhoodType = BNBH_4D_8_XYZT
     extendedNeighborhoodType = ENBH_2D_4_XY
     useAdditionalSeed = TRUE
-    additionalSeed = "237 219 254 0 0 0"
+    additionalSeed = "243 184 321 0 0 0"
     additionalSeedType = 0
     additionalSeedCoordSystem = VoxelCoordinates
     initStackSizeTweak = 0.100000001490116
@@ -87,7 +87,7 @@ module PythonImage {
     moduleGroupName = ""
   }
   fields  {
-    instanceName = PythonImage
+    instanceName = thorax_mask
   }
 }
 module PythonImage {
@@ -96,7 +96,7 @@ module PythonImage {
     moduleGroupName = ""
   }
   fields  {
-    instanceName = PythonImage1
+    instanceName = trachea
   }
 }
 module CalculateVolume {
@@ -121,23 +121,23 @@ module CalculateVolume {
     autoUpdate = TRUE
     unit = Milliliters
     factor = 1
-    userTimepoint = 0
+    userTimepoint = 9
     curveType = Line
     curveStyle = 0
   }
 }
 module PythonImage {
   internal  {
-    frame = "1097 309 112 56"
+    frame = "1125 365 104 72"
     moduleGroupName = ""
   }
   fields  {
-    instanceName = PythonImage2
+    instanceName = lungs
   }
 }
 module PythonImage {
   internal  {
-    frame = "1065 237 112 56"
+    frame = "1217 213 112 56"
     moduleGroupName = ""
   }
   fields  {
@@ -146,7 +146,7 @@ module PythonImage {
 }
 module PythonImage {
   internal  {
-    frame = "1113 109 112 56"
+    frame = "1265 85 112 56"
     moduleGroupName = ""
   }
   fields  {
@@ -155,7 +155,7 @@ module PythonImage {
 }
 module PythonImage {
   internal  {
-    frame = "1113 5 112 56"
+    frame = "1265 -19 112 56"
     moduleGroupName = ""
   }
   fields  {
@@ -164,7 +164,7 @@ module PythonImage {
 }
 module PythonImage {
   internal  {
-    frame = "1097 -83 112 56"
+    frame = "1249 -107 112 56"
     moduleGroupName = ""
   }
   fields  {
@@ -173,7 +173,7 @@ module PythonImage {
 }
 connections  {
   RegionGrowing.input0 = RegionGrowingInput.output0
-  CalculateVolume.input0 = PythonImage1.output0
+  CalculateVolume.input0 = thorax.output0
 }
 networkModel  {
   parentItems  {

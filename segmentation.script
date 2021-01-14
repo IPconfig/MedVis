@@ -3,14 +3,10 @@ Interface  {
     Field input0 { type = image }
   }
   Outputs {
-    Field thorax { internalName = lungs_and_trachea.output0 }
-    Field thorax_mask { internalName = PythonImage.output0 }
-    
-    Field trachea { internalName = PythonImage1.output0 }
-    Field trachea_mask { internalName = PythonImage2.output0 }
-    
-    Field lungs { internalName = PythonImage3.output0 }
-    Field lungs_mask { internalName = PythonImage4.output0 }
+    Field thorax { internalName = thorax.output0 }
+    Field thorax_mask { internalName = thorax_mask.output0 }    
+    Field trachea { internalName = trachea.output0 }    
+    Field lungs { internalName = lungs.output0 }
   }
   
   Parameters {
