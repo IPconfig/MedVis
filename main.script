@@ -540,7 +540,7 @@ Window "MedVis Group4" {
               
               Horizontal {
                 visibleOn = "* segmentationOption == /^(New)$/ && dependencyPass *"
-                Label { title = "Output Folder: " labelAlignGroup = segmentationlabel }
+                Label { title = "Save Folder: " labelAlignGroup = segmentationlabel }
                 Field SegmentationPath { title = "" expandX = Yes }
                 Button {
                   title       = "Browse..."
@@ -553,7 +553,7 @@ Window "MedVis Group4" {
               Horizontal {
                 visibleOn = "* segmentationOption == /^(New)$/ && dependencyPass *"
                 Button {
-                  title       = "Store Results"
+                  title       = "Save Segmentation"
                   command     = "py: saveSegmentation()"
                   alignGroupX = segmentationbuttonsnew
                   alignX      = Right
